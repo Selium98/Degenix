@@ -107,8 +107,10 @@ class premium_Template_Tags {
         
         $frontend = new Frontend;
         
-        $id = $this->get_id_by_title( $title );
-        
+		$id = $this->get_id_by_title( $title );
+		
+		$id = apply_filters( 'wpml_object_id', $id, 'elementor_library', TRUE );
+		
         $template_content = $frontend->get_builder_content( $id, true );
         
         return $template_content;

@@ -59,7 +59,7 @@ function premium_blog_get_excerpt_by_id( $source, $excerpt_length, $cta_type, $r
     $excerpt = trim( get_the_excerpt() );
     
     if( 'full' === $source || empty( $excerpt ) ) {
-        
+        $excerpt = '';
         the_content();
         
         if( ! empty( $read_more ) && 'link' === $cta_type ) {
@@ -74,7 +74,9 @@ function premium_blog_get_excerpt_by_id( $source, $excerpt_length, $cta_type, $r
 
             if( ! has_excerpt() ) {
                 array_pop( $words );
-                array_push( $words, '…' );
+                if( 'dots' === $cta_type ) {
+                    array_push( $words, '…' );
+                }
             }
 
         }

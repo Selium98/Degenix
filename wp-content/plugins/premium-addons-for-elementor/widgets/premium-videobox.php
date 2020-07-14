@@ -1,12 +1,16 @@
 <?php
 
+/**
+ * Premium Video Box.
+ */
 namespace PremiumAddons\Widgets;
 
-use PremiumAddons\Helper_Functions;
+// Elementor Classes.
 use Elementor\Modules\DynamicTags\Module as TagsModule;
 use Elementor\Widget_Base;
 use Elementor\Utils;
 use Elementor\Embed;
+use Elementor\Icons_Manager;
 use Elementor\Controls_Manager;
 use Elementor\Scheme_Color;
 use Elementor\Scheme_Typography;
@@ -16,8 +20,14 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Background;
 
+// PremiumAddons Classes.
+use PremiumAddons\Helper_Functions;
+
 if ( ! defined( 'ABSPATH' ) ) exit; // If this file is called directly, abort.
 
+/**
+ * Class Premium_Videobox
+ */
 class Premium_Videobox extends Widget_Base {
     
     public function get_name() {
@@ -38,6 +48,7 @@ class Premium_Videobox extends Widget_Base {
     
     public function get_style_depends() {
         return [
+            'font-awesome',
             'premium-addons'
         ];
     }
@@ -56,8 +67,12 @@ class Premium_Videobox extends Widget_Base {
 		return 'https://premiumaddons.com/support/';
 	}
 
-    // Adding the controls fields for Premium Video Box
-    // This will controls the animation, colors and background, dimensions etc
+    /**
+	 * Register Video Box controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function _register_controls() {
 
         $this->start_controls_section('premium_video_box_general_settings',
@@ -312,6 +327,7 @@ class Premium_Videobox extends Widget_Base {
                     '43'    => '4:3',
                     '32'    => '3:2',
                     '219'   => '21:9',
+                    '916'   => '9:16',
                 ],
                 'default'       => '169',
                 'prefix_class'  => 'pa-aspect-ratio-',
@@ -722,6 +738,14 @@ class Premium_Videobox extends Widget_Base {
         $this->end_controls_section();
     }
 
+    /**
+	 * Render video box widget output on the frontend.
+	 *
+	 * Written in PHP and used to generate the final HTML.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function render() {
         
         $settings   = $this->get_settings_for_display();
@@ -731,11 +755,22 @@ class Premium_Videobox extends Widget_Base {
         $video_type = $settings['premium_video_box_video_type'];
         
         $params     = $this->get_video_params();
+
+        $autoplay = $settings['premium_video_box_self_autoplay'];
         
-        $thumbnail  = $this->get_video_thumbnail( $params['id'] );
-        
-        $image      = sprintf( 'url(\'%s\')', $thumbnail );
-        
+        $image      = 'transparent';
+    
+        //Make sure autoplay is disabled before getting any thumbnails
+        if( 'yes' !== $autoplay ) {
+
+            $thumbnail  = $this->get_thumbnail( $params['id'] );
+            
+            if( ! empty( $thumbnail ) ) {
+                $image      = sprintf( 'url(\'%s\')', $thumbnail );
+            }
+
+        }
+
         if( 'self' === $video_type ) {
             
             $overlay        = $settings['premium_video_box_image_switcher'];
@@ -753,8 +788,6 @@ class Premium_Videobox extends Widget_Base {
         $link       = $params['link'];
         
         $related = $settings['premium_video_box_suggested_videos'];
-        
-        $autoplay = $settings['premium_video_box_self_autoplay'];
         
         $mute = $settings['premium_video_box_mute'];
         
@@ -851,7 +884,8 @@ class Premium_Videobox extends Widget_Base {
                 'id'    => 'premium-video-box-container-' . $id,
                 'class' => 'premium-video-box-container',
                 'data-overlay'  => 'yes' === $settings['premium_video_box_image_switcher'] ? 'true' : 'false',
-                'data-type'     => $video_type
+                'data-type'     => $video_type,
+                'data-thumbnail' => !empty( $thumbnail )
             ]
         );
         
@@ -859,7 +893,6 @@ class Premium_Videobox extends Widget_Base {
                 'class' => 'premium-video-box-video-container',
             ]
         );
-        
         
         if ( 'self' !== $video_type ) {
             $this->add_render_attribute('video_container', [
@@ -880,7 +913,7 @@ class Premium_Videobox extends Widget_Base {
             <div class="premium-video-box-image-container" style="background-image: <?php echo $image; ?>;">
         </div>
         
-        <?php if( 'yes' === $settings['premium_video_box_play_icon_switcher'] && 'yes' !== $autoplay ) : ?>
+        <?php if( 'yes' === $settings['premium_video_box_play_icon_switcher'] && 'yes' !== $autoplay && !empty($thumbnail) ) : ?>
             <div class="premium-video-box-play-icon-container">
                 <i class="premium-video-box-play-icon fa fa-play fa-lg"></i>
             </div>
@@ -895,7 +928,14 @@ class Premium_Videobox extends Widget_Base {
     <?php
     }
     
-    private function get_video_thumbnail( $id = '' ) {
+    /*
+     * Get video thumbnail
+     * 
+     * @access public
+     * 
+     * @param string $id video ID
+     */
+    private function get_thumbnail( $id = '' ) {
         
         $settings       = $this->get_settings_for_display();
         
@@ -904,11 +944,15 @@ class Premium_Videobox extends Widget_Base {
         $overlay        = $settings['premium_video_box_image_switcher'];
         
         if ( 'yes' !== $overlay ) {
+
+            //Check thumbnail size option only for Youtube videos
             $size           = '';
             if( 'youtube' === $type ) {
                 $size = $settings['premium_video_box_yt_thumbnail_size'];
             }
+
             $thumbnail_src  = Helper_Functions::get_video_thumbnail( $id, $type, $size );
+
         } else {
             $thumbnail_src  = $settings['premium_video_box_image']['url'];
         }
@@ -917,6 +961,17 @@ class Premium_Videobox extends Widget_Base {
         
     }
     
+    /*
+     * Get video params
+     * 
+     * Get video ID and url
+     * 
+     * @access public
+     * 
+     * @param string $id video ID
+     * 
+     * @return array video parameters
+     */
     private function get_video_params() {
         
         $settings   = $this->get_settings_for_display();
@@ -966,6 +1021,15 @@ class Premium_Videobox extends Widget_Base {
         
     }
     
+    /*
+     * Get Vimeo header
+     * 
+     * Get Vimeo video meta data
+     * 
+     * @access private
+     * 
+     * @param string $id video ID
+     */
     private function get_vimeo_header( $id ) {
         
         $settings = $this->get_settings_for_display();
@@ -974,25 +1038,30 @@ class Premium_Videobox extends Widget_Base {
             return;
         }
         
+        $vimeo_data = Helper_Functions::get_vimeo_video_data( $id );
+
         if ( 'yes' === $settings['vimeo_portrait'] || 'yes' === $settings['vimeo_title'] || 'yes' === $settings['vimeo_byline']
-		) {
-            $vimeo_data = Helper_Functions::get_vimeo_video_data( $id );
+		) {  
         ?>
 		<div class="premium-video-box-vimeo-wrap">
-			<?php if ( 'yes' === $settings['vimeo_portrait'] ) { ?>
+			<?php if ( 'yes' === $settings['vimeo_portrait'] && !empty($vimeo_data['portrait']) ) { ?>
 			<div class="premium-video-box-vimeo-portrait">
-				<a href="<?php echo $vimeo_data['url']; ?>" target="_blank"><img src="<?php echo $vimeo_data['portrait']; ?>" alt=""></a>
+				<a href="<?php echo $vimeo_data['url']; ?>" target="_blank">
+                    <img src="<?php echo $vimeo_data['portrait']; ?>" alt="">
+                </a>
 			</div>
 			<?php } ?>
 			<?php
 			if ( 'yes' === $settings['vimeo_title'] || 'yes' === $settings['vimeo_byline'] ) { ?>
 			<div class="premium-video-box-vimeo-headers">
-				<?php if ( 'yes' === $settings['vimeo_title'] ) { ?>
+				<?php if ( 'yes' === $settings['vimeo_title'] && !empty( $vimeo_data['title'] ) ) { ?>
 				<div class="premium-video-box-vimeo-title">
-					<a href="<?php echo $settings['premium_video_box_link']; ?>" target="_blank"><?php echo $vimeo_data['title']; ?></a>
+					<a href="<?php echo $settings['premium_video_box_link']; ?>" target="_blank">
+                        <?php echo $vimeo_data['title']; ?>
+                    </a>
 				</div>
 				<?php } ?>
-				<?php if ( 'yes' === $settings['vimeo_byline'] ) { ?>
+				<?php if ( 'yes' === $settings['vimeo_byline'] && !empty( $vimeo_data['user'] ) ) { ?>
 				<div class="premium-video-box-vimeo-byline">
 					<?php _e( 'from ', 'premium-addons-for-elementor' ); ?> <a href="<?php echo $vimeo_data['url']; ?>" target="_blank"><?php echo $vimeo_data['user']; ?></a>
 				</div>
@@ -1002,8 +1071,18 @@ class Premium_Videobox extends Widget_Base {
 		</div>
 		<?php } ?>
         <?php
+
+        return isset( $vimeo_data['user'] ) ? true : false;
     }
     
+    /*
+     * has image overlay
+     * 
+     * Check if video overlay option is enabled
+     * 
+     * @access private
+     * 
+     */
     private function has_image_overlay() {
         
         $settings = $this->get_settings_for_display();

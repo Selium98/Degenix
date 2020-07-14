@@ -10,7 +10,7 @@ class Modules_Settings {
     
     protected $page_slug = 'premium-addons';
 
-    public static $pa_elements_keys = ['premium-banner', 'premium-blog','premium-carousel', 'premium-countdown','premium-counter','premium-dual-header','premium-fancytext','premium-image-separator','premium-maps','premium-modalbox','premium-person','premium-progressbar','premium-testimonials','premium-title','premium-videobox','premium-pricing-table','premium-button','premium-contactform', 'premium-image-button', 'premium-grid','premium-vscroll', 'premium-image-scroll', 'premium-templates', 'premium-duplicator'];
+    public static $pa_elements_keys = ['premium-banner', 'premium-blog', 'premium-carousel', 'premium-countdown', 'premium-counter', 'premium-dual-header', 'premium-fancytext', 'premium-image-separator', 'premium-lottie', 'premium-maps', 'premium-modalbox', 'premium-person', 'premium-progressbar', 'premium-testimonials', 'premium-title', 'premium-videobox', 'premium-pricing-table', 'premium-button', 'premium-contactform',  'premium-image-button', 'premium-grid', 'premium-vscroll', 'premium-image-scroll', 'premium-templates', 'premium-duplicator'];
     
     private $pa_default_settings;
     
@@ -292,6 +292,16 @@ class Modules_Settings {
                                             <span class="slider round"></span>
                                     </label>
                                 </td>
+                                <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Lottie Animations', 'premium-addons-for-elementor') ); ?></th>
+                                <td>
+                                    <label class="switch">
+                                            <input type="checkbox" id="premium-lottie" name="premium-lottie" <?php checked(1, $this->pa_get_settings['premium-lottie'], true) ?>>
+                                            <span class="slider round"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            
+                            <tr>
                                 <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Maps', 'premium-addons-for-elementor') ); ?></th>
                                 <td>
                                     <label class="switch">
@@ -299,9 +309,6 @@ class Modules_Settings {
                                             <span class="slider round"></span>
                                     </label>
                                 </td>
-                            </tr>
-                            
-                            <tr>
                                 <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Modal Box', 'premium-addons-for-elementor') ); ?></th>
                                 <td>
                                     <label class="switch">
@@ -309,7 +316,9 @@ class Modules_Settings {
                                             <span class="slider round"></span>
                                     </label>
                                 </td>
-                                
+                            </tr>
+                            
+                            <tr>
                                 <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Team Members', 'premium-addons-for-elementor') ); ?></th>
                                 <td>
                                     <label class="switch">
@@ -317,17 +326,17 @@ class Modules_Settings {
                                             <span class="slider round"></span>
                                     </label>
                                 </td>
-                            </tr>
-                            
-                            <tr>
+
                                 <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Progress Bar', 'premium-addons-for-elementor') ); ?></th>
                                 <td>
                                     <label class="switch">
                                             <input type="checkbox" id="premium-progressbar" name="premium-progressbar" <?php checked(1, $this->pa_get_settings['premium-progressbar'], true) ?>>
                                             <span class="slider round"></span>
                                     </label>
-                                </td>
-                                
+                                </td>                                
+                            </tr>
+                            
+                            <tr>
                                 <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Pricing Table', 'premium-addons-for-elementor') ); ?></th>
                                 <td>
                                     <label class="switch">
@@ -335,9 +344,7 @@ class Modules_Settings {
                                             <span class="slider round"></span>
                                     </label>
                                 </td>
-                            </tr>
-                            
-                            <tr>
+
                                 <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Testimonials', 'premium-addons-for-elementor') ); ?></th>
                                 <td>
                                     <label class="switch">
@@ -345,7 +352,9 @@ class Modules_Settings {
                                             <span class="slider round"></span>
                                     </label>
                                 </td>
-                                
+                            </tr>
+                            
+                            <tr>
                                 <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Title', 'premium-addons-for-elementor') ); ?></th>
                                 <td>
                                     <label class="switch">
@@ -353,11 +362,7 @@ class Modules_Settings {
                                             <span class="slider round"></span>
                                     </label>
                                 </td>
-                                
-                            </tr>
-                            
-                            <tr>
-                                
+
                                 <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Video Box', 'premium-addons-for-elementor') ); ?></th>
                                 <td>
                                     <label class="switch">
@@ -365,7 +370,9 @@ class Modules_Settings {
                                             <span class="slider round"></span>
                                         </label>
                                 </td>
-                                
+                            </tr>
+
+                            <tr>
                                 <th><?php echo sprintf( '%1$s %2$s', $prefix, __('Vertical Scroll', 'premium-addons-for-elementor') ); ?></th>
                                 <td>
                                     <label class="switch">
@@ -373,7 +380,6 @@ class Modules_Settings {
                                             <span class="slider round"></span>
                                     </label>
                                 </td>
-                                
                             </tr>
                             
                             <tr>
@@ -495,7 +501,7 @@ class Modules_Settings {
                             </tr>
                             
                             <tr>
-                                <th><?php echo __('Premium Icon Box', 'premium-addons-for-elementor'); ?></th>
+                                <th><?php echo __('Premium Horizontal Scroll', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
                                             <input type="checkbox">
@@ -503,6 +509,16 @@ class Modules_Settings {
                                     </label>
                                 </td>
 
+                                <th><?php echo __('Premium Icon Box', 'premium-addons-for-elementor'); ?></th>
+                                <td>
+                                    <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="pro-slider round"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                            
+                            <tr>
                                 <th><?php echo __('Premium iHover', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -510,9 +526,7 @@ class Modules_Settings {
                                             <span class="pro-slider round"></span>
                                     </label>
                                 </td>
-                            </tr>
-                            
-                            <tr>
+
                                 <th><?php echo __('Premium Image Accordion', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -520,7 +534,9 @@ class Modules_Settings {
                                             <span class="pro-slider round"></span>
                                     </label>
                                 </td>
-                                
+                            </tr>
+                            
+                            <tr>
                                 <th><?php echo __('Premium Image Comparison', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -528,10 +544,7 @@ class Modules_Settings {
                                             <span class="pro-slider round"></span>
                                     </label>
                                 </td>
-                                
-                            </tr>
-                            
-                            <tr>
+
                                 <th><?php echo __('Premium Image Hotspots', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -539,7 +552,9 @@ class Modules_Settings {
                                             <span class="pro-slider round"></span>
                                     </label>
                                 </td>
-                                
+                            </tr>
+                            
+                            <tr>
                                 <th><?php echo __('Premium Image Layers', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -547,9 +562,7 @@ class Modules_Settings {
                                             <span class="pro-slider round"></span>
                                     </label>
                                 </td>
-                            </tr>
-                            
-                            <tr>
+
                                 <th><?php echo __('Premium Instagram Feed', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -557,7 +570,9 @@ class Modules_Settings {
                                             <span class="pro-slider round"></span>
                                     </label>
                                 </td>
-                                
+                            </tr>
+                            
+                            <tr>
                                 <th><?php echo __('Premium Magic Section', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -565,10 +580,7 @@ class Modules_Settings {
                                             <span class="pro-slider round"></span>
                                     </label>
                                 </td>
-                                
-                            </tr>
-                            
-                            <tr>
+
                                 <th><?php echo __('Premium Messenger Chat', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -576,7 +588,9 @@ class Modules_Settings {
                                             <span class="pro-slider round"></span>
                                     </label>
                                 </td>
-                                
+                            </tr>
+                            
+                            <tr>
                                 <th><?php echo __('Premium Multi Scroll', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -584,10 +598,6 @@ class Modules_Settings {
                                             <span class="pro-slider round"></span>
                                     </label>
                                 </td>
-                                
-                            </tr>
-                            
-                            <tr>
                                 <th><?php echo __('Premium Preview Window', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -595,7 +605,9 @@ class Modules_Settings {
                                             <span class="pro-slider round"></span>
                                     </label>
                                 </td>
-                                
+                            </tr>
+                            
+                            <tr>
                                 <th><?php echo __('Premium Table', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -603,10 +615,6 @@ class Modules_Settings {
                                             <span class="pro-slider round"></span>
                                     </label>
                                 </td>
-                                
-                            </tr>
-                            
-                            <tr>
                                 <th><?php echo __('Premium Tabs', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -614,7 +622,9 @@ class Modules_Settings {
                                             <span class="pro-slider round"></span>
                                     </label>
                                 </td>
-                                
+                            </tr>
+                            
+                            <tr>
                                 <th><?php echo __('Premium Twitter Feed', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -622,10 +632,6 @@ class Modules_Settings {
                                             <span class="pro-slider round"></span>
                                     </label>
                                 </td>
-                                
-                            </tr>
-                            
-                            <tr>
                                 <th><?php echo __('Premium Unfold', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -633,7 +639,9 @@ class Modules_Settings {
                                             <span class="pro-slider round"></span>
                                     </label>
                                 </td>
-                                
+                            </tr>
+                            
+                            <tr>
                                 <th><?php echo __('Premium Whatsapp Chat', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -641,10 +649,7 @@ class Modules_Settings {
                                             <span class="pro-slider round"></span>
                                     </label>
                                 </td>
-                                
-                            </tr>
-                            
-                            <tr>
+
                                 <th><?php echo __('Premium Yelp Reviews', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
@@ -680,6 +685,16 @@ class Modules_Settings {
                                     </label>
                                 </td>
                                 <th><?php echo __('Premium Section Ken Burns', 'premium-addons-for-elementor'); ?></th>
+                                <td>
+                                    <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="pro-slider round"></span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th><?php echo __('Premium Section Lottie Animations', 'premium-addons-for-elementor'); ?></th>
                                 <td>
                                     <label class="switch">
                                             <input type="checkbox">
@@ -778,6 +793,7 @@ class Modules_Settings {
             'premium-dual-header'       => intval( $settings['premium-dual-header'] ? 1 : 0 ),
             'premium-fancytext'         => intval( $settings['premium-fancytext'] ? 1 : 0 ),
             'premium-image-separator'   => intval( $settings['premium-image-separator'] ? 1 : 0 ),
+            'premium-lottie'            => intval( $settings['premium-lottie'] ? 1 : 0 ),
             'premium-maps'              => intval( $settings['premium-maps'] ? 1 : 0 ),
             'premium-modalbox' 			=> intval( $settings['premium-modalbox'] ? 1 : 0 ),
             'premium-person' 			=> intval( $settings['premium-person'] ? 1 : 0 ),

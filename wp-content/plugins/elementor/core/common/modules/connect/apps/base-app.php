@@ -60,7 +60,7 @@ abstract class Base_App {
 	public function render_admin_widget() {
 		echo '<h2>' . $this->get_title() . '</h2>';
 
-		
+		if ( $this->is_connected() ) {
 			$remote_user = $this->get( 'user' );
 			$title = sprintf( __( 'Connected as %s', 'elementor' ), '<strong>' . $remote_user->email . '</strong>' );
 			$label = __( 'Disconnect', 'elementor' );
@@ -68,7 +68,9 @@ abstract class Base_App {
 			$attr = '';
 
 			echo sprintf( '%s <a %s href="%s">%s</a>', $title, $attr, esc_attr( $url ), esc_html( $label ) );
-		
+		} else {
+			echo 'Not Connected';
+		}
 	}
 
 	/**
@@ -114,11 +116,11 @@ abstract class Base_App {
 	 * @access public
 	 */
 	public function action_authorize() {
-		
+		if ( $this->is_connected() ) {
 			$this->add_notice( __( 'Already connected.', 'elementor' ), 'info' );
 			$this->redirect_to_admin_page();
 			return;
-		
+		}
 
 		$this->set_client_id();
 		$this->set_request_state();
@@ -131,9 +133,9 @@ abstract class Base_App {
 	 * @access public
 	 */
 	public function action_get_token() {
-		
+		if ( $this->is_connected() ) {
 			$this->redirect_to_admin_page();
-		
+		}
 
 		if ( empty( $_REQUEST['state'] ) || $_REQUEST['state'] !== $this->get( 'state' ) ) {
 			$this->add_notice( 'Get Token: Invalid Request.', 'error' );
@@ -173,10 +175,10 @@ abstract class Base_App {
 	 * @access public
 	 */
 	public function action_disconnect() {
-		
+		if ( $this->is_connected() ) {
 			$this->disconnect();
 			$this->add_notice( __( 'Disconnected Successfully.', 'elementor' ) );
-		
+		}
 
 		$this->redirect_to_admin_page();
 	}
@@ -210,7 +212,7 @@ abstract class Base_App {
 	 * @access public
 	 */
 	public function is_connected() {
-		return true;
+		return (bool) $this->get( 'access_token' );
 	}
 
 	/**
@@ -315,22 +317,15 @@ abstract class Base_App {
 
 		$headers = [];
 
-	
-		$headers['X-Elementor-Signature'] = hash_hmac( 'sha256', wp_json_encode( $request_body, JSON_NUMERIC_CHECK ), $this->get( 'access_token_secret' ) );
-		
-	    	if ( $action === 'get_template_content' && file_exists( ELEMENTOR_PATH . 'templates/' . $request_body['id'] . '.json' ) ) {
-			$response = wp_remote_get( ELEMENTOR_URL . 'templates/' . $request_body['id'] . '.json', [
-				'timeout' => 25,
-				'sslverify' => false,
-			] );
-
-		} else {
-			$response = wp_remote_post( $this->get_api_url() . '/' . $action, [
-				'body' => $request_body,
-				'headers' => $headers,
-				'timeout' => 25,
-			] );
+		if ( $this->is_connected() ) {
+			$headers['X-Elementor-Signature'] = hash_hmac( 'sha256', wp_json_encode( $request_body, JSON_NUMERIC_CHECK ), $this->get( 'access_token_secret' ) );
 		}
+
+		$response = wp_remote_post( $this->get_api_url() . '/' . $action, [
+			'body' => $request_body,
+			'headers' => $headers,
+			'timeout' => 25,
+		] );
 
 		if ( is_wp_error( $response ) ) {
 			wp_die( $response, [
@@ -361,8 +356,8 @@ abstract class Base_App {
 			// In case $as_array = true.
 			$body = (object) $body;
 
-			$message = $body->message ? $body->message : wp_remote_retrieve_response_message( $response );
-			$code = $body->code ? $body->code : $response_code;
+			$message = isset( $body->message ) ? $body->message : wp_remote_retrieve_response_message( $response );
+			$code = isset( $body->code ) ? $body->code : $response_code;
 
 			if ( 401 === $code ) {
 				$this->delete();
@@ -487,10 +482,10 @@ abstract class Base_App {
 	 * @access protected
 	 */
 	protected function disconnect() {
-		
+		if ( $this->is_connected() ) {
 			// Try update the server, but not needed to handle errors.
 			$this->request( 'disconnect' );
-		
+		}
 
 		$this->delete();
 	}

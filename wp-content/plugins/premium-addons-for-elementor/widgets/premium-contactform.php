@@ -1,8 +1,11 @@
 <?php 
 
+/**
+ * Premium Contact Form 7.
+ */
 namespace PremiumAddons\Widgets;
 
-use PremiumAddons\Helper_Functions;
+// Elementor Classes.
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Scheme_Color;
@@ -11,8 +14,14 @@ use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
 
+// PremiumAddons Classes.
+use PremiumAddons\Helper_Functions;
+
 if ( ! defined( 'ABSPATH' ) ) exit; // If this file is called directly, abort.
 
+/**
+ * Class Premium_Contactform
+ */
 class Premium_Contactform extends Widget_Base {
 
 	public function get_name() {
@@ -47,8 +56,12 @@ class Premium_Contactform extends Widget_Base {
 		return 'https://premiumaddons.com/support/';
 	}
 
-    // Adding the controls fields for the premium contact form
-    // This will controls the animation, colors and background, dimensions etc
+    /**
+	 * Register Contact Form 7 controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function _register_controls() {
 
   		$this->start_controls_section('premium_section_wpcf7_form',
@@ -580,7 +593,15 @@ class Premium_Contactform extends Widget_Base {
 
         return $result;
     }
-    
+	
+	/**
+	 * Render Contact Form 7 widget output on the frontend.
+	 *
+	 * Written in PHP and used to generate the final HTML.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function render() {
 
 		$settings = $this->get_settings();

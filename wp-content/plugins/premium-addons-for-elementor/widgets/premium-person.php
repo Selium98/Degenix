@@ -1,8 +1,11 @@
 <?php
 
+/**
+ * Premium Persons.
+ */
 namespace PremiumAddons\Widgets;
 
-use PremiumAddons\Helper_Functions;
+// Elementor Classes.
 use Elementor\Widget_Base;
 use Elementor\Utils;
 use Elementor\Control_Media;
@@ -16,6 +19,9 @@ use Elementor\Group_Control_Css_Filter;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Border;
+
+// PremiumAddons Classes.
+use PremiumAddons\Helper_Functions;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // If this file is called directly, abort.
 
@@ -35,6 +41,7 @@ class Premium_Person extends Widget_Base {
     
     public function get_style_depends() {
         return [
+            'font-awesome',
             'premium-addons'
         ];
     }
@@ -59,8 +66,12 @@ class Premium_Person extends Widget_Base {
 		return 'https://premiumaddons.com/support/';
 	}
 
-    // Adding the controls fields for the premium team members
-    // This will controls the animation, colors and background, dimensions etc
+    /**
+	 * Register Persons controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function _register_controls() {
         
         $this->start_controls_section('premium_person_general_settings',
@@ -239,15 +250,15 @@ class Premium_Person extends Widget_Base {
         
         $this->add_responsive_control('persons_per_row',
             [
-                'label'             => __('Members/Row', 'premium-addons-pro'),
+                'label'             => __('Members/Row', 'premium-addons-for-elementor'),
                 'type'              => Controls_Manager::SELECT,
                 'options'           => [
-                    '100%'  => __('1 Column', 'premium-addons-pro'),
-                    '50%'   => __('2 Columns', 'premium-addons-pro'),
-                    '33.33%'=> __('3 Columns', 'premium-addons-pro'),
-                    '25%'   => __('4 Columns', 'premium-addons-pro'),
-                    '20%'   => __('5 Columns', 'premium-addons-pro'),
-                    '16.667%'=> __('6 Columns', 'premium-addons-pro'),
+                    '100%'  => __('1 Column', 'premium-addons-for-elementor'),
+                    '50%'   => __('2 Columns', 'premium-addons-for-elementor'),
+                    '33.33%'=> __('3 Columns', 'premium-addons-for-elementor'),
+                    '25%'   => __('4 Columns', 'premium-addons-for-elementor'),
+                    '20%'   => __('5 Columns', 'premium-addons-for-elementor'),
+                    '16.667%'=> __('6 Columns', 'premium-addons-for-elementor'),
                 ],
                 'default'           => '33.33%',
                 'render_type'       => 'template',
@@ -262,7 +273,7 @@ class Premium_Person extends Widget_Base {
         
         $this->add_responsive_control('spacing',
             [
-                'label'         => __('Spacing', 'premium-addons-pro'),
+                'label'         => __('Spacing', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::DIMENSIONS,
                 'size_units'    => ['px', '%', "em"],
                 'default'       => [
@@ -785,14 +796,14 @@ class Premium_Person extends Widget_Base {
         
         $this->add_control('carousel',
             [
-                'label'         => __('Carousel', 'premium-addons-pro'),
+                'label'         => __('Carousel', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::SWITCHER
             ]
         );
         
         $this->add_control('carousel_play',
             [
-                'label'         => __('Auto Play', 'premium-addons-pro'),
+                'label'         => __('Auto Play', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::SWITCHER,
                 'condition'     => [
                     'carousel'  => 'yes'
@@ -802,8 +813,8 @@ class Premium_Person extends Widget_Base {
         
         $this->add_control('carousel_autoplay_speed',
 			[
-				'label'			=> __( 'Autoplay Speed', 'premium-addons-pro' ),
-				'description'	=> __( 'Autoplay Speed means at which time the next slide should come. Set a value in milliseconds (ms)', 'premium-addons-pro' ),
+				'label'			=> __( 'Autoplay Speed', 'premium-addons-for-elementor' ),
+				'description'	=> __( 'Autoplay Speed means at which time the next slide should come. Set a value in milliseconds (ms)', 'premium-addons-for-elementor' ),
 				'type'			=> Controls_Manager::NUMBER,
 				'default'		=> 5000,
 				'condition'		=> [
@@ -815,7 +826,7 @@ class Premium_Person extends Widget_Base {
         
         $this->add_responsive_control('carousel_arrows_pos',
             [
-                'label'         => __('Arrows Position', 'premium-addons-pro'),
+                'label'         => __('Arrows Position', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::SLIDER,
                 'size_units'    => ['px', "em"],
                 'range'         => [
@@ -838,6 +849,22 @@ class Premium_Person extends Widget_Base {
             ]
         );
         
+        $this->end_controls_section();
+
+        $this->start_controls_section('section_pa_docs',
+            [
+                'label'         => __('Helpful Documentations', 'premium-addons-pro'),
+            ]
+        );
+        
+        $this->add_control('doc_1',
+            [
+                'type'            => Controls_Manager::RAW_HTML,
+                'raw'             => sprintf( __( '%1$s I\'m not able to see Font Awesome icons in the widget » %2$s', 'premium-addons-pro' ), '<a href="https://premiumaddons.com/docs/why-im-not-able-to-see-elementor-font-awesome-5-icons-in-premium-add-ons/?utm_source=papro-dashboard&utm_medium=papro-editor&utm_campaign=papro-plugin" target="_blank" rel="noopener">', '</a>' ),
+                'content_classes' => 'editor-pa-doc',
+            ]
+        );
+
         $this->end_controls_section();
         
         $this->start_controls_section('premium_person_image_style', 
@@ -1239,7 +1266,7 @@ class Premium_Person extends Widget_Base {
         
         $this->add_responsive_control('premium_person_content_padding',
             [
-                'label'         => __('Padding', 'premium-addons-pro'),
+                'label'         => __('Padding', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::DIMENSIONS,
                 'size_units'    => ['px', 'em', '%'],
                 'selectors'     => [
@@ -1252,7 +1279,7 @@ class Premium_Person extends Widget_Base {
         
         $this->start_controls_section('carousel_style',
             [
-                'label'         => __('Carousel', 'premium-addons-pro'),
+                'label'         => __('Carousel', 'premium-addons-for-elementor'),
                 'tab'           => Controls_Manager::TAB_STYLE,
                 'condition'     => [
                     'carousel'  => 'yes'
@@ -1262,7 +1289,7 @@ class Premium_Person extends Widget_Base {
         
         $this->add_control('arrow_color',
             [
-                'label'         => __('Color', 'premium-addons-pro'),
+                'label'         => __('Color', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::COLOR,
                 'scheme'        => [
                     'type'  => Scheme_Color::get_type(),
@@ -1276,7 +1303,7 @@ class Premium_Person extends Widget_Base {
         
         $this->add_control('arrow_hover_color',
             [
-                'label'         => __('Hover Color', 'premium-addons-pro'),
+                'label'         => __('Hover Color', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::COLOR,
                 'scheme'        => [
                     'type'  => Scheme_Color::get_type(),
@@ -1290,7 +1317,7 @@ class Premium_Person extends Widget_Base {
 
         $this->add_responsive_control('arrow_size',
             [
-                'label'         => __('Size', 'premium-addons-pro'),
+                'label'         => __('Size', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::SLIDER,
                 'size_units'    => ['px', '%' ,'em'],
                 'selectors'     => [
@@ -1301,7 +1328,7 @@ class Premium_Person extends Widget_Base {
         
         $this->add_control('arrow_background',
             [
-                'label'         => __('Background Color', 'premium-addons-pro'),
+                'label'         => __('Background Color', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::COLOR,
                 'scheme'        => [
                     'type'  => Scheme_Color::get_type(),
@@ -1315,7 +1342,7 @@ class Premium_Person extends Widget_Base {
         
         $this->add_control('arrow_hover_background',
             [
-                'label'         => __('Background Hover Color', 'premium-addons-pro'),
+                'label'         => __('Background Hover Color', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::COLOR,
                 'scheme'        => [
                     'type'  => Scheme_Color::get_type(),
@@ -1329,7 +1356,7 @@ class Premium_Person extends Widget_Base {
         
         $this->add_control('arrow_border_radius',
             [
-                'label'         => __('Border Radius', 'premium-addons-pro'),
+                'label'         => __('Border Radius', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::SLIDER,
                 'size_units'    => ['px', '%' ,'em'],
                 'selectors'     => [
@@ -1340,7 +1367,7 @@ class Premium_Person extends Widget_Base {
 
         $this->add_control('arrow_padding',
             [
-                'label'         => __('Padding', 'premium-addons-pro'),
+                'label'         => __('Padding', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::SLIDER,
                 'size_units'    => ['px', '%' ,'em'],
                 'selectors'     => [
@@ -1354,7 +1381,7 @@ class Premium_Person extends Widget_Base {
     }
 
     /**
-	 * Render Grid output on the frontend.
+	 * Render Persons widget output on the frontend.
 	 *
 	 * Written in PHP and used to generate the final HTML.
 	 *
@@ -1481,114 +1508,46 @@ class Premium_Person extends Widget_Base {
         
         $settings = $this->get_settings_for_display();
         
-        if( '' === $person ) {
-            $personSettings = $settings;
-            $socialIcons = [
-                'facebook'      => $settings['premium_person_facebook'],
-                'twitter'       => $settings['premium_person_twitter'],
-                'linkedin'      => $settings['premium_person_linkedin'],
-                'google'        => $settings['premium_person_google'],
-                'youtube'       => $settings['premium_person_youtube'],
-                'instagram'     => $settings['premium_person_instagram'],
-                'skype'         => $settings['premium_person_skype'],
-                'pinterest'     => $settings['premium_person_pinterest'],
-                'dribbble'      => $settings['premium_person_dribbble'],
-                'behance'       => $settings['premium_person_behance'],
-                'whatsapp'      => $settings['premium_person_whatsapp'],
-                'telegram'      => $settings['premium_person_telegram'],
-                'mail'          => $settings['premium_person_mail'],
-                'site'          => $settings['premium_person_site']
-            ];
-        } else {
-            $personSettings = $person;
-            $socialIcons = [
-                'facebook'      => $person['multiple_facebook'],
-                'twitter'       => $person['multiple_twitter'],
-                'linkedin'      => $person['multiple_linkedin'],
-                'google'        => $person['multiple_google'],
-                'youtube'       => $person['multiple_youtube'],
-                'instagram'     => $person['multiple_instagram'],
-                'skype'         => $person['multiple_skype'],
-                'pinterest'     => $person['multiple_pinterest'],
-                'dribbble'      => $person['multiple_dribbble'],
-                'behance'       => $person['multiple_behance'],
-                'whatsapp'      => $person['multiple_whatsapp'],
-                'telegram'      => $person['multiple_telegram'],
-                'mail'          => $person['multiple_mail'],
-                'site'          => $person['multiple_site'],
-            ];
-        }
-        
-        ?>
-        
-        <ul class="premium-person-social-list">
-            <?php if( ! empty( $socialIcons['facebook'] ) ) : ?>
-                <li class="elementor-icon premium-person-list-item premium-person-facebook"><a href="<?php echo $socialIcons['facebook']; ?>" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-            <?php endif;
+        $socialSites = [
+            'facebook' => 'fa fa-facebook-f',
+            'twitter' => 'fa fa-twitter',
+            'linkedin' => 'fa fa-linkedin',
+            'google' => 'fa fa-google-plus',
+            'youtube'=>'fa fa-youtube',
+            'instagram' =>'fa fa-instagram',
+            'skype' => 'fa fa-skype',
+            'pinterest' => 'fa fa-pinterest',
+            'dribbble' => 'fa fa-dribbble',
+            'behance' => 'fa fa-behance',
+            'whatsapp' => 'fa fa-whatsapp',
+            'telegram' => 'fa fa-telegram',
+            'mail' => 'fa fa-envelope',
+            'site' => 'fa fa-link',
+        ];
 
-            if( ! empty( $socialIcons['twitter'] ) ) : ?>
-                <li class="elementor-icon premium-person-list-item premium-person-twitter"><a href="<?php echo $socialIcons['twitter']; ?>" target="_blank"><i class="fab fa-twitter"></i></a></li>
-            <?php endif;
+        echo '<ul class="premium-person-social-list">';
+            foreach( $socialSites as $site => $icon ) {
+                $value = ('' === $person) ? $settings[ 'premium_person_' . $site ] : $person[ 'multiple_' . $site ];
 
-            if( ! empty( $socialIcons['linkedin'] ) ) : ?>
-                <li class="elementor-icon premium-person-list-item premium-person-linkedin"><a href="<?php echo $socialIcons['linkedin']; ?>" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-            <?php endif;
-            if( ! empty( $socialIcons['google'] ) ) : ?>
-                <li class="elementor-icon premium-person-list-item premium-person-google"><a href="<?php echo $socialIcons['google'] ?>" target="_blank"><i class="fab fa-google-plus-g"></i></a></li>
-            <?php endif;
+                if( ! empty(  $value ) ) {
+                    $icon_class = sprintf( 'elementor-icon premium-person-list-item premium-person-%s', $site );
+                ?>
+                <li class="<?php echo $icon_class; ?>"><a href="<?php echo $value; ?>" target="_blank"><i class="<?php echo $icon; ?>"></i></a></li>
+                <?php
+                }
+            }
+        echo '</ul>';
 
-            if( ! empty( $socialIcons['youtube'] ) ) : ?>
-                <li class="elementor-icon premium-person-list-item premium-person-youtube"><a href="<?php echo $socialIcons['youtube']; ?>" target="_blank"><i class="fab fa-youtube"></i></a></li>
-            <?php endif;
-
-            if( ! empty( $socialIcons['instagram'] ) ) : ?>
-                <li class="elementor-icon premium-person-list-item premium-person-instagram"><a href="<?php echo $socialIcons['instagram']; ?>" target="_blank"><i class="fab fa-instagram"></i></a></li>
-            <?php endif;
-
-            if( ! empty( $socialIcons['skype'] ) ) : ?>
-                <li class="elementor-icon premium-person-list-item premium-person-skype"><a href="<?php echo $socialIcons['skype'] ?>" target="_blank"><i class="fab fa-skype"></i></a></li>
-            <?php endif;
-
-            if( ! empty( $socialIcons['pinterest'] ) ) : ?>
-                <li class="elementor-icon premium-person-list-item premium-person-pinterest"><a href="<?php echo $socialIcons['pinterest']; ?>" target="_blank"><i class="fab fa-pinterest"></i></a></li>
-            <?php endif;
-
-            if( ! empty( $socialIcons['dribbble'] ) ) : ?>
-                <li class="elementor-icon premium-person-list-item premium-person-dribbble"><a href="<?php echo $socialIcons['dribbble']; ?>" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-            <?php endif;
-
-            if( ! empty( $socialIcons['behance'] ) ) : ?>
-                <li class="elementor-icon premium-person-list-item premium-person-behance"><a href="<?php echo $socialIcons['behance']; ?>" target="_blank"><i class="fab fa-behance"></i></a></li>
-            <?php endif;
-            
-            if( ! empty( $socialIcons['whatsapp'] ) ) : ?>
-                <li class="elementor-icon premium-person-list-item premium-person-whatsapp"><a href="<?php echo $socialIcons['whatsapp']; ?>" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
-            <?php endif;
-            
-            if( ! empty( $socialIcons['telegram'] ) ) : ?>
-                <li class="elementor-icon premium-person-list-item premium-person-telegram"><a href="<?php echo $socialIcons['telegram']; ?>" target="_blank"><i class="fab fa-telegram-plane"></i></a></li>
-            <?php endif;
-
-            if( ! empty( $socialIcons['mail'] ) ) : ?>
-                <li class="elementor-icon premium-person-list-item premium-person-mail"><a href="<?php echo $socialIcons['mail']; ?>" target="_blank"><i class="far fa-envelope"></i></a></li>
-            <?php endif;
-
-            if( ! empty( $socialIcons['site'] ) ) : ?>
-                <li class="elementor-icon premium-person-list-item premium-person-site"><a href="<?php echo $socialIcons['site']; ?>" target="_blank"><i class="fas fa-link"></i></a></li>
-            <?php endif; ?>
-        </ul>
-        <?php
     }
     
     /*
      * Render Person Info
      * 
-     * 
      * @since 3.12.0
      * @access protected
      * 
      * @param $person object current person
-     * @param $index integer  current person index
+     * @param $index integer current person index
      */
     protected function render_person_info( $person = '', $index = '' ) {
         
@@ -1700,6 +1659,14 @@ class Premium_Person extends Widget_Base {
     }
 
 
+    /**
+	 * Render Persons widget output in the editor.
+	 *
+	 * Written as a Backbone JavaScript template and used to generate the live preview.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function _content_template() {
         ?>
         <#
@@ -1810,59 +1777,59 @@ class Premium_Person extends Widget_Base {
             #>
             <ul class="premium-person-social-list">
                 <# if( '' != socialIcons.facebook ) { #>
-                    <li class="elementor-icon premium-person-list-item premium-person-facebook"><a href="{{ socialIcons.facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                    <li class="elementor-icon premium-person-list-item premium-person-facebook"><a href="{{ socialIcons.facebook }}" target="_blank"><i class="fa fa-facebook-f"></i></a></li>
                 <# } #>
 
                 <# if( '' != socialIcons.twitter ) { #>
-                    <li class="elementor-icon premium-person-list-item premium-person-twitter"><a href="{{ socialIcons.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                    <li class="elementor-icon premium-person-list-item premium-person-twitter"><a href="{{ socialIcons.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a></li>
                 <# } #>
 
                 <# if( '' != socialIcons.linkedin ) { #>
-                    <li class="elementor-icon premium-person-list-item premium-person-linkedin"><a href="{{ socialIcons.linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                    <li class="elementor-icon premium-person-list-item premium-person-linkedin"><a href="{{ socialIcons.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
                 <# } #>
 
                 <# if( '' != socialIcons.google ) { #>
-                    <li class="elementor-icon premium-person-list-item premium-person-google"><a href="{{ socialIcons.google }}" target="_blank"><i class="fab fa-google-plus-g"></i></a></li>
+                    <li class="elementor-icon premium-person-list-item premium-person-google"><a href="{{ socialIcons.google }}" target="_blank"><i class="fa fa-google-plus"></i></a></li>
                 <# } #>
 
                 <# if( '' != socialIcons.youtube ) { #>
-                    <li class="elementor-icon premium-person-list-item premium-person-youtube"><a href="{{ socialIcons.youtube }}" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                    <li class="elementor-icon premium-person-list-item premium-person-youtube"><a href="{{ socialIcons.youtube }}" target="_blank"><i class="fa fa-youtube"></i></a></li>
                 <# } #>
 
                 <# if( '' != socialIcons.instagram ) { #>
-                    <li class="elementor-icon premium-person-list-item premium-person-instagram"><a href="{{ socialIcons.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                    <li class="elementor-icon premium-person-list-item premium-person-instagram"><a href="{{ socialIcons.instagram }}" target="_blank"><i class="fa fa-instagram"></i></a></li>
                 <# } #>
 
                 <# if( '' != socialIcons.skype ) { #>
-                    <li class="elementor-icon premium-person-list-item premium-person-skype"><a href="{{ socialIcons.skype }}" target="_blank"><i class="fab fa-skype"></i></a></li>
+                    <li class="elementor-icon premium-person-list-item premium-person-skype"><a href="{{ socialIcons.skype }}" target="_blank"><i class="fa fa-skype"></i></a></li>
                 <# } #>
 
                 <# if( '' != socialIcons.pinterest ) { #>
-                    <li class="elementor-icon premium-person-list-item premium-person-pinterest"><a href="{{ socialIcons.pinterest }}" target="_blank"><i class="fab fa-pinterest"></i></a></li>
+                    <li class="elementor-icon premium-person-list-item premium-person-pinterest"><a href="{{ socialIcons.pinterest }}" target="_blank"><i class="fa fa-pinterest"></i></a></li>
                 <# } #>
 
                 <# if( '' != socialIcons.dribbble ) { #>
-                    <li class="elementor-icon premium-person-list-item premium-person-dribbble"><a href="{{ socialIcons.dribbble }}" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+                    <li class="elementor-icon premium-person-list-item premium-person-dribbble"><a href="{{ socialIcons.dribbble }}" target="_blank"><i class="fa fa-dribbble"></i></a></li>
                 <# } #>
 
                 <# if( '' != socialIcons.behance ) { #>
-                    <li class="elementor-icon premium-person-list-item premium-person-behance"><a href="{{ socialIcons.behance }}" target="_blank"><i class="fab fa-behance"></i></a></li>
+                    <li class="elementor-icon premium-person-list-item premium-person-behance"><a href="{{ socialIcons.behance }}" target="_blank"><i class="fa fa-behance"></i></a></li>
                 <# } #>
                 
                 <# if( '' != socialIcons.whatsapp ) { #>
-                    <li class="elementor-icon premium-person-list-item premium-person-whatsapp"><a href="{{ socialIcons.whatsapp }}" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+                    <li class="elementor-icon premium-person-list-item premium-person-whatsapp"><a href="{{ socialIcons.whatsapp }}" target="_blank"><i class="fa fa-whatsapp"></i></a></li>
                 <# } #>
                 
                 <# if( '' != socialIcons.telegram ) { #>
-                    <li class="elementor-icon premium-person-list-item premium-person-telegram"><a href="{{ socialIcons.mail }}" target="_blank"><i class="fab fa-telegram-plane"></i></a></li>
+                    <li class="elementor-icon premium-person-list-item premium-person-telegram"><a href="{{ socialIcons.mail }}" target="_blank"><i class="fa fa-telegram"></i></a></li>
                 <# } #>
 
                 <# if( '' != socialIcons.mail ) { #>
-                    <li class="elementor-icon premium-person-list-item premium-person-mail"><a href="{{ socialIcons.mail }}" target="_blank"><i class="far fa-envelope"></i></a></li>
+                    <li class="elementor-icon premium-person-list-item premium-person-mail"><a href="{{ socialIcons.mail }}" target="_blank"><i class="fa fa-envelope"></i></a></li>
                 <# } #>
 
                 <# if( '' != socialIcons.site ) { #>
-                    <li class="elementor-icon premium-person-list-item premium-person-site"><a href="{{ socialIcons.site }}" target="_blank"><i class="fas fa-link"></i></a></li>
+                    <li class="elementor-icon premium-person-list-item premium-person-site"><a href="{{ socialIcons.site }}" target="_blank"><i class="fa fa-link"></i></a></li>
                 <# } #>
 
             </ul>

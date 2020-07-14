@@ -1,21 +1,24 @@
 ﻿=== Premium Addons for Elementor ===
 Contributors: Leap13, Rimoun
-Tags: Elementor, Elementor Page Builder, Elements, Elementor Addons, Add-ons, Page Builder, Widgets, Elementor Widgets
+Tags: elementor, elements, addons, elementor addon, elementor widget, elementor extensions, page builder, builder, visual editor, wordpress page builder
 Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme
-Requires at Least: 4.5
-Tested Up To: 5.4
+Requires at least: 5.0
+Tested Up To: 5.4.2
 Requires PHP: 5.4
-Stable Tag: 3.12.2
+Stable Tag: 3.20.8
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
-Elementor Widgets and Addons like Vertical Scroll, Grid, Carousel, Google Maps, Pricing Tables, Countdown, Testimonials, Blog and more.
+Elementor Widgets and Addons like Vertical Scroll, Grid, Carousel, Google Maps, Pricing Tables, Lottie Animations, Countdown, Testimonials, Blog and more.
 
 == Description ==
 
 Supercharge your Elementor Page Builder with 50+ highly customizable widgets and add-ons that will give you the ability to build sophisticated websites in less time with no coding required. Both Elementor and Premium Addons plugins take your WordPress website to the next level.
 
 [**Check Elementor Widgets & Addons Demo Pages**](https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme)
+
+#### New: Elementor Lottie Animations Integration
+You can now use [Lottie Animations in ALL our Elementor widgets](https://premiumaddons.com/elementor-lottie-animations-section-addon/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme). Whatever widget that have an image or icon option now have also the option to add a Lottie animation. Lottie animations are open source, lightweight and available for free, Use them now to make your Elementor pages more eye-catching.
 
 #### NEW: Elementor Templates
 NEW: Ever-growing [Elementor Section Templates Library](https://premiumaddons.com/premium-templates-for-elementor/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) Available on both Premium Addons Free and PRO versions. Browse, preview, and insert the template you like in your page/post with just ONE click.
@@ -55,13 +58,15 @@ Each widget and addon has been tested on different screen sizes, mobile devices,
 * [**Image Separator Widget**](https://premiumaddons.com/image-separator-widget-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Add an Image Separator between Elementor sections with this handy yet fully responsive widget.
 
 ### Section Addons & Widgets
+* [**Horizontal Scroll Widget**](https://premiumaddons.com/elementor-horizontal-scroll-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: The first ever advanced Horizontal Scroll Widget for Elementor and WordPress that makes it easy to create horizontal scroll landing pages or even add horizontal scroll content within your page.
 * [**Vertical Scroll Widget**](https://premiumaddons.com/vertical-scroll-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Create beautiful vertical scroll pages with advanced responsive control options using Premium Vertical Scroll Widget for Elementor Page Builder.
 * [**Background Transition Widget**](https://premiumaddons.com/elementor-color-transition-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create fancy, colorful, and eye-catching webpages using background Color Transition Widget for Elementor. It allows you to have a seamless transition between sections background colors.
 * [**Multi-Scroll Widget**](https://premiumaddons.com/multi-scroll-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: The only Elementor widget available that allows you to create attractive multi-scroll effect. It can be used to create full landing pages or use it inside any page.
+* [**Lottie Animations Section Addon**](https://premiumaddons.com/elementor-lottie-animations-section-addon/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Add multiple Lottie Animations easily to any Elementor section with allot of customization and interactivity options.
 * [**Parallax Section Addon**](https://premiumaddons.com/parallax-section-addon-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: The only Elementor Parallax Section Addon with freehand design experience and many styles to choose from.
 * [**Particles Section Addon**](https://premiumaddons.com/particles-section-addon-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create eye-catching particles background using Elementor and Premium Addons with many customization options. 
 * [**Animated Gradient Addon**](https://premiumaddons.com/animated-section-gradients-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Subtle animated gradients effect that makes your backgrounds super attractive. It's highly recommended for sections with call to actions.
-* [**Ken Burns Section  Addon**](https://premiumaddons.com/ken-burns-section-addon-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Add multiple images to your Elementor section background and animate them with the popular Ken Burns effect. 
+* [**Ken Burns Section Addon**](https://premiumaddons.com/ken-burns-section-addon-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Add multiple images to your Elementor section background and animate them with the popular Ken Burns effect. 
 
 ### Off-Grid Widgets
 
@@ -174,6 +179,81 @@ Premium Addons for Elementor is 100% Ads Free, Ads can only be detected from You
 14. Premium Progress Bar Widget for Elementor
 
 == Changelog ==
+
+= 3.20.8 =
+
+- Tweak: Added Show/Hide Post Featured Image option in Blog widget.
+- Tweak: Added Border options for post box in Blog widget.
+- Tweak: Added Boxes Equal Height option for posts content boxes in Blog widget.
+- Fixed: Lottie animations duplicate issue when inserted in Elementor template.
+
+= 3.20.7 =
+
+- Tweak: Added alignment options for the outer container in Counter widget.
+- Tweak: Added Typography options for modal body content in Modal Box widget.
+
+= 3.20.7 =
+
+- Tweak: Added Custom Animation to select between dozens of animations in Fancy Text widget.
+- Fixed: Items overlap issue in zoomout and rotate effects in Fancy Text widget.
+- Fixed: `NOTICE: wp-content/plugins/premium-addons-for-elementor/includes/class-helper-functions.php:461 – Trying to access array offset on value of type bool`
+
+= 3.20.6 =
+
+- Tweak: Added Show Title option for Elementor lightbox in Media Grid widget.
+- Fixed: Carousel flickering issue when Elementor Entrance Animation is added for inner content.
+
+= 3.20.5 =
+
+- Tweak: Added Active Border options for Filter tabs in Blog widget.
+- Tweak: Added Render Type option in Lottie Animation widget.
+- Fixed: Page scroll not working when Vertial Scroll widget is hidden on the current device.
+- Fixed: Item title/description hidden when video is clicked in Media Grid.
+
+= 3.20.4 =
+
+- Tweak: Added Normal/Hover opacity in Lottie Animations widget.
+- Fixed: Post featured image is not linked to post in Blog widget.
+
+= 3.20.3 =
+
+- Fixed: Even layout in Blog widget not working when carousel option is enabled.
+- Fixed: Premium Templates button icon not showing.
+
+= 3.20.2 =
+
+- New: Premium Lottie Animations widget added.
+- Tweak: Even layout images height option improved in Media Grid widget.
+- Tweak: Image size option added for all layouts in Media Grid widget.
+- Fixed: Page update button is disabled after inserting a template.
+
+= 3.20.1 =
+
+- Tweak: Added link option in Premium Title widget.
+- Fixed: Lottie Animations options conflict.
+
+= 3.20.0 =
+
+- New: Introducing Lottie Animations Integration for all the widgets including icon options.
+- Tweak: Added Circle and Dots layouts in Progress Bar widget.
+- Tweak: Added Icon Spacing icon option in Title widget.
+- Tweak: Added Custom Image icon option in Title widget.
+- Tweak: Added Icon Position option in Title widget.
+- Tweak: Added Icon/Text Color option to control feature list items colors separately in Pricing Table widget.
+- Tweak: Added Separator Align option in Testimonials widget.
+- Tweak: Added Text Shadow options for person/company name in Testimonials widget.
+- Tweak: Added Hover CSS Filters in Image Separator widget.
+- Tweak: Modal Box widget improved for faster editing experience.
+- Fixed: Images not re-align on window resize in Media Grid widget.
+
+= 3.12.3 =
+
+- Tweak: Added `Size` option for Markers in Google Maps widget.
+- Tweak: Posts comments number compatibility with Disqus plugin.
+- Fixed: Progress Bar widget value applied on all bars on the page.
+- Fixed: Media Grid widget masonry layout issues on the editor on Chrome.
+- Fixed: Blog post content duplicate issue when Full Content option is selected.
+- Fixed: Blog masonry layout issues on the editor on Chrome.
 
 = 3.12.2 =
 

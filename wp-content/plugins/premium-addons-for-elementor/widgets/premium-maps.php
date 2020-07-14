@@ -1,9 +1,11 @@
 <?php
 
+/**
+ * Premium Google Maps.
+ */
 namespace PremiumAddons\Widgets;
 
-use PremiumAddons\Admin\Settings\Maps;
-use PremiumAddons\Helper_Functions;
+// Elementor Classes.
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
@@ -13,9 +15,15 @@ use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
 
+// PremiumAddons Classes.
+use PremiumAddons\Admin\Settings\Maps;
+use PremiumAddons\Helper_Functions;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // If this file is called directly, abort.
 
+/**
+ * Class Premium_Maps
+ */
 class Premium_Maps extends Widget_Base {
     
     public function get_name() {
@@ -60,16 +68,19 @@ class Premium_Maps extends Widget_Base {
 		return 'https://premiumaddons.com/support/';
 	}
 
-    // Adding the controls fields for the premium maps
-    // This will controls the animation, colors and background, dimensions etc
+    /**
+	 * Register Google Maps controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function _register_controls() {
 
-        /* Start Map Settings Section */
         $this->start_controls_section('premium_maps_map_settings',
-                [
-                    'label'         => __('Center Location', 'premium-addons-for-elementor'),
-                    ]
-                );
+            [
+                'label'         => __('Center Location', 'premium-addons-for-elementor'),
+            ]
+        );
         
         $settings = Maps::get_enabled_keys();
         
@@ -160,6 +171,32 @@ class Premium_Maps extends Widget_Base {
                 );
          
         $repeater = new REPEATER();
+
+        $repeater->add_control('pin_icon',
+            [
+                'label'         => __('Custom Icon', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::MEDIA,
+                'dynamic'       => [ 'active' => true ],
+            ]
+        );
+
+        $repeater->add_control('pin_icon_size',
+			[
+				'label' => __( 'Size', 'premium-addons-for-elementor' ),
+                'type' => Controls_Manager::SLIDER,
+                'size_units'    => ['px', 'em'],
+				'range' => [
+					'px' => [
+		                'min' => 1,
+		                'max' => 200,
+                    ],
+                    'em' => [
+		                'min' => 1,
+		                'max' => 20,
+		            ]
+				]
+			]
+		);
         
         $repeater->add_control('premium_map_pin_location_finder',
             [
@@ -219,14 +256,6 @@ class Premium_Maps extends Widget_Base {
             ]
         );
         
-        $repeater->add_control('pin_icon',
-            [
-                'label'         => __('Custom Icon', 'premium-addons-for-elementor'),
-                'type'          => Controls_Manager::MEDIA,
-                'dynamic'       => [ 'active' => true ],
-            ]
-        );
-
         $this->add_control('premium_maps_map_pins',
             [
                 'label'         => __('Map Pins', 'premium-addons-for-elementor'),
@@ -388,7 +417,7 @@ class Premium_Maps extends Widget_Base {
         
         $this->start_controls_section('section_pa_docs',
             [
-                'label'         => __('Helpful Documentations', 'premium-addons-pro'),
+                'label'         => __('Helpful Documentations', 'premium-addons-for-elementor'),
             ]
         );
         
@@ -515,83 +544,78 @@ class Premium_Maps extends Widget_Base {
                 );
         
         $this->add_group_control(
-        Group_Control_Typography::get_type(),
-                [
-                    'name'          => 'pin_text_typo',
-                    'scheme'        => Scheme_Typography::TYPOGRAPHY_1,
-                    'selector'      => '{{WRAPPER}} .premium-maps-info-desc',
-                ]
-                );
+            Group_Control_Typography::get_type(),
+            [
+                'name'          => 'pin_text_typo',
+                'scheme'        => Scheme_Typography::TYPOGRAPHY_1,
+                'selector'      => '{{WRAPPER}} .premium-maps-info-desc',
+            ]
+        );
         
         $this->add_responsive_control('premium_maps_pin_text_margin',
-                [
-                    'label'         => __('Margin', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::DIMENSIONS,
-                    'size_units'    => ['px', 'em', '%'],
-                    'selectors'     => [
-                        '{{WRAPPER}} .premium-maps-info-desc'   => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                        ]
-                    ]
-                );
+            [
+                'label'         => __('Margin', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::DIMENSIONS,
+                'size_units'    => ['px', 'em', '%'],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-maps-info-desc'   => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ]
+            ]
+        );
         
         $this->add_responsive_control('premium_maps_pin_text_padding',
-                [
-                    'label'         => __('Padding', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::DIMENSIONS,
-                    'size_units'    => ['px', 'em', '%'],
-                    'selectors'     => [
-                        '{{WRAPPER}} .premium-maps-info-desc'   => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                        ]
-                    ]
-                );
+            [
+                'label'         => __('Padding', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::DIMENSIONS,
+                'size_units'    => ['px', 'em', '%'],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-maps-info-desc'   => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ]
+            ]
+        );
         
-        /*Pin Title ALign*/
         $this->add_responsive_control('premium_maps_pin_description_align',
-                [
-                    'label'         => __( 'Alignment', 'premium-addons-for-elementor' ),
-                    'type'          => Controls_Manager::CHOOSE,
-                    'options'       => [
-                        'left'      => [
-                            'title'=> __( 'Left', 'premium-addons-for-elementor' ),
-                            'icon' => 'fa fa-align-left',
-                            ],
-                        'center'    => [
-                            'title'=> __( 'Center', 'premium-addons-for-elementor' ),
-                            'icon' => 'fa fa-align-center',
-                            ],
-                        'right'     => [
-                            'title'=> __( 'Right', 'premium-addons-for-elementor' ),
-                            'icon' => 'fa fa-align-right',
-                            ],
+            [
+                'label'         => __( 'Alignment', 'premium-addons-for-elementor' ),
+                'type'          => Controls_Manager::CHOOSE,
+                'options'       => [
+                    'left'      => [
+                        'title'=> __( 'Left', 'premium-addons-for-elementor' ),
+                        'icon' => 'fa fa-align-left',
                         ],
-                    'default'       => 'center',
-                    'selectors'     => [
-                        '{{WRAPPER}} .premium-maps-info-desc' => 'text-align: {{VALUE}};',
+                    'center'    => [
+                        'title'=> __( 'Center', 'premium-addons-for-elementor' ),
+                        'icon' => 'fa fa-align-center',
                         ],
-                    ]
-                );
+                    'right'     => [
+                        'title'=> __( 'Right', 'premium-addons-for-elementor' ),
+                        'icon' => 'fa fa-align-right',
+                        ],
+                    ],
+                'default'       => 'center',
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-maps-info-desc' => 'text-align: {{VALUE}};',
+                ],
+            ]
+        );
         
-        /*End Pin Style Section*/
         $this->end_controls_section();
         
-        /*Start Map Style Section*/
         $this->start_controls_section('premium_maps_box_style',
-                [
-                    'label'         => __('Map', 'premium-addons-for-elementor'),
-                    'tab'           => Controls_Manager::TAB_STYLE,
-                ]
-                );
+            [
+                'label'         => __('Map', 'premium-addons-for-elementor'),
+                'tab'           => Controls_Manager::TAB_STYLE,
+            ]
+        );
 
-        /*First Border*/
         $this->add_group_control(
             Group_Control_Border::get_type(),
-                [
-                    'name'              => 'map_border',
-                    'selector'          => '{{WRAPPER}} .premium-maps-container',
-                    ]
-                );
-        
-        /*First Border Radius*/
+            [
+                'name'              => 'map_border',
+                'selector'          => '{{WRAPPER}} .premium-maps-container',
+            ]
+        );
+
         $this->add_control('premium_maps_box_radius',
                 [
                     'label'         => __('Border Radius', 'premium-addons-for-elementor'),
@@ -599,52 +623,55 @@ class Premium_Maps extends Widget_Base {
                     'size_units'    => ['px', '%', 'em'],
                     'selectors'     => [
                         '{{WRAPPER}} .premium-maps-container,{{WRAPPER}} .premium_maps_map_height' => 'border-radius: {{SIZE}}{{UNIT}};'
-                        ]
                     ]
-                );
-        
-        /*Box Shadow*/
+                ]
+            );
+
         $this->add_group_control(
             Group_Control_Box_Shadow::get_type(),
-                [
-                    'label'         => __('Shadow','premium-addons-for-elementor'),
-                    'name'          => 'premium_maps_box_shadow',
-                    'selector'      => '{{WRAPPER}} .premium-maps-container',
-                ]
-                );
+            [
+                'label'         => __('Shadow','premium-addons-for-elementor'),
+                'name'          => 'premium_maps_box_shadow',
+                'selector'      => '{{WRAPPER}} .premium-maps-container',
+            ]
+        );
 
-        /*First Margin*/
         $this->add_responsive_control('premium_maps_box_margin',
-                [
-                    'label'         => __('Margin', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::DIMENSIONS,
-                    'size_units'    => [ 'px', 'em', '%' ],
-                    'selectors'     => [
-                        '{{WRAPPER}} .premium-maps-container' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-                        ]
-                    ]
-                );
+            [
+                'label'         => __('Margin', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::DIMENSIONS,
+                'size_units'    => [ 'px', 'em', '%' ],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-maps-container' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+                ]
+            ]
+        );
         
-        /*First Padding*/
         $this->add_responsive_control('premium_maps_box_padding',
-                [
-                    'label'         => __('Padding', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::DIMENSIONS,
-                    'size_units'    => [ 'px', 'em', '%' ],
-                    'selectors'     => [
-                        '{{WRAPPER}} .premium-maps-container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-                        ]
-                    ]
-                );
+            [
+                'label'         => __('Padding', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::DIMENSIONS,
+                'size_units'    => [ 'px', 'em', '%' ],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-maps-container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+                ]
+            ]
+        );
         
-        /*End Map Style Section*/
         $this->end_controls_section();
         
     }
 
+    /**
+	 * Render Google Maps widget output on the frontend.
+	 *
+	 * Written in PHP and used to generate the final HTML.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function render() {
         
-        // get our input from the widget settings.
         $settings = $this->get_settings_for_display();
         
         $map_pins = $settings['premium_maps_map_pins'];
@@ -721,9 +748,21 @@ class Premium_Maps extends Widget_Base {
         <?php if( count( $map_pins ) ) { ?>
 	        <div class="premium_maps_map_height" data-settings='<?php echo wp_json_encode( $map_settings ); ?>' <?php echo $this->get_render_attribute_string('style_wrapper'); ?>>
 			<?php
-        	foreach( $map_pins as $pin ) {
+        	foreach( $map_pins as $index => $pin ) {
+                
+                $key = 'map_marker_' . $index;
+
+                $this->add_render_attribute( $key, [
+                    'class' => 'premium-pin',
+                    'data-lng' => $pin['map_longitude'],
+                    'data-lat'  => $pin['map_latitude'],
+                    'data-icon' => $pin['pin_icon']['url'],
+                    'data-icon-size' => $pin['pin_icon_size']['size'],
+                    'data-max-width' => $marker_width
+                ]);
+
 				?>
-		        <div class="premium-pin" data-lng="<?php echo $pin['map_longitude']; ?>" data-lat="<?php echo $pin['map_latitude']; ?>" data-icon="<?php echo $pin['pin_icon']['url']; ?>" data-max-width="<?php echo $marker_width; ?>">
+		        <div <?php echo $this->get_render_attribute_string( $key ); ?>>
                     <?php if( ! empty( $pin['pin_title'] )|| !empty( $pin['pin_desc'] ) ) : ?>
                         <div class='premium-maps-info-container'><p class='premium-maps-info-title'><?php echo $pin['pin_title']; ?></p><div class='premium-maps-info-desc'><?php echo $pin['pin_desc']; ?></div></div>
                     <?php endif; ?>

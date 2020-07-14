@@ -1164,6 +1164,15 @@ else {
             <div id="updates-panel" class="panel-left">
 
                 <h2>Change Log for the Premium Version</h2>
+                <h3>3.0.0</h3>
+                <ul>
+                    <li>Added - Options to turn off/on title and taxonomy terms displayed on posts carousel thumbnail</li>
+                    <li>Added - Open in new window option for post links in posts carousel</li>
+                    <li>Added - Ability to add read more link for the posts carousel</li>
+                    <li>Added - Styling for read more link for the posts carousel</li>
+                    <li>Fixed - The posts carousel article would populate wrong style classes</li>
+                    <li>Fixed - The WP filters/hooks in posts carousel received page id as post id</li>
+                </ul>
                 <h3>2.9.9</h3>
                 <ul>
                     <li>Fixed - The posts carousel and posts grid can cause error when the taxonomy terms are missing.</li>

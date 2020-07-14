@@ -85,7 +85,7 @@
 				let icon_container = $scope.find('.ekit-wid-con'),
 					icon = icon_container.data('hamburger-icon'),
 					hamburger_type = icon_container.data('hamburger-icon-type');
-				
+
 				$scope.find('.elementskit-menu-container').each(function () {
 					let menu_container = $(this);
 					if (menu_container.attr('ekit-dom-added') == 'yes') {
@@ -108,6 +108,71 @@
 						.after('<div class="elementskit-menu-overlay elementskit-menu-offcanvas-elements elementskit-menu-toggler"></div>')
 						.attr('ekit-dom-added', 'yes');
 				});
+			}
+
+
+			if ($scope.find('.elementskit-megamenu-has').length > 0) {
+				let date_breakpoint = $scope.find('.ekit-wid-con').data('responsive-breakpoint');
+				let target = $scope.find('.elementskit-megamenu-has');
+				let menu_height = $scope.find('.elementskit-menu-container').outerHeight();
+
+				$(window).on('resize', function () {
+					$scope.find('.elementskit-megamenu-panel').css({
+						top: menu_height
+					})
+				}).trigger('resize');
+
+					target.each(function () {
+						let data_width   = $(this).data('vertical-menu'),
+							megamenu_panel = $(this).children('.elementskit-megamenu-panel');
+
+					if ($(this).hasClass('elementskit-dropdown-menu-full_width') && $(this).hasClass('top_position')) {
+						let left_pos = Math.floor($(this).position().left - $(this).offset().left);
+						let $this = $(this);
+						$(window).on('resize', function () {
+							$this.find('.elementskit-megamenu-panel').css({
+								left: left_pos + 'px'
+							})
+						}).trigger('resize');
+					}
+
+					if (data_width && data_width !== undefined) {
+						if (typeof data_width === 'string') {
+							if (/^[0-9]/.test(data_width)) {
+								$(window).on('resize', function () {
+									megamenu_panel.css({
+										width: data_width
+									})
+									if (!($(document).width() > Number(date_breakpoint))) {
+										megamenu_panel.removeAttr('style');
+									}
+								}).trigger('resize');
+							} else {
+								$(window).on('resize', function () {
+									megamenu_panel.css({
+										width: data_width + 'px'
+									})
+									if (!($(document).width() > Number(date_breakpoint))) {
+										megamenu_panel.removeAttr('style');
+									}
+								}).trigger('resize');
+							}
+						} else {
+							megamenu_panel.css({
+								width: data_width + 'px'
+							})
+						}
+					} else {
+						$(window).on('resize', function () {
+							megamenu_panel.css({
+								width: data_width + 'px'
+							})
+							if (!($(document).width() > Number(date_breakpoint))) {
+								megamenu_panel.removeAttr('style');
+							}
+						}).trigger('resize');
+					}
+				})
 			}
 		},
 
@@ -862,7 +927,7 @@
 				speed = target.data('speed'),
 				spaceBetween = target.data('space-between'),
 				respoonsive_seetings = target.data('responsive-settings');
-			
+
 
 			new Swiper(target, {
 				navigation: {
@@ -901,13 +966,13 @@
 			if ($scope.find('.ekit-vertical-main-menu-on-click').length > 0) {
 				let	menu_container = $scope.find('.ekit-vertical-main-menu-on-click'),
 					target = $scope.find('.ekit-vertical-menu-tigger');
-				
+
 				target.on('click', function (e) {
 					e.preventDefault();
 					menu_container.toggleClass('vertical-menu-active');
 				})
 			}
-			
+
 			if ($scope.find('.elementskit-megamenu-has').length > 0) {
 				let target = $scope.find('.elementskit-megamenu-has'),
 					parents_container = $scope.parents('.elementor-container'),
@@ -917,7 +982,7 @@
 				target.each(function () {
 					let data_width = $(this).data('vertical-menu'),
 						megamenu_panel = $(this).children('.elementskit-megamenu-panel');
-					
+
 					if (data_width && data_width !== undefined && !(final_width <= data_width)) {
 						if (typeof data_width === 'string') {
 							if (/^[0-9]/.test(data_width)) {
@@ -958,14 +1023,14 @@
 			if ($scope.find('.elemenetskit-toggle-indicator').length > 0) {
 				let target = $scope.find('.elemenetskit-toggle-indicator'),
 					active_item = $scope.find('.elementskit-toggle-nav-link.active');
-				
+
 				function toggle_indicator(type, current) {
 					let item_width = type === 'click' ? current.outerWidth() : active_item.outerWidth(),
 						item_height = type === 'click' ? current.outerHeight() : active_item.outerHeight(),
 						item_left = type === 'click' ? current.position().left : active_item.position().left,
 						item_top = type === 'click' ? current.position().top : active_item.position().top,
 						background_color = type === 'click' ? current.data('indicator-color') : active_item.data('indicator-color');
-					
+
 					target.css({
 						width: item_width,
 						height: item_height,
@@ -981,7 +1046,7 @@
 					toggle_indicator(event.type, $(this));
 				})
 			}
-			
+
 			function toggleSwitch(type, current, checked) {
 				if (type === 'click') {
 					current.parents('.ekit-slide-toggle').find('input[type="checkbox"]').prop("checked", checked);

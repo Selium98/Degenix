@@ -97,6 +97,17 @@ class Elementskit_Widget_Header_Search extends Widget_Base
             ]
         );
 
+        $this->end_controls_section();
+
+
+        $this->start_controls_section(
+            'ekit_header_search_section_tab_style',
+            [
+                'label' => esc_html__('Header Search', 'elementskit'),
+                'tab'   => Controls_Manager::TAB_STYLE,
+            ]
+        );
+
         $this->start_controls_tabs( 'ekit_search_tab_search_tabs' );
             $this->start_controls_tab(
                 'ekit_search_tab_search_normal',
@@ -127,7 +138,7 @@ class Elementskit_Widget_Header_Search extends Widget_Base
                 ]
             );
             $this->end_controls_tab();
-            
+
             $this->start_controls_tab(
                 'ekit_search_tab_search_hover',
                 [
@@ -159,22 +170,18 @@ class Elementskit_Widget_Header_Search extends Widget_Base
             $this->end_controls_tab();
         $this->end_controls_tabs();
 
-        $this->end_controls_section();
-
-
-        $this->start_controls_section(
-            'ekit_header_search_section_tab_style',
-            [
-                'label' => esc_html__('Header Search', 'elementskit'),
-                'tab'   => Controls_Manager::TAB_STYLE,
-            ]
+        $this->add_control(
+			'ekit_header_search_hr',
+			[
+				'type' => Controls_Manager::DIVIDER,
+			]
         );
+
         // box shadow
         $this->add_group_control(
             Group_Control_Box_Shadow::get_type(), [
                 'name'       => 'ekit_header_search',
                 'selector'   => '{{WRAPPER}} .ekit_navsearch-button',
-
             ]
         );
         // border radius
@@ -328,6 +335,52 @@ class Elementskit_Widget_Header_Search extends Widget_Base
         );
         $this->end_controls_section();
 
+        $this->start_controls_section(
+			'ekit_search_container_style_tabs',
+			[
+				'label' => __( 'Search Container', 'elementskit' ),
+				'tab' => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name' => 'ekit_search_backdrop_background',
+				'label' => __( 'Background', 'elementskit' ),
+				'types' => [ 'classic', 'gradient' ],
+				'selector' => '{{WRAPPER}} .ekit-wid-con .mfp-wrap.ekit-promo-popup:before',
+			]
+        );
+
+        $this->add_responsive_control(
+			'ekit_search_content_title_color',
+			[
+				'label' => __( 'Color', 'elementskit' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .ekit_modal-searchPanel .ekit-search-group input:not([type=submit]), {{WRAPPER}} button.mfp-close' => 'border-color: {{VALUE}}',
+					'{{WRAPPER}} .ekit_modal-searchPanel .ekit-search-group .ekit_search-button, {{WRAPPER}} .ekit-promo-popup .mfp-close, {{WRAPPER}} .ekit_search-field' => 'color: {{VALUE}}',
+				],
+			]
+        );
+
+        $this->add_responsive_control(
+			'ekit_search_placeholder_title_color',
+			[
+				'label' => __( 'Placeholder Color', 'elementskit' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .ekit_search-field::-webkit-input-placeholder' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .ekit_search-field::-moz-placeholder' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .ekit_search-field:-ms-input-placeholder' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .ekit_search-field:-moz-placeholder' => 'color: {{VALUE}}',
+				],
+			]
+        );
+
+		$this->end_controls_section();
+
         $this->insert_pro_message();
 
     }
@@ -345,12 +398,12 @@ class Elementskit_Widget_Header_Search extends Widget_Base
          *
          * Roots.io searchform.php template hack to fix Polylang search
          * https://gist.github.com/bramchi/d0767c32a772550486ea
-         * Note: Polylang setting 'Hide URL language info for default language' should be enabled for this to work. 
+         * Note: Polylang setting 'Hide URL language info for default language' should be enabled for this to work.
          * Soil-nice-search disabled in Roots.
          *
          */
         $language_prefix = (!function_exists('pll_current_language') ? '' : pll_current_language());
-                
+
         ?>
         <a href="#ekit_modal-popup-<?php echo esc_attr($this->get_id()); ?>" class="ekit_navsearch-button ekit-modal-popup">
             <?php

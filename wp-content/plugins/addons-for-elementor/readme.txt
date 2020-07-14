@@ -5,7 +5,7 @@ Contributors: livemesh, freemius
 Tags: elementor, elementor addons, elementor extensions, elementor modules, page builder, portfolio, carousel, posts grid
 Requires at least: 4.5
 Tested up to: 5.4
-Stable Tag: 2.9.9
+Stable Tag: 3.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -115,6 +115,15 @@ Pls install and activate the <a href="https://wordpress.org/plugins/portfolio-po
 
 
 
+
+= 3.0.0 =
+* Added - Options to turn off/on title and taxonomy terms displayed on posts grid thumbnail
+* Added - Options to turn off/on title and taxonomy terms displayed on posts carousel thumbnail
+* Added - Open in new window option for post links in posts carousel and posts grid
+* Added - Ability to add read more link for the posts carousel and posts grid
+* Added - Styling for read more link for the posts carousel
+* Fixed - The posts carousel item element would populate wrong style classes
+* Fixed - The WP filters/hooks in posts carousel received page id as post id
 
 = 2.9.9 =
 * Fixed - The posts carousel and posts grid can cause error when the taxonomy terms are missing.

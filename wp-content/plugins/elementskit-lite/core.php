@@ -10,7 +10,7 @@ if(!class_exists('ElementsKit')):
 		 * @since 1.0.0
 		 * @var string The plugin version.
 		 */
-		const VERSION = '1.5.3';
+		const VERSION = '1.5.7';
 
 		/**
 		 * Package type
@@ -309,6 +309,7 @@ if(!class_exists('ElementsKit')):
 				'faq',
 				'funfact',
 				'image-comparison',
+				'lottie',
 				'testimonial',
 				'pricing',
 				'team',
@@ -374,7 +375,8 @@ if(!class_exists('ElementsKit')):
 			$default_list = [
 				'header-footer',
 				'megamenu',
-				// 'onepage-scroll',
+				'onepage-scroll',
+				'widget-builder'
 			];
 			
 			$optional_list =[

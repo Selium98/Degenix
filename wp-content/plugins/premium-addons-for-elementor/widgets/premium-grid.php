@@ -1,9 +1,11 @@
 <?php
 
+/**
+ * Premium Media Grid.
+ */
 namespace PremiumAddons\Widgets;
 
-use PremiumAddons\Helper_Functions;
-use PremiumAddons\Includes;
+// Elementor Classes.
 use Elementor\Modules\DynamicTags\Module as TagsModule;
 use Elementor\Widget_Base;
 use Elementor\Utils;
@@ -22,8 +24,15 @@ use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Image_Size;
 
+// PremiumAddons Classes.
+use PremiumAddons\Helper_Functions;
+use PremiumAddons\Includes;
+
 if( ! defined( 'ABSPATH' ) ) exit;
 
+/**
+ * Class Premium_Grid
+ */
 class Premium_Grid extends Widget_Base {
     
     public function get_name() {
@@ -73,6 +82,12 @@ class Premium_Grid extends Widget_Base {
 		return 'https://premiumaddons.com/support/';
 	}
     
+    /**
+	 * Register Media Grid controls.
+	 *
+	 * @since 2.1.0
+	 * @access protected
+	 */
     protected function _register_controls() {
         
         $this->start_controls_section('premium_gallery_general',
@@ -82,21 +97,21 @@ class Premium_Grid extends Widget_Base {
             ]);
         
         $this->add_control('premium_gallery_img_size_select',
-                [
-                    'label'             => __('Grid Layout', 'premium-addons-for-elementor'),
-                    'type'              => Controls_Manager::SELECT,
-                    'options'           => [
-                        'fitRows'  => __('Even', 'premium-addons-for-elementor'),
-                        'masonry'  => __('Masonry', 'premium-addons-for-elementor'),
-                        'metro'    => __('Metro', 'premium-addons-for-elementor'), 
-                   ],
-                    'default'           => 'fitRows',
-                    ]
-                );
+            [
+                'label'             => __('Grid Layout', 'premium-addons-for-elementor'),
+                'type'              => Controls_Manager::SELECT,
+                'options'           => [
+                    'fitRows'  => __('Even', 'premium-addons-for-elementor'),
+                    'masonry'  => __('Masonry', 'premium-addons-for-elementor'),
+                    'metro'    => __('Metro', 'premium-addons-for-elementor'), 
+                ],
+                'default'           => 'fitRows',
+            ]
+        );
         
         $this->add_responsive_control('pemium_gallery_even_img_height',
 			[ 
- 				'label'             => __( 'Minimum Height', 'premium-addons-for-elementor' ),
+ 				'label'             => __( 'Height', 'premium-addons-for-elementor' ),
 				'label_block'       => true,
                 'size_units'        => ['px', 'em', 'vh'],
 				'type'              => Controls_Manager::SLIDER,
@@ -115,7 +130,7 @@ class Premium_Grid extends Widget_Base {
                     'premium_gallery_img_size_select'   => 'fitRows'
                 ],
                 'selectors'         => [
-                    '{{WRAPPER}} .premium-gallery-item .pa-gallery-image' => 'min-height: {{SIZE}}{{UNIT}}'
+                    '{{WRAPPER}} .premium-gallery-item .pa-gallery-image' => 'height: {{SIZE}}{{UNIT}}'
                 ]
 			]
 		);
@@ -141,11 +156,8 @@ class Premium_Grid extends Widget_Base {
         $this->add_group_control(
 			Group_Control_Image_Size::get_type(),
 			[
-				'name'             => 'thumbnail', // Actually its `image_size`.
+				'name'             => 'thumbnail',
 				'default'          => 'full',
-                'condition'        => [
-                    'premium_gallery_img_size_select'   => 'fitRows'
-                ]
 			]
 		);
         
@@ -341,7 +353,7 @@ class Premium_Grid extends Widget_Base {
             
         $this->add_control('active_cat_notice',
 			[
-				'raw'             => __( 'Please note categories are zero indexed, so to set if you need the first category to be active, you need to set the value to 0', 'premium-addons-for-elementor' ),
+				'raw'             => __( 'Please note categories are zero indexed, so if you need the first category to be active, you need to set the value to 0', 'premium-addons-for-elementor' ),
                 'type'            => Controls_Manager::RAW_HTML,
                 'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 			]
@@ -694,7 +706,7 @@ class Premium_Grid extends Widget_Base {
                     ],
                 ],
                 'selectors'     => [
-                    '{{WRAPPER}} .premium-gallery-item' => 'padding: {{SIZE}}{{UNIT}};'
+                    '{{WRAPPER}} .premium-gallery-item' => 'padding: {{SIZE}}{{UNIT}}'
                 ]
             ]
         );
@@ -718,7 +730,7 @@ class Premium_Grid extends Widget_Base {
         
         $this->add_control('premium_grid_style_notice', 
             [
-                'raw'               => __('Style 4 works only with Even / Masonry Layout', 'premium-addons-pro'),
+                'raw'               => __('Style 4 works only with Even / Masonry Layout', 'premium-addons-for-elementor'),
                 'type'              => Controls_Manager::RAW_HTML,
                 'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
                 'condition'         => [
@@ -879,7 +891,19 @@ class Premium_Grid extends Widget_Base {
 					'premium_gallery_light_box' => 'yes',
 				],
 			]
-		);
+        );
+        
+        $this->add_control('lightbox_show_title',
+            [
+                'label'         => __( 'Show Image Title', 'premium-addons-for-elementor' ),
+                'type'          => Controls_Manager::SWITCHER,
+                'default'       => 'yes',
+                'condition'     => [
+                    'premium_gallery_light_box'     => 'yes',
+                    'premium_gallery_lightbox_type' => 'yes'
+                ]
+            ]
+        );
         
         $this->add_control('premium_gallery_lightbox_doc',
 			[
@@ -891,15 +915,15 @@ class Premium_Grid extends Widget_Base {
         
         $this->add_control('premium_gallery_lightbox_theme',
             [
-                'label'             => __('Lightbox Theme', 'premium-addons-pro'),
+                'label'             => __('Lightbox Theme', 'premium-addons-for-elementor'),
                 'type'              => Controls_Manager::SELECT,
                 'options'           => [
-                    'pp_default'        => __('Default', 'premium-addons-pro'),
-                    'light_rounded'     => __('Light Rounded', 'premium-addons-pro'),
-                    'dark_rounded'      => __('Dark Rounded', 'premium-addons-pro'),
-                    'light_square'      => __('Light Square', 'premium-addons-pro'),
-                    'dark_square'       => __('Dark Square', 'premium-addons-pro'),
-                    'facebook'          => __('Facebook', 'premium-addons-pro'),
+                    'pp_default'        => __('Default', 'premium-addons-for-elementor'),
+                    'light_rounded'     => __('Light Rounded', 'premium-addons-for-elementor'),
+                    'dark_rounded'      => __('Dark Rounded', 'premium-addons-for-elementor'),
+                    'light_square'      => __('Light Square', 'premium-addons-for-elementor'),
+                    'dark_square'       => __('Dark Square', 'premium-addons-for-elementor'),
+                    'facebook'          => __('Facebook', 'premium-addons-for-elementor'),
                 ],
                 'default'           => 'pp_default',
                 'condition'     => [
@@ -974,7 +998,7 @@ class Premium_Grid extends Widget_Base {
         
         $this->start_controls_section('section_pa_docs',
             [
-                'label'         => __('Helpful Documentations', 'premium-addons-pro'),
+                'label'         => __('Helpful Documentations', 'premium-addons-for-elementor'),
             ]
         );
         
@@ -985,7 +1009,23 @@ class Premium_Grid extends Widget_Base {
                 'content_classes' => 'editor-pa-doc',
             ]
         );
-        
+
+        $this->add_control('doc_2',
+            [
+                'type'            => Controls_Manager::RAW_HTML,
+                'raw'             => sprintf( __( '%1$s How to assign a grid item to multiple categories » %2$s', 'premium-addons-for-elementor' ), '<a href="https://premiumaddons.com/docs/how-to-assign-an-image-to-multiple-categories/?utm_source=pa-dashboard&utm_medium=pa-editor&utm_campaign=pa-plugin" target="_blank" rel="noopener">', '</a>' ),
+                'content_classes' => 'editor-pa-doc',
+            ]
+        );
+
+        $this->add_control('doc_3',
+            [
+                'type'            => Controls_Manager::RAW_HTML,
+                'raw'             => sprintf( __( '%1$s How to open an Elementor popup/lightbox using a grid item » %2$s', 'premium-addons-for-elementor' ), '<a href="https://premiumaddons.com/docs/how-to-open-a-popup-lightbox-through-a-grid-image/?utm_source=pa-dashboard&utm_medium=pa-editor&utm_campaign=pa-plugin" target="_blank" rel="noopener">', '</a>' ),
+                'content_classes' => 'editor-pa-doc',
+            ]
+        );
+
         $this->end_controls_section();
         
         $this->start_controls_section('premium_gallery_general_style',
@@ -1930,7 +1970,7 @@ class Premium_Grid extends Widget_Base {
 
 		$this->add_control('lightbox_color',
 			[
-				'label' => __( 'Color', 'premium-addons-for-elementor' ),
+				'label' => __( 'Background Color', 'premium-addons-for-elementor' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'#elementor-lightbox-slideshow-{{ID}}' => 'background-color: {{VALUE}};',
@@ -2122,7 +2162,8 @@ class Premium_Grid extends Widget_Base {
             'active_cat'    => $category,
             'ltr_mode'      => $ltr_mode,
             'shuffle'       => $shuffle,
-            'sort_by'       => $shuffle_onload
+            'sort_by'       => $shuffle_onload,
+            'skin'          => $skin
         ];
         
         $load_more          = 'yes' === $settings['premium_gallery_load_more'] ? true : false;
@@ -2291,13 +2332,18 @@ class Premium_Grid extends Widget_Base {
 
                                 if( 'default' !== $lightbox_type ) {
 
-                                    $alt    = Control_Media::get_image_alt( $image['premium_gallery_img'] );
-
                                     $this->add_render_attribute( $lightbox_key, [
                                         'data-elementor-open-lightbox'      => $lightbox_type,
-                                        'data-elementor-lightbox-slideshow' => $this->get_id(),
-                                        'data-elementor-lightbox-title'     => $alt
+                                        'data-elementor-lightbox-slideshow' => $this->get_id()
                                     ]);
+
+                                    if( 'yes' === $settings['lightbox_show_title'] ) {
+
+                                        $alt    = Control_Media::get_image_alt( $image['premium_gallery_img'] );
+                                       
+                                        $this->add_render_attribute( $lightbox_key, 'data-elementor-lightbox-title', $alt );
+                                        
+                                    }
 
                                 } else {
 
@@ -2332,6 +2378,13 @@ class Premium_Grid extends Widget_Base {
         
     </div>
     
+    <?php if ( \Elementor\Plugin::instance()->editor->is_edit_mode() ) {
+
+        if ( 'metro' !== $settings['premium_gallery_img_size_select'] ) {
+            $this->render_editor_script();
+        }
+    } ?>
+
     <?php if( 'yes' === $settings['premium_gallery_responsive_switcher'] ) : ?>
         <style>
             @media( min-width: <?php echo $min_size; ?> ) and ( max-width:<?php echo $max_size; ?> ) {
@@ -2364,23 +2417,16 @@ class Premium_Grid extends Widget_Base {
         $alt        = Control_Media::get_image_alt( $item['premium_gallery_img'] );
         
         $key        = 'image_' . $index;
-        
-        if ( ! $is_video ) {
-            if ( $settings['premium_gallery_img_size_select'] == 'fitRows' ) {
-                $image_src = $item['premium_gallery_img'];
-                $image_src_size = Group_Control_Image_Size::get_attachment_image_src($image_src['id'], 'thumbnail', $settings);
 
-                $image_src = empty( $image_src_size ) ? $image_src['url'] : $image_src_size;
-                
-            } else {
-                $image_src = $item['premium_gallery_img']['url'];
-            }
-        } else {
-            
-            $image_src  = $item['premium_gallery_img']['url'];
+        $image_src = $item['premium_gallery_img'];
+        $image_src_size = Group_Control_Image_Size::get_attachment_image_src($image_src['id'], 'thumbnail', $settings);
+
+        $image_src = empty( $image_src_size ) ? $image_src['url'] : $image_src_size;
+        
+        if( $is_video ) {
             
             $type       = $item['premium_gallery_video_type'];
-            
+        
             if( 'hosted' !==  $type ) {
                 $embed_params   = $this->get_embed_params( $item );
                 $link           = Embed::get_embed_url( $item['premium_gallery_video_url'], $embed_params );
@@ -2399,7 +2445,7 @@ class Premium_Grid extends Widget_Base {
             } else {
                 $video_params = $this->get_hosted_params( $item );
             }
-            
+
         }
         
         $this->add_render_attribute( $key, [
@@ -2516,13 +2562,19 @@ class Premium_Grid extends Widget_Base {
 
                 if( 'default' !== $lightbox_type ) {
 
-                    $alt    = Control_Media::get_image_alt( $item['premium_gallery_img'] );
-
                     $this->add_render_attribute( $lightbox_key, [
                         'data-elementor-open-lightbox'      => $lightbox_type,
-                        'data-elementor-lightbox-slideshow' => $id,
-                        'data-elementor-lightbox-title'     => $alt
+                        'data-elementor-lightbox-slideshow' => $id
                     ]);
+                    
+                    if( 'yes' === $settings['lightbox_show_title'] ) {
+
+                        $alt    = Control_Media::get_image_alt( $item['premium_gallery_img'] );
+                       
+                        $this->add_render_attribute( $lightbox_key, 'data-elementor-lightbox-title', $alt );
+                        
+                    }
+
                 } else {
 
                     $rel = sprintf( 'prettyPhoto[premium-grid-%s]', $this->get_id() );
@@ -2698,5 +2750,52 @@ class Premium_Grid extends Widget_Base {
 			]
 		);
 
+    }
+    
+    /**
+	 * Render Editor Masonry Script.
+	 *
+	 * @since 3.12.3
+	 * @access protected
+	 */
+	protected function render_editor_script() {
+
+		?><script type="text/javascript">
+			jQuery( document ).ready( function( $ ) {
+
+				$( '.premium-gallery-container' ).each( function() {
+
+                    var $node_id 	= '<?php echo $this->get_id(); ?>',
+                        scope 		= $( '[data-id="' + $node_id + '"]' ),
+                        settings    = $(this).data("settings"),
+                        selector 	= $(this);
+                    
+					if ( selector.closest( scope ).length < 1 ) {
+						return;
+					}
+					
+                    var masonryArgs = {
+                        // set itemSelector so .grid-sizer is not used in layout
+                        filter 			: settings.active_cat,
+                        itemSelector	: '.premium-gallery-item',
+                        percentPosition : true,
+                        layoutMode		: settings.img_size,
+                    };
+
+                    var $isotopeObj = {};
+
+                    selector.imagesLoaded( function() {
+
+                        $isotopeObj = selector.isotope( masonryArgs );
+
+                        selector.find('.premium-gallery-item').resize( function() {
+                            $isotopeObj.isotope( 'layout' );
+                        });
+                    });
+
+				});
+			});
+		</script>
+		<?php
 	}
 }

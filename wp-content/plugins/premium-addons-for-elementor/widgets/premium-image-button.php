@@ -1,9 +1,11 @@
 <?php
 
+/**
+ * Premium Image Button.
+ */
 namespace PremiumAddons\Widgets;
 
-use PremiumAddons\Helper_Functions;
-use PremiumAddons\Includes;
+// Elementor Classes.
 use Elementor\Icons_Manager;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
@@ -15,9 +17,17 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Background;
 
+// PremiumAddons Classes.
+use PremiumAddons\Helper_Functions;
+use PremiumAddons\Includes;
+
 if ( ! defined( 'ABSPATH' ) ) exit; // If this file is called directly, abort.
 
+/**
+ * Class Premium_Image_Button
+ */
 class Premium_Image_Button extends Widget_Base {
+
     public function get_name() {
         return 'premium-addon-image-button';
     }
@@ -36,6 +46,12 @@ class Premium_Image_Button extends Widget_Base {
         ];
     }
 
+    public function get_script_depends() {
+        return [
+            'lottie-js'
+        ];
+    }
+
     public function get_icon() {
         return 'pa-image-button';
     }
@@ -48,8 +64,12 @@ class Premium_Image_Button extends Widget_Base {
 		return 'https://premiumaddons.com/support/';
 	}
 
-    // Adding the controls fields for the premium image button
-    // This will controls the animation, colors and background, dimensions etc
+    /**
+	 * Register Image  Button controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function _register_controls() {
 
         $this->start_controls_section('premium_image_button_general_section',
@@ -129,22 +149,22 @@ class Premium_Image_Button extends Widget_Base {
                 );
         
         $this->add_control('premium_image_button_style1_dir', 
-                [
-                    'label'         => __('Slide Direction', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::SELECT,
-                    'default'       => 'bottom',
-                    'options'       => [
-                        'bottom'       => __('Top to Bottom','premium-addons-for-elementor'),
-                        'top'          => __('Bottom to Top','premium-addons-for-elementor'),
-                        'left'         => __('Right to Left','premium-addons-for-elementor'),
-                        'right'        => __('Left to Right','premium-addons-for-elementor'),
-                        ],
-                    'condition'     => [
-                        'premium_image_button_hover_effect' => 'style1',
-                        ],
-                    'label_block'   => true,
-                    ]
-                );
+            [
+                'label'         => __('Slide Direction', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SELECT,
+                'default'       => 'bottom',
+                'options'       => [
+                    'bottom'       => __('Top to Bottom','premium-addons-for-elementor'),
+                    'top'          => __('Bottom to Top','premium-addons-for-elementor'),
+                    'left'         => __('Right to Left','premium-addons-for-elementor'),
+                    'right'        => __('Left to Right','premium-addons-for-elementor'),
+                ],
+                'label_block'   => true,
+                'condition'     => [
+                    'premium_image_button_hover_effect' => 'style1',
+                ],
+            ]
+        );
         
         $this->add_control('premium_image_button_style3_dir', 
                 [
@@ -165,49 +185,66 @@ class Premium_Image_Button extends Widget_Base {
                 );
 
         $this->add_control('premium_image_button_style4_dir', 
-                [
-                    'label'         => __('Slide Direction', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::SELECT,
-                    'default'       => 'bottom',
-                    'options'       => [
-                        'top'          => __('Bottom to Top','premium-addons-for-elementor'),
-                        'bottom'       => __('Top to Bottom','premium-addons-for-elementor'),
-                        'left'         => __('Left to Right','premium-addons-for-elementor'),
-                        'right'        => __('Right to Left','premium-addons-for-elementor'),
-                        ],
-                    'condition'     => [
-                        'premium_image_button_hover_effect' => 'style4',
-                        ],
-                    'label_block'   => true,
-                    ]
-                );
-        
+            [
+                'label'         => __('Slide Direction', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SELECT,
+                'default'       => 'bottom',
+                'options'       => [
+                    'top'          => __('Bottom to Top','premium-addons-for-elementor'),
+                    'bottom'       => __('Top to Bottom','premium-addons-for-elementor'),
+                    'left'         => __('Left to Right','premium-addons-for-elementor'),
+                    'right'        => __('Right to Left','premium-addons-for-elementor'),
+                ],
+                'label_block'   => true,
+                'condition'     => [
+                    'premium_image_button_hover_effect' => 'style4',
+                ],
+            ]
+        );
+    
         $this->add_control('premium_image_button_style5_dir', 
-                [
-                    'label'         => __('Overlap Direction', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::SELECT,
-                    'default'       => 'horizontal',
-                    'options'       => [
-                        'horizontal'          => __('Horizontal','premium-addons-for-elementor'),
-                        'vertical'       => __('Vertical','premium-addons-for-elementor'),
-                        ],
-                    'condition'     => [
-                        'premium_image_button_hover_effect' => 'style5',
-                        ],
-                    'label_block'   => true,
-                    ]
-                );
+            [
+                'label'         => __('Overlap Direction', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SELECT,
+                'default'       => 'horizontal',
+                'options'       => [
+                    'horizontal'          => __('Horizontal','premium-addons-for-elementor'),
+                    'vertical'       => __('Vertical','premium-addons-for-elementor'),
+                ],
+                'label_block'   => true,
+                'condition'     => [
+                    'premium_image_button_hover_effect' => 'style5',
+                ],
+            ]
+        );
         
         $this->add_control('premium_image_button_icon_switcher',
-                [
-                    'label'         => __('Icon', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::SWITCHER,
-                    'condition'     => [
-                        'premium_image_button_hover_effect!'  => 'style4'
-                    ],
-                    'description'   => __('Enable or disable button icon','premium-addons-for-elementor'),
-                ]
-                );
+            [
+                'label'         => __('Icon', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SWITCHER,
+                'description'   => __('Enable or disable button icon','premium-addons-for-elementor'),
+                'condition'     => [
+                    'premium_image_button_hover_effect!'  => 'style4'
+                ],
+            ]
+        );
+
+        $this->add_control('icon_type', 
+            [
+                'label'         => __('Icon Type', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SELECT,
+                'options'       => [
+                    'icon'          => __('Font Awesome', 'premium-addons-for-elementor'),
+                    'animation'     => __('Lottie Animation', 'premium-addons-for-elementor'),
+                ],
+                'default'       => 'icon',
+                'label_block'   => true,
+                'condition'     => [
+                    'premium_image_button_hover_effect!'  => 'style4',
+                    'premium_image_button_icon_switcher' => 'yes',
+                ],
+            ]
+        );
 
         $this->add_control('premium_image_button_icon_selection_updated',
             [
@@ -219,10 +256,69 @@ class Premium_Image_Button extends Widget_Base {
                     'library'   => 'fa-solid',
                 ],
                 'condition'     => [
-                    'premium_image_button_icon_switcher' => 'yes',
-                    'premium_image_button_hover_effect!'  =>  'style4'
+                    'premium_image_button_icon_switcher'    => 'yes',
+                    'premium_image_button_hover_effect!'    =>  'style4',
+                    'icon_type'                             => 'icon'
                 ],
                 'label_block'   => true,
+            ]
+        );
+
+        $this->add_control('lottie_url', 
+            [
+                'label'             => __( 'Animation JSON URL', 'premium-addons-for-elementor' ),
+                'type'              => Controls_Manager::TEXT,
+                'dynamic'           => [ 'active' => true ],
+                'description'       => 'Get JSON code URL from <a href="https://lottiefiles.com/" target="_blank">here</a>',
+                'label_block'       => true,
+                'condition'         => [
+                    'premium_image_button_icon_switcher'  => 'yes',
+                    'premium_image_button_hover_effect!'  => 'style4',
+                    'icon_type'                     => 'animation'
+                ],
+            ]
+        );
+
+        $this->add_control('lottie_loop',
+            [
+                'label'         => __('Loop','premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SWITCHER,
+                'return_value'  => 'true',
+                'default'       => 'true',
+                'condition'         => [
+                    'premium_image_button_icon_switcher'  => 'yes',
+                    'premium_image_button_hover_effect!'  => 'style4',
+                    'icon_type'                     => 'animation'
+                ],
+            ]
+        );
+
+        $this->add_control('lottie_reverse',
+            [
+                'label'         => __('Reverse','premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SWITCHER,
+                'return_value'  => 'true',
+                'condition'         => [
+                    'premium_image_button_icon_switcher'  => 'yes',
+                    'premium_image_button_hover_effect!'  => 'style4',
+                    'icon_type'                         => 'animation'
+                ],
+            ]
+        );
+
+        $this->add_control('slide_icon_type', 
+            [
+                'label'         => __('Icon Type', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SELECT,
+                'options'       => [
+                    'icon'          => __('Font Awesome', 'premium-addons-for-elementor'),
+                    'animation'     => __('Lottie Animation', 'premium-addons-for-elementor'),
+                ],
+                'default'       => 'icon',
+                'label_block'   => true,
+                'condition'     => [
+                    'premium_image_button_hover_effect'  => 'style4'
+                ],
             ]
         );
         
@@ -235,112 +331,152 @@ class Premium_Image_Button extends Widget_Base {
                     'value'     => 'fas fa-bars',
                     'library'   => 'fa-solid',
                 ],
+                'label_block'   => true,
                 'condition'     => [
+                    'slide_icon_type'   => 'icon',
                     'premium_image_button_hover_effect'  => 'style4'
                 ],
-                'label_block'   => true,
+            ]
+        );
+
+        $this->add_control('slide_lottie_url', 
+            [
+                'label'             => __( 'Animation JSON URL', 'premium-addons-for-elementor' ),
+                'type'              => Controls_Manager::TEXT,
+                'dynamic'           => [ 'active' => true ],
+                'description'       => 'Get JSON code URL from <a href="https://lottiefiles.com/" target="_blank">here</a>',
+                'label_block'       => true,
+                'condition'     => [
+                    'slide_icon_type'   => 'animation',
+                    'premium_image_button_hover_effect'  => 'style4'
+                ],
+            ]
+        );
+
+        $this->add_control('slide_lottie_loop',
+            [
+                'label'         => __('Loop','premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SWITCHER,
+                'return_value'  => 'true',
+                'default'       => 'true',
+                'condition'     => [
+                    'slide_icon_type'   => 'animation',
+                    'premium_image_button_hover_effect'  => 'style4'
+                ]
+            ]
+        );
+
+        $this->add_control('slide_lottie_reverse',
+            [
+                'label'         => __('Reverse','premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SWITCHER,
+                'return_value'  => 'true',
+                'condition'     => [
+                    'slide_icon_type'   => 'animation',
+                    'premium_image_button_hover_effect'  => 'style4'
+                ]
             ]
         );
         
         $this->add_control('premium_image_button_icon_position', 
-                [
-                    'label'         => __('Icon Position', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::SELECT,
-                    'default'       => 'before',
-                    'options'       => [
-                        'before'        => __('Before','premium-addons-for-elementor'),
-                        'after'         => __('After','premium-addons-for-elementor'),
-                        ],
-                    'condition'     => [
-                        'premium_image_button_icon_switcher' => 'yes',
-                        'premium_image_button_hover_effect!'  =>  'style4'
-                    ],
-                    'label_block'   => true,
-                    ]
-                );
+            [
+                'label'         => __('Icon Position', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SELECT,
+                'default'       => 'before',
+                'options'       => [
+                    'before'        => __('Before','premium-addons-for-elementor'),
+                    'after'         => __('After','premium-addons-for-elementor'),
+                ],
+                'label_block'   => true,
+                'condition'     => [
+                    'premium_image_button_icon_switcher' => 'yes',
+                    'premium_image_button_hover_effect!'  =>  'style4'
+                ],
+            ]
+        );
         
         $this->add_responsive_control('premium_image_button_icon_before_size',
-                [
-                    'label'         => __('Icon Size', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::SLIDER,
-                    'condition'     => [
-                        'premium_image_button_icon_switcher' => 'yes',
-                        'premium_image_button_hover_effect!'  => 'style4'
-                    ],
-                    'selectors'     => [
-                        '{{WRAPPER}} .premium-image-button-text-icon-wrapper i' => 'font-size: {{SIZE}}px',
-                        '{{WRAPPER}} .premium-image-button-text-icon-wrapper svg' => 'width: {{SIZE}}px; height: {{SIZE}}px',
-                    ]
+            [
+                'label'         => __('Icon Size', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SLIDER,
+                'condition'     => [
+                    'premium_image_button_icon_switcher' => 'yes',
+                    'premium_image_button_hover_effect!'  => 'style4'
+                ],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-image-button-text-icon-wrapper i' => 'font-size: {{SIZE}}px',
+                    '{{WRAPPER}} .premium-image-button-text-icon-wrapper svg' => 'width: {{SIZE}}px; height: {{SIZE}}px',
                 ]
-                );
+            ]
+        );
         
         $this->add_responsive_control('premium_image_button_icon_style4_size',
-                [
-                    'label'         => __('Icon Size', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::SLIDER,
-                    'condition'     => [
-                        'premium_image_button_hover_effect'  => 'style4'
-                    ],
-                    'selectors'     => [
-                        '{{WRAPPER}} .premium-image-button-style4-icon-wrapper i' => 'font-size: {{SIZE}}px',
-                        '{{WRAPPER}} .premium-image-button-style4-icon-wrapper svg' => 'width: {{SIZE}}px; height: {{SIZE}}px',
-                    ]
+            [
+                'label'         => __('Icon Size', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SLIDER,
+                'condition'     => [
+                    'premium_image_button_hover_effect'  => 'style4'
+                ],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-image-button-style4-icon-wrapper i' => 'font-size: {{SIZE}}px',
+                    '{{WRAPPER}} .premium-image-button-style4-icon-wrapper svg' => 'width: {{SIZE}}px; height: {{SIZE}}px',
                 ]
-                );
+            ]
+        );
         
         $this->add_responsive_control('premium_image_button_icon_before_spacing',
-                [
-                    'label'         => __('Icon Spacing', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::SLIDER,
-                    'condition'     => [
-                        'premium_image_button_icon_switcher' => 'yes',
-                        'premium_image_button_icon_position' => 'before',
-                        'premium_image_button_hover_effect!' => 'style4'
-                    ],
-                    'default'       => [
-                        'size'  => 15
-                    ],
-                    'selectors'     => [
-                        '{{WRAPPER}} .premium-image-button-text-icon-wrapper i' => 'margin-right: {{SIZE}}px',
-                    ],
-                    'separator'     => 'after',
-                ]
-                );
+            [
+                'label'         => __('Icon Spacing', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SLIDER,
+                'default'       => [
+                    'size'  => 15
+                ],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-image-button-text-icon-wrapper i, {{WRAPPER}} .premium-image-button-text-icon-wrapper svg' => 'margin-right: {{SIZE}}px',
+                ],
+                'separator'     => 'after',
+                'condition'     => [
+                    'premium_image_button_icon_switcher' => 'yes',
+                    'premium_image_button_icon_position' => 'before',
+                    'premium_image_button_hover_effect!' => 'style4'
+                ],
+            ]
+        );
         
         $this->add_responsive_control('premium_image_button_icon_after_spacing',
-                [
-                    'label'         => __('Icon Spacing', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::SLIDER,
-                    'condition'     => [
-                        'premium_image_button_icon_switcher' => 'yes',
-                        'premium_image_button_icon_position' => 'after',
-                        'premium_image_button_hover_effect!' => 'style4'
-                    ],
-                    'default'       => [
-                        'size'  => 15
-                    ],
-                    'selectors'     => [
-                        '{{WRAPPER}} .premium-image-button-text-icon-wrapper i' => 'margin-left: {{SIZE}}px',
-                    ],
-                    'separator'     => 'after',
-                ]
-                );
+            [
+                'label'         => __('Icon Spacing', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SLIDER,
+                'default'       => [
+                    'size'  => 15
+                ],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-image-button-text-icon-wrapper i, {{WRAPPER}} .premium-image-button-text-icon-wrapper svg' => 'margin-left: {{SIZE}}px',
+                ],
+                'separator'     => 'after',
+                'condition'     => [
+                    'premium_image_button_icon_switcher' => 'yes',
+                    'premium_image_button_icon_position' => 'after',
+                    'premium_image_button_hover_effect!' => 'style4'
+                ],
+            ]
+        );
         
         $this->add_control('premium_image_button_size', 
-                [
-                    'label'         => __('Size', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::SELECT,
-                    'default'       => 'lg',
-                    'options'       => [
-                            'sm'            => __('Small','premium-addons-for-elementor'),
-                            'md'            => __('Medium','premium-addons-for-elementor'),
-                            'lg'            => __('Large','premium-addons-for-elementor'),
-                            'block'         => __('Block','premium-addons-for-elementor'),
-                        ],
-                    'label_block'   => true,
-                    'separator'     => 'before',
-                    ]
-                );
+            [
+                'label'         => __('Size', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SELECT,
+                'default'       => 'lg',
+                'options'       => [
+                    'sm'            => __('Small','premium-addons-for-elementor'),
+                    'md'            => __('Medium','premium-addons-for-elementor'),
+                    'lg'            => __('Large','premium-addons-for-elementor'),
+                    'block'         => __('Block','premium-addons-for-elementor'),
+                ],
+                'label_block'   => true,
+                'separator'     => 'before',
+            ]
+        );
         
         $this->add_responsive_control('premium_image_button_align',
 			[
@@ -368,23 +504,23 @@ class Premium_Image_Button extends Widget_Base {
 		);
         
         $this->add_control('premium_image_button_event_switcher', 
-                [
-                    'label'         => __('onclick Event', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::SWITCHER,
-                    'separator'     => 'before',
-                    ]
-                );
+            [
+                'label'         => __('onclick Event', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SWITCHER,
+                'separator'     => 'before',
+            ]
+        );
         
         $this->add_control('premium_image_button_event_function', 
-                [
-                    'label'         => __('Example: myFunction();', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::TEXTAREA,
-                    'dynamic'       => [ 'active' => true ],
-                    'condition'     => [
-                        'premium_image_button_event_switcher' => 'yes',
-                        ],
-                    ]
-                );
+            [
+                'label'         => __('Example: myFunction();', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::TEXTAREA,
+                'dynamic'       => [ 'active' => true ],
+                'condition'     => [
+                    'premium_image_button_event_switcher' => 'yes',
+                ],
+            ]
+        );
         
         $this->end_controls_section();
 
@@ -437,8 +573,9 @@ class Premium_Image_Button extends Widget_Base {
                     '{{WRAPPER}} .premium-image-button-text-icon-wrapper i'   => 'color: {{VALUE}};',
                 ],
                 'condition'         => [
-                    'premium_image_button_icon_switcher'  => 'yes',
-                    'premium_image_button_hover_effect!'   => 'style4'
+                    'premium_image_button_icon_switcher'    => 'yes',
+                    'icon_type'                             => 'icon',
+                    'premium_image_button_hover_effect!'    => 'style4'
                 ]
             ]);
         
@@ -473,17 +610,17 @@ class Premium_Image_Button extends Widget_Base {
         
         $this->add_group_control(
             Group_Control_Text_Shadow::get_type(),
-                [
-                    'label'         => __('Icon Shadow','premium-addons-for-elementor'),
-                    'name'          => 'premium_image_button_icon_shadow_normal',
-                    'selector'      => '{{WRAPPER}} .premium-image-button-text-icon-wrapper i',
-                    'condition'         => [
-                        'premium_image_button_icon_switcher'  => 'yes',
-                        'premium_image_button_hover_effect!'  => 'style4'
-                    
-                        ]
-                    ]
-                );
+            [
+                'label'         => __('Icon Shadow','premium-addons-for-elementor'),
+                'name'          => 'premium_image_button_icon_shadow_normal',
+                'selector'      => '{{WRAPPER}} .premium-image-button-text-icon-wrapper i',
+                'condition'         => [
+                    'premium_image_button_icon_switcher'    => 'yes',
+                    'icon_type'                             => 'icon',
+                    'premium_image_button_hover_effect!'    => 'style4'
+                ]
+            ]
+        );
         
         $this->add_group_control(
             Group_Control_Text_Shadow::get_type(),
@@ -559,12 +696,14 @@ class Premium_Image_Button extends Widget_Base {
                     '{{WRAPPER}} .premium-image-button:hover .premium-image-button-text-icon-wrapper i'   => 'color: {{VALUE}};',
                 ],
                 'condition'         => [
-                    'premium_image_button_icon_switcher'  => 'yes',
-                    'premium_image_button_hover_effect!'  => 'style4'
+                    'premium_image_button_icon_switcher'    => 'yes',
+                    'icon_type'                             => 'icon',
+                    'premium_image_button_hover_effect!'    => 'style4'
                 ]
-            ]);
+            ]
+        );
 
-            $this->add_control('premium_image_button_style4_icon_color',
+        $this->add_control('premium_image_button_style4_icon_color',
             [
                 'label'             => __('Icon Color', 'premium-addons-for-elementor'),
                 'type'              => Controls_Manager::COLOR,
@@ -576,11 +715,13 @@ class Premium_Image_Button extends Widget_Base {
                     '{{WRAPPER}} .premium-image-button:hover .premium-image-button-style4-icon-wrapper'   => 'color: {{VALUE}};',
                 ],
                 'condition'         => [
-                    'premium_image_button_hover_effect'  => 'style4'
+                    'premium_image_button_hover_effect'  => 'style4',
+                    'slide_icon_type'   => 'icon'
                 ]
-            ]);
+            ]
+        );
 
-            $this->add_control('premium_image_button_diagonal_overlay_color',
+        $this->add_control('premium_image_button_diagonal_overlay_color',
             [
                 'label'             => __('Overlay Color', 'premium-addons-for-elementor'),
                 'type'              => Controls_Manager::COLOR,
@@ -594,10 +735,10 @@ class Premium_Image_Button extends Widget_Base {
                 'condition'         => [
                     'premium_image_button_hover_effect'  => 'style3'
                 ]
-            ]);
+            ]
+        );
 
-
-            $this->add_control('premium_image_button_overlap_overlay_color',
+        $this->add_control('premium_image_button_overlap_overlay_color',
             [
                 'label'             => __('Overlay Color', 'premium-addons-for-elementor'),
                 'type'              => Controls_Manager::COLOR,
@@ -611,7 +752,8 @@ class Premium_Image_Button extends Widget_Base {
                 'condition'         => [
                     'premium_image_button_hover_effect'  => 'style5'
                 ]
-            ]);
+            ]
+        );
             
         $this->add_group_control(
             Group_Control_Background::get_type(),
@@ -660,40 +802,42 @@ class Premium_Image_Button extends Widget_Base {
         
         $this->add_group_control(
             Group_Control_Text_Shadow::get_type(),
-                [
-                    'label'         => __('Icon Shadow','premium-addons-for-elementor'),
-                    'name'          => 'premium_image_button_icon_shadow_hover',
-                    'selector'      => '{{WRAPPER}} .premium-image-button:hover .premium-image-button-text-icon-wrapper i',
-                    'condition'         => [
-                        'premium_image_button_icon_switcher'  => 'yes',
-                        'premium_image_button_hover_effect!'     => 'style4'
-                        ]
-                    ]
-                );
+            [
+                'label'         => __('Icon Shadow','premium-addons-for-elementor'),
+                'name'          => 'premium_image_button_icon_shadow_hover',
+                'selector'      => '{{WRAPPER}} .premium-image-button:hover .premium-image-button-text-icon-wrapper i',
+                'condition'         => [
+                    'premium_image_button_icon_switcher'    => 'yes',
+                    'icon_type'                             => 'icon',
+                    'premium_image_button_hover_effect!'    => 'style4'
+                ]
+            ]
+        );
         
         $this->add_group_control(
             Group_Control_Text_Shadow::get_type(),
-                [
-                    'label'         => __('Icon Shadow','premium-addons-for-elementor'),
-                    'name'          => 'premium_image_button_style4_icon_shadow_hover',
-                    'selector'      => '{{WRAPPER}} .premium-image-button:hover .premium-image-button-style4-icon-wrapper i',
-                    'condition'         => [
-                        'premium_image_button_hover_effect'     => 'style4'
-                        ]
-                    ]
-                );
-        
+            [
+                'label'         => __('Icon Shadow','premium-addons-for-elementor'),
+                'name'          => 'premium_image_button_style4_icon_shadow_hover',
+                'selector'      => '{{WRAPPER}} .premium-image-button:hover .premium-image-button-style4-icon-wrapper i',
+                'condition'         => [
+                    'premium_image_button_hover_effect'     => 'style4',
+                    'slide_icon_type'   => 'icon'
+                ]
+            ]
+        );
+    
         $this->add_group_control(
             Group_Control_Text_Shadow::get_type(),
-                [
-                    'label'         => __('Text Shadow','premium-addons-for-elementor'),
-                    'name'          => 'premium_image_button_text_shadow_hover',
-                    'selector'      => '{{WRAPPER}}  .premium-image-button:hover .premium-image-button-text-icon-wrapper span',
-                    'condition'         => [
-                       'premium_image_button_hover_effect!'   => 'style4'
-                        ]
-                    ]
-                );
+            [
+                'label'         => __('Text Shadow','premium-addons-for-elementor'),
+                'name'          => 'premium_image_button_text_shadow_hover',
+                'selector'      => '{{WRAPPER}}  .premium-image-button:hover .premium-image-button-text-icon-wrapper span',
+                'condition'         => [
+                    'premium_image_button_hover_effect!'   => 'style4'
+                ]
+            ]
+        );
         
         $this->add_group_control(
             Group_Control_Box_Shadow::get_type(),
@@ -731,6 +875,14 @@ class Premium_Image_Button extends Widget_Base {
         $this->end_controls_section();
     }
 
+    /**
+	 * Render Image Button widget output on the frontend.
+	 *
+	 * Written in PHP and used to generate the final HTML.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function render() {
         
         $settings = $this->get_settings_for_display();
@@ -754,8 +906,20 @@ class Premium_Image_Button extends Widget_Base {
             $this->add_render_attribute( 'icon', 'aria-hidden', 'true' );
         }
         
-        $migrated = isset( $settings['__fa4_migrated']['premium_image_button_icon_selection_updated'] );
-        $is_new = empty( $settings['premium_image_button_icon_selection'] ) && Icons_Manager::is_migration_allowed();
+        $icon_type = $settings['icon_type'];
+
+        if( 'icon' === $icon_type ) {
+            $migrated = isset( $settings['__fa4_migrated']['premium_image_button_icon_selection_updated'] );
+            $is_new = empty( $settings['premium_image_button_icon_selection'] ) && Icons_Manager::is_migration_allowed();
+        } else {
+            $this->add_render_attribute( 'lottie', [
+                    'class' => 'premium-lottie-animation',
+                    'data-lottie-url' => $settings['lottie_url'],
+                    'data-lottie-loop' => $settings['lottie_loop'],
+                    'data-lottie-reverse' => $settings['lottie_reverse'],
+                ]
+            );
+        }
         
         if ($settings['premium_image_button_hover_effect'] == 'none'){
             $style_dir = 'premium-image-button-none';
@@ -766,13 +930,30 @@ class Premium_Image_Button extends Widget_Base {
         }   elseif($settings['premium_image_button_hover_effect'] == 'style4'){
             $style_dir = 'premium-image-button-style4-' . $settings['premium_image_button_style4_dir'];
             
-            if ( ! empty ( $settings['premium_image_button_style4_icon_selection'] ) ) {
-                $this->add_render_attribute( 'slide_icon', 'class', $settings['premium_image_button_style4_icon_selection'] );
-                $this->add_render_attribute( 'slide_icon', 'aria-hidden', 'true' );
+            $slide_icon_type = $settings['slide_icon_type'];
+
+            if( 'icon' === $slide_icon_type ) {
+                
+                if ( ! empty ( $settings['premium_image_button_style4_icon_selection'] ) ) {
+                    $this->add_render_attribute( 'slide_icon', 'class', $settings['premium_image_button_style4_icon_selection'] );
+                    $this->add_render_attribute( 'slide_icon', 'aria-hidden', 'true' );
+                }
+                
+                $slide_migrated = isset( $settings['__fa4_migrated']['premium_image_button_style4_icon_selection_updated'] );
+                $slide_is_new = empty( $settings['premium_image_button_style4_icon_selection'] ) && Icons_Manager::is_migration_allowed();
+
+            } else {
+
+                $this->add_render_attribute( 'slide_lottie', [
+                        'class' => 'premium-lottie-animation',
+                        'data-lottie-url' => $settings['slide_lottie_url'],
+                        'data-lottie-loop' => $settings['slide_lottie_loop'],
+                        'data-lottie-reverse' => $settings['slide_lottie_reverse'],
+                    ]
+                );
+
             }
             
-            $slide_migrated = isset( $settings['__fa4_migrated']['premium_image_button_style4_icon_selection_updated'] );
-            $slide_is_new = empty( $settings['premium_image_button_style4_icon_selection'] ) && Icons_Manager::is_migration_allowed();
             
         }   elseif($settings['premium_image_button_hover_effect'] == 'style5'){
             $style_dir = 'premium-image-button-overlap-effect-' . $settings['premium_image_button_style5_dir'];
@@ -803,31 +984,48 @@ class Premium_Image_Button extends Widget_Base {
     <div class="premium-image-button-container">
         <a <?php echo $this->get_render_attribute_string( 'button' ); ?>>
             <div class="premium-image-button-text-icon-wrapper">
-            <?php if( 'yes' === $settings['premium_image_button_icon_switcher'] && $settings['premium_image_button_hover_effect'] !== 'style4' && $settings['premium_image_button_icon_position'] === 'before' ) :
-                if ( $is_new || $migrated ) :
-                    Icons_Manager::render_icon( $settings['premium_image_button_icon_selection_updated'], [ 'aria-hidden' => 'true' ] );
-                else: ?>
-                    <i <?php echo $this->get_render_attribute_string( 'icon' ); ?>></i>
-                <?php endif;
-            endif; ?>
-                <span <?php echo $this->get_render_attribute_string( 'premium_image_button_text' ); ?>>
-                    <?php echo $button_text; ?>
-                </span>
-            <?php if( 'yes' === $settings['premium_image_button_icon_switcher'] && $settings['premium_image_button_hover_effect'] != 'style4' &&  $settings['premium_image_button_icon_position'] == 'after' ) :
-                if ( $is_new || $migrated ) :
-                    Icons_Manager::render_icon( $settings['premium_image_button_icon_selection_updated'], [ 'aria-hidden' => 'true' ] );
-                else: ?>
-                    <i <?php echo $this->get_render_attribute_string( 'icon' ); ?>></i>
-                <?php endif;
-            endif; ?>
+            <?php if('yes' === $settings['premium_image_button_icon_switcher'] ) : ?>
+                <?php if( $settings['premium_image_button_hover_effect'] !== 'style4' && $settings['premium_image_button_icon_position'] === 'before' ) : ?>
+                    <?php if( 'icon' === $icon_type ) : ?>
+                        <?php if ( $is_new || $migrated ) :
+                            Icons_Manager::render_icon( $settings['premium_image_button_icon_selection_updated'], [ 'aria-hidden' => 'true' ] );
+                        else: ?>
+                            <i <?php echo $this->get_render_attribute_string( 'icon' ); ?>></i>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <div <?php echo $this->get_render_attribute_string( 'lottie' ); ?>></div>
+                    <?php endif; ?>
+                <?php endif; ?>
+            <?php endif; ?>
+            
+            <span <?php echo $this->get_render_attribute_string( 'premium_image_button_text' ); ?>>
+                <?php echo $button_text; ?>
+            </span>
+            <?php if('yes' === $settings['premium_image_button_icon_switcher'] ) : ?>
+                <?php if( $settings['premium_image_button_hover_effect'] !== 'style4' &&  $settings['premium_image_button_icon_position'] == 'after' ) : ?>
+                    <?php if( 'icon' === $icon_type ) : ?>
+                    <?php if ( $is_new || $migrated ) :
+                        Icons_Manager::render_icon( $settings['premium_image_button_icon_selection_updated'], [ 'aria-hidden' => 'true' ] );
+                    else: ?>
+                        <i <?php echo $this->get_render_attribute_string( 'icon' ); ?>></i>
+                    <?php endif; ?>
+                    <?php else: ?>
+                        <div <?php echo $this->get_render_attribute_string( 'lottie' ); ?>></div>
+                    <?php endif; ?>
+                <?php endif; ?>
+            <?php endif; ?>
         </div>
         <?php if( $settings['premium_image_button_hover_effect'] == 'style4') : ?>
             <div class="premium-image-button-style4-icon-wrapper <?php echo esc_attr( $settings['premium_image_button_style4_dir'] ); ?>">
-                <?php if ( $slide_is_new || $slide_migrated ) :
-                    Icons_Manager::render_icon( $settings['premium_image_button_style4_icon_selection_updated'], [ 'aria-hidden' => 'true' ] );
-                else: ?>
-                    <i <?php echo $this->get_render_attribute_string( 'slide_icon' ); ?>></i>
-                <?php endif; ?>
+                <?php if( 'icon' === $slide_icon_type ) : ?>
+                    <?php if ( $slide_is_new || $slide_migrated ) :
+                        Icons_Manager::render_icon( $settings['premium_image_button_style4_icon_selection_updated'], [ 'aria-hidden' => 'true' ] );
+                    else: ?>
+                        <i <?php echo $this->get_render_attribute_string( 'slide_icon' ); ?>></i>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <div <?php echo $this->get_render_attribute_string( 'slide_lottie' ); ?>></div>
+                <?php endif;?>
             </div>
         <?php endif; ?>
         </a>
@@ -836,6 +1034,14 @@ class Premium_Image_Button extends Widget_Base {
     <?php
     }
     
+    /**
+	 * Render Image Button widget output in the editor.
+	 *
+	 * Written as a Backbone JavaScript template and used to generate the live preview.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function _content_template() {
         ?>
         <#
@@ -864,44 +1070,90 @@ class Premium_Image_Button extends Widget_Base {
             styleDir = 'premium-image-button-diagonal-effect-' + settings.premium_image_button_style3_dir;
         } else if ( 'style4' == settings.premium_image_button_hover_effect ) {
             styleDir = 'premium-image-button-style4-' + settings.premium_image_button_style4_dir;
-            slideIcon = settings.premium_image_button_style4_icon_selection;
+
+            var slideIconType = settings.slide_icon_type;
+
+            if( 'icon' === slideIconType ) {
+                slideIcon = settings.premium_image_button_style4_icon_selection;
             
-            var slideIconHTML = elementor.helpers.renderIcon( view, settings.premium_image_button_style4_icon_selection_updated, { 'aria-hidden': true }, 'i' , 'object' ),
-                slideMigrated = elementor.helpers.isIconMigrated( settings, 'premium_image_button_style4_icon_selection_updated' );
+                var slideIconHTML = elementor.helpers.renderIcon( view, settings.premium_image_button_style4_icon_selection_updated, { 'aria-hidden': true }, 'i' , 'object' ),
+                    slideMigrated = elementor.helpers.isIconMigrated( settings, 'premium_image_button_style4_icon_selection_updated' );
+
+            } else {
+
+                view.addRenderAttribute( 'slide_lottie', {
+                    'class': 'premium-lottie-animation',
+                    'data-lottie-url': settings.slide_lottie_url,
+                    'data-lottie-loop': settings.slide_lottie_loop,
+                    'data-lottie-reverse': settings.slide_lottie_reverse
+                });
+            
+            }
+            
         } else if ( 'style5' == settings.premium_image_button_hover_effect ){
             styleDir = 'premium-image-button-overlap-effect-' + settings.premium_image_button_style5_dir;
         }
         
-        var iconHTML = elementor.helpers.renderIcon( view, settings.premium_image_button_icon_selection_updated, { 'aria-hidden': true }, 'i' , 'object' ),
-            migrated = elementor.helpers.isIconMigrated( settings, 'premium_image_button_icon_selection_updated' );
+        var iconType = settings.icon_type;
+
+        if( 'icon' === iconType ) {
+            var iconHTML = elementor.helpers.renderIcon( view, settings.premium_image_button_icon_selection_updated, { 'aria-hidden': true }, 'i' , 'object' ),
+                migrated = elementor.helpers.isIconMigrated( settings, 'premium_image_button_icon_selection_updated' );
+        } else {
+
+            view.addRenderAttribute( 'slide_lottie', {
+                'class': 'premium-lottie-animation',
+                'data-lottie-url': settings.lottie_url,
+                'data-lottie-loop': settings.lottie_loop,
+                'data-lottie-reverse': settings.lottie_reverse
+            });
+            
+        }
         
         #>
         
         <div class="premium-image-button-container">
             <a class="premium-image-button  {{ buttonSize }} {{ styleDir }}" href="{{ buttonUrl }}" onclick="{{ buttonEvent }}">
                 <div class="premium-image-button-text-icon-wrapper">
-                    <# if( 'yes' === settings.premium_image_button_icon_switcher && 'before' === settings.premium_image_button_icon_position &&  'style4' !== settings.premium_image_button_hover_effect ) {
-                        if ( iconHTML && iconHTML.rendered && ( ! buttonIcon || migrated ) ) { #>
-                            {{{ iconHTML.value }}}
-                        <# } else { #>
-                            <i class="{{ buttonIcon }}" aria-hidden="true"></i>
-                        <# }
-                    } #>
+                    <# if ('yes' === settings.premium_image_button_icon_switcher) { #>
+                        <# if( 'before' === settings.premium_image_button_icon_position &&  'style4' !== settings.premium_image_button_hover_effect ) { #>
+                            <# if( 'icon' === iconType ) {
+                                if ( iconHTML && iconHTML.rendered && ( ! buttonIcon || migrated ) ) { #>
+                                    {{{ iconHTML.value }}}
+                                <# } else { #>
+                                    <i class="{{ buttonIcon }}" aria-hidden="true"></i>
+                                <# } #>
+                            <# } else { #>
+                                <div {{{ view.getRenderAttributeString('lottie') }}}></div>
+                            <# } #>
+                        <# } #>
+                    <# } #>
+                    
                     <span {{{ view.getRenderAttributeString('premium_image_button_text') }}}>{{{ buttonText }}}</span>
-                    <# if( 'yes' === settings.premium_image_button_icon_switcher && 'after' === settings.premium_image_button_icon_position && 'style4' !== settings.premium_image_button_hover_effect ) {
-                        if ( iconHTML && iconHTML.rendered && ( ! buttonIcon || migrated ) ) { #>
-                            {{{ iconHTML.value }}}
-                        <# } else { #>
-                            <i class="{{ buttonIcon }}" aria-hidden="true"></i>
-                        <# }
-                    } #>
+                    <# if ('yes' === settings.premium_image_button_icon_switcher) { #>
+                        <# if( 'after' === settings.premium_image_button_icon_position && 'style4' !== settings.premium_image_button_hover_effect ) { #>
+                            <# if( 'icon' === iconType ) {
+                                if ( iconHTML && iconHTML.rendered && ( ! buttonIcon || migrated ) ) { #>
+                                    {{{ iconHTML.value }}}
+                                <# } else { #>
+                                    <i class="{{ buttonIcon }}" aria-hidden="true"></i>
+                                <# } #>
+                            <# } else { #>
+                                <div {{{ view.getRenderAttributeString('lottie') }}}></div>
+                            <# } #>
+                        <# } #>
+                    <# } #>
                 </div>
                 <# if( 'style4' == settings.premium_image_button_hover_effect ) { #>
                     <div class="premium-image-button-style4-icon-wrapper {{ settings.premium_image_button_style4_dir }}">
-                        <# if ( slideIconHTML && slideIconHTML.rendered && ( ! slideIcon || slideMigrated ) ) { #>
-                            {{{ slideIconHTML.value }}}
+                        <# if ( 'icon' === slideIconType ) { #>
+                            <# if ( slideIconHTML && slideIconHTML.rendered && ( ! slideIcon || slideMigrated ) ) { #>
+                                {{{ slideIconHTML.value }}}
+                            <# } else { #>
+                                <i class="{{ slideIcon }}" aria-hidden="true"></i>
+                            <# } #>    
                         <# } else { #>
-                            <i class="{{ slideIcon }}" aria-hidden="true"></i>
+                            <div {{{ view.getRenderAttributeString('slide_lottie') }}}></div>
                         <# } #>
                     </div>
                 <# } #>

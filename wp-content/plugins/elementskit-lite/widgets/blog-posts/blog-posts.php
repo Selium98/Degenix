@@ -2786,7 +2786,7 @@ class Elementskit_Widget_Blog_Posts extends Widget_Base {
         <?php endwhile; ?>
         </div>
        <?php
-       wp_reset_query();
+        wp_reset_postdata();
    }
 
    protected function _content_template() { }

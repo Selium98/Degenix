@@ -1,15 +1,11 @@
 <?php
 
 /**
- * Class: Premium_Image_Scroll
- * Name: Image Scroll
- * Slug: premium-image-scroll
+ * Premium Image Scroll.
  */
-
 namespace PremiumAddons\Widgets;
 
-use PremiumAddons\Helper_Functions;
-use PremiumAddons\Includes;
+// Elementor Classes.
 use Elementor\Widget_Base;
 use Elementor\Utils;
 use Elementor\Control_Media;
@@ -19,8 +15,15 @@ use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Css_Filter;
 use Elementor\Group_Control_Box_Shadow;
 
+// PremiumAddons Classes.
+use PremiumAddons\Helper_Functions;
+use PremiumAddons\Includes;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+/**
+ * Class Premium_Image_Scroll
+ */
 class Premium_Image_Scroll extends Widget_Base {
     
     public function getTemplateInstance() {
@@ -494,6 +497,14 @@ class Premium_Image_Scroll extends Widget_Base {
 
     }
     
+    /**
+	 * Render Image Scroll widget output on the frontend.
+	 *
+	 * Written in PHP and used to generate the final HTML.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function render() {
         
         $settings = $this->get_settings_for_display();
@@ -579,6 +590,14 @@ class Premium_Image_Scroll extends Widget_Base {
       
     }
     
+    /**
+	 * Render Image Scroll widget output in the editor.
+	 *
+	 * Written as a Backbone JavaScript template and used to generate the live preview.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function _content_template() {
     ?>
         <#

@@ -1,11 +1,22 @@
 <?php
 
+/**
+ * PA Helper Functions.
+ */
 namespace PremiumAddons;
 
 if( ! defined('ABSPATH') ) exit;
 
+/**
+ * Class Helper_Functions.
+ */
 class Helper_Functions {
     
+    /**
+	 * Google maps prefixes
+	 *
+	 * @var google_localize
+	 */
     private static $google_localize = null;
     
     /**
@@ -40,10 +51,11 @@ class Helper_Functions {
      * Check if white labeling - hide rating message is checked
      * 
      * @since 1.0.0
-     * @return boolean
+     * @access public
      * 
+     * @return boolean
      */
-    public static function is_hide_rate() {
+    public static function is_hide_rate(){
         
         if( defined('PREMIUM_PRO_ADDONS_VERSION') ) {
             if( isset(get_option('pa_wht_lbl_save_settings')['premium-wht-lbl-rate'] ) ) {
@@ -58,10 +70,11 @@ class Helper_Functions {
      * Check if white labeling - hide about page is checked
      * 
      * @since 1.0.0
-     * @return boolean
+     * @access public
      * 
+     * @return boolean
      */
-    public static function is_hide_about() {
+    public static function is_hide_about(){
         
         if( defined('PREMIUM_PRO_ADDONS_VERSION') ) {
             if(isset(get_option('pa_wht_lbl_save_settings')['premium-wht-lbl-about'])){
@@ -76,14 +89,15 @@ class Helper_Functions {
      * Check if white labeling - hide version control page is checked
      * 
      * @since 1.0.0
-     * @return boolean
+     * @access public
      * 
+     * @return boolean
      */
-    public static function is_hide_version_control() {
+    public static function is_hide_version_control(){
         
         if( defined('PREMIUM_PRO_ADDONS_VERSION') ) {
-                if(isset(get_option('pa_wht_lbl_save_settings')['premium-wht-lbl-version'])){
-                    $hide_version_tab = get_option('pa_wht_lbl_save_settings')['premium-wht-lbl-version'];
+            if(isset(get_option('pa_wht_lbl_save_settings')['premium-wht-lbl-version'])){
+                $hide_version_tab = get_option('pa_wht_lbl_save_settings')['premium-wht-lbl-version'];
             }
         }
         
@@ -94,10 +108,11 @@ class Helper_Functions {
      * Check if white labeling - Free version author field is set
      * 
      * @since 1.0.0
-     * @return string
+     * @access public
      * 
+     * @return string
      */
-    public static function author() {
+    public static function author(){
         
         if( defined('PREMIUM_PRO_ADDONS_VERSION') ) {
             if(isset(get_option('pa_wht_lbl_save_settings')['premium-wht-lbl-name'])){
@@ -112,8 +127,9 @@ class Helper_Functions {
      * Check if white labeling - Free version name field is set
      * 
      * @since 1.0.0
-     * @return string
+     * @access public
      * 
+     * @return string
      */
     public static function name() {
         
@@ -148,10 +164,11 @@ class Helper_Functions {
      * Check if white labeling - Hide plugin logo option is checked
      * 
      * @since 1.0.0
-     * @return string
+     * @access public
      * 
+     * @return string
      */
-    public static function is_hide_logo() {
+    public static function is_hide_logo(){
         
         if( defined('PREMIUM_PRO_ADDONS_VERSION') ) {
             if(isset(get_option('pa_wht_lbl_save_settings')['premium-wht-lbl-logo'])){
@@ -166,10 +183,11 @@ class Helper_Functions {
      * Get White Labeling - Widgets Category string
      * 
      * @since 1.0.0
-     * @return string
+     * @access public
      * 
+     * @return string
      */
-    public static function get_category() {
+    public static function get_category(){
         
         if( defined('PREMIUM_PRO_ADDONS_VERSION') ) {
             if(isset(get_option('pa_wht_lbl_save_settings')['premium-wht-lbl-short-name'])){
@@ -185,10 +203,11 @@ class Helper_Functions {
      * Get White Labeling - Widgets Prefix string
      * 
      * @since 1.0.0
-     * @return string
+     * @access public
      * 
+     * @return string
      */
-    public static function get_prefix() {
+    public static function get_prefix(){
         
         if( defined('PREMIUM_PRO_ADDONS_VERSION') ) {
             if(isset(get_option('pa_wht_lbl_save_settings')['premium-wht-lbl-prefix'])){
@@ -203,8 +222,9 @@ class Helper_Functions {
      * Get White Labeling - Widgets Badge string
      * 
      * @since 1.0.0
-     * @return string
+     * @access public
      * 
+     * @return string
      */
     public static function get_badge() {
         
@@ -221,10 +241,11 @@ class Helper_Functions {
      * Get Google Maps localization prefixes
      * 
      * @since 1.0.0
-     * @return string
+     * @access public
      * 
+     * @return array
      */
-    public static function get_google_languages() {
+    public static function get_google_maps_prefixes() {
         
         if ( null === self::$google_localize ) {
 
@@ -293,8 +314,11 @@ class Helper_Functions {
      * Checks if a plugin is installed
      * 
      * @since 1.0.0
-     * @return boolean
+     * @access public
      * 
+     * @param $plugin_path string plugin path
+     * 
+     * @return boolean
      */
     public static function is_plugin_installed( $plugin_path ) {
         
@@ -306,9 +330,10 @@ class Helper_Functions {
     }
     
     /**
-	 * Check is script debug mode enabled.
+	 * Check if script debug mode enabled.
 	 *
 	 * @since 3.11.1
+     * @access public
 	 *
 	 * @return boolean is debug mode enabled
 	 */
@@ -323,9 +348,9 @@ class Helper_Functions {
 	}
     
     /**
-	 * Get JS scripts directory.
+	 * Get scripts dir.
 	 *
-	 * @since 0.0.1
+	 * @access public
 	 *
 	 * @return string JS scripts directory.
 	 */
@@ -340,9 +365,9 @@ class Helper_Functions {
 	}
     
     /**
-	 * Get CSS files directory.
+	 * Get styles dir.
 	 *
-	 * @since 0.0.1
+	 * @access public
 	 *
 	 * @return string CSS files directory.
 	 */
@@ -357,9 +382,9 @@ class Helper_Functions {
 	}
 
 	/**
-	 * Get JS scripts suffix.
+	 * Get assets suffix.
 	 *
-	 * @since 0.0.1
+	 * @access public
 	 *
 	 * @return string JS scripts suffix.
 	 */
@@ -379,6 +404,7 @@ class Helper_Functions {
      * Returns the active theme slug
      * 
      * @access public
+     * 
      * @return string theme slug
      */
     public static function get_installed_theme() {
@@ -414,19 +440,25 @@ class Helper_Functions {
         
         $vimeo_data         = wp_remote_get( 'http://www.vimeo.com/api/v2/video/' . intval( $id ) . '.php' );
         
-        if ( isset( $vimeo_data['response']['code'] ) && '200' == $vimeo_data['response']['code'] ) {
-            $response       = unserialize( $vimeo_data['body'] );
-            $thumbnail = isset( $response[0]['thumbnail_large'] ) ? $response[0]['thumbnail_large'] : false;
+        if ( isset( $vimeo_data['response']['code'] ) ) {
+
+            if( '200' == $vimeo_data['response']['code'] ) {
+
+                $response       = unserialize( $vimeo_data['body'] );
+                $thumbnail = isset( $response[0]['thumbnail_large'] ) ? $response[0]['thumbnail_large'] : false;
+                
+                $data = [
+                    'src'       => $thumbnail,
+                    'url'       => $response[0]['user_url'],
+                    'portrait'  => $response[0]['user_portrait_huge'],
+                    'title'     => $response[0]['title'],
+                    'user'      => $response[0]['user_name']
+                ];
             
-            $data = [
-                'src'       => $thumbnail,
-                'url'       => $response[0]['user_url'],
-                'portrait'  => $response[0]['user_portrait_huge'],
-                'title'     => $response[0]['title'],
-                'user'      => $response[0]['user_name']
-            ];
+                return $data;
+
+            }
             
-            return $data;
         }
         
         return false;
@@ -454,16 +486,50 @@ class Helper_Functions {
                 $size = 'maxresdefault';
             }
             $thumbnail_src = sprintf( 'https://i.ytimg.com/vi/%s/%s.jpg', $id, $size );
+
         } elseif ( 'vimeo' === $type ) {
            
             $vimeo = self::get_vimeo_video_data( $id );
             
-            $thumbnail_src = $vimeo['src'];
-                
+            // if( isset( $vimeo['src'] ) ) {
+                $thumbnail_src = $vimeo['src'];
+            // }
+            
         } else {
             $thumbnail_src = 'transparent';
         }
         
         return $thumbnail_src;
+    }
+
+    /**
+     * Transient Expire
+     * 
+     * Gets expire time of transient.
+     *
+     * @since 3.20.8
+     * @access public
+     * 
+     * @param string $period reviews transient expiration period.
+     * 
+     * @return the reviews transient expire time in seconds.
+    */
+    public static function transient_expire( $period ) {
+
+        $expire_time  = 24 * HOUR_IN_SECONDS;
+
+        if ( 'hour' === $period ) {
+            $expire_time = MINUTE_IN_SECONDS;
+        } elseif ( 'hour' === $period ) {
+            $expire_time = 60 * MINUTE_IN_SECONDS;
+        } elseif ( 'week' === $period ) {
+            $expire_time = 7 * DAY_IN_SECONDS;
+        } elseif ( 'month' === $period ) {
+            $expire_time = 30 * DAY_IN_SECONDS;
+        } elseif ( 'year' === $period ) {
+            $expire_time = 365 * DAY_IN_SECONDS;
+        }
+
+        return $expire_time;
     }
 }

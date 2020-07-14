@@ -277,7 +277,7 @@
 									elementor.sections.currentView.addChildModel(data.content, options);
 
 									elementor.channels.data.trigger('template:after:insert', templateModel);
-
+									jQuery("#elementor-panel-saver-button-save-options, #elementor-panel-saver-button-publish").removeClass("elementor-disabled");
 									PremiumEditor.atIndex = null;
 
 								},
@@ -864,42 +864,42 @@
 
 			setTimeout(function () {
 				var $addNewSection = window.elementor.$previewContents.find('.elementor-add-new-section'),
-					addPremiumTemplate = "<div class='elementor-add-section-area-button pa-add-section-btn' title='Add Premium Template'><i class='fas fa-star'></i></div>",
+					addPremiumTemplate = "<div class='elementor-add-section-area-button pa-add-section-btn' title='Add Premium Template'><i class='eicon-star'></i></div>",
 					$addPremiumTemplate;
 
 				if ($addNewSection.length && PremiumTempsData.PremiumTemplatesBtn) {
 
 					$addPremiumTemplate = $(addPremiumTemplate).prependTo($addNewSection);
 				}
-			
 
-                window.elementor.$previewContents.on(
-                    'click.addPremiumTemplate',
-                    '.elementor-editor-section-settings .elementor-editor-element-add',
-                    function () {
 
-                        var $this = $(this),
-                            $section = $this.closest('.elementor-top-section'),
-                            modelID = $section.data('model-cid');
+				window.elementor.$previewContents.on(
+					'click.addPremiumTemplate',
+					'.elementor-editor-section-settings .elementor-editor-element-add',
+					function () {
 
-                        if (window.elementor.sections.currentView.collection.length) {
-                            $.each(window.elementor.sections.currentView.collection.models, function (index, model) {
-                                if (modelID === model.cid) {
-                                    PremiumEditor.atIndex = index;
-                                }
-                            });
-                        }
+						var $this = $(this),
+							$section = $this.closest('.elementor-top-section'),
+							modelID = $section.data('model-cid');
 
-                        if (PremiumTempsData.PremiumTemplatesBtn) {
-                            setTimeout(function () {
-                                var $addNew = $section.prev('.elementor-add-section').find('.elementor-add-new-section');
-                                $addNew.prepend(addPremiumTemplate);
-                            }, 100);
-                        }
+						if (window.elementor.sections.currentView.collection.length) {
+							$.each(window.elementor.sections.currentView.collection.models, function (index, model) {
+								if (modelID === model.cid) {
+									PremiumEditor.atIndex = index;
+								}
+							});
+						}
 
-                    }
-                );
-            }, 100);
+						if (PremiumTempsData.PremiumTemplatesBtn) {
+							setTimeout(function () {
+								var $addNew = $section.prev('.elementor-add-section').find('.elementor-add-new-section');
+								$addNew.prepend(addPremiumTemplate);
+							}, 100);
+						}
+
+					}
+				);
+			}, 100);
 		},
 
 		getFilter: function (name) {

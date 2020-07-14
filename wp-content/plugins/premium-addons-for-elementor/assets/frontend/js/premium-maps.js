@@ -1,7 +1,7 @@
-jQuery(window).on("elementor/frontend/init", function() {
+jQuery(window).on("elementor/frontend/init", function () {
   elementorFrontend.hooks.addAction(
     "frontend/element_ready/premium-addon-maps.default",
-    function($scope, $) {
+    function ($scope, $) {
       var mapElement = $scope.find(".premium_maps_map_height");
 
       var mapSettings = mapElement.data("settings");
@@ -43,7 +43,7 @@ jQuery(window).on("elementor/frontend/init", function() {
 
         map.markers = [];
         // add markers
-        markers.each(function() {
+        markers.each(function () {
           add_marker(jQuery(this), map, autoOpen, hoverOpen, hoverClose);
         });
 
@@ -52,17 +52,28 @@ jQuery(window).on("elementor/frontend/init", function() {
 
       function add_marker(pin, map, autoOpen, hoverOpen, hoverClose) {
         var latlng = new google.maps.LatLng(
-            pin.attr("data-lat"),
-            pin.attr("data-lng")
-          ),
+          pin.attr("data-lat"),
+          pin.attr("data-lng")
+        ),
           icon_img = pin.attr("data-icon"),
-          maxWidth = pin.attr("data-max-width");
+          maxWidth = pin.attr("data-max-width"),
+          iconSize = pin.attr("data-icon-size");
 
         if (icon_img != "") {
           var icon = {
             url: pin.attr("data-icon")
           };
+
+          if (iconSize) {
+
+            icon.scaledSize = new google.maps.Size(iconSize, iconSize);
+            icon.origin = new google.maps.Point(0, 0);
+            icon.anchor = new google.maps.Point(iconSize / 2, iconSize);
+
+          }
         }
+
+
 
         // create marker
         var marker = new google.maps.Marker({
@@ -91,17 +102,17 @@ jQuery(window).on("elementor/frontend/init", function() {
             infowindow.open(map, marker);
           }
           if (hoverOpen) {
-            google.maps.event.addListener(marker, "mouseover", function() {
+            google.maps.event.addListener(marker, "mouseover", function () {
               infowindow.open(map, marker);
             });
             if (hoverClose) {
-              google.maps.event.addListener(marker, "mouseout", function() {
+              google.maps.event.addListener(marker, "mouseout", function () {
                 infowindow.close(map, marker);
               });
             }
           }
           // show info window when marker is clicked
-          google.maps.event.addListener(marker, "click", function() {
+          google.maps.event.addListener(marker, "click", function () {
             infowindow.open(map, marker);
           });
         }

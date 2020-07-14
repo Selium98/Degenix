@@ -1,11 +1,25 @@
 (function ($) {
     /****** Premium Vertical Scroll Handler ******/
     var PremiumVerticalScrollHandler = function ($scope, $) {
-        var vScrollElem = $scope.find(".premium-vscroll-wrap"),
-            instance = null,
-            vScrollSettings = vScrollElem.data("settings");
 
-        instance = new premiumVerticalScroll(vScrollElem, vScrollSettings);
+        var deviceType = elementorFrontend.getCurrentDeviceMode();
+
+        var hiddenClass = "elementor-hidden-" + deviceType;
+
+        if ("mobile" === deviceType)
+            hiddenClass = "elementor-hidden-phone";
+
+        if ($scope.closest("section.elementor-element").hasClass(hiddenClass)) {
+            return
+        }
+
+        var $vScrollElem = $scope.find(".premium-vscroll-wrap"),
+            instance = null,
+            vScrollSettings = $vScrollElem.data("settings");
+
+        vScrollSettings.deviceType = deviceType;
+
+        instance = new premiumVerticalScroll($vScrollElem, vScrollSettings);
         instance.init();
 
     };
@@ -16,9 +30,8 @@
             isTouch = false,
             $instance = $selector,
             checkTemps = $selector.find(".premium-vscroll-sections-wrap")
-            .length,
+                .length,
             $htmlBody = $("html, body"),
-            deviceType = $("body").data("elementor-device-mode"),
             $itemsList = $(".premium-vscroll-dot-item", $instance),
             $menuItems = $(".premium-vscroll-nav-item", $instance),
             defaultSettings = {
@@ -34,7 +47,6 @@
 
         var touchStartY = 0,
             touchEndY = 0;
-
 
         jQuery.extend(jQuery.easing, {
             easeInOutCirc: function (x, t, b, c, d) {
@@ -57,24 +69,15 @@
             $itemsList.on("click.premiumVerticalScroll", self.onNavDotChange);
             $menuItems.on("click.premiumVerticalScroll", self.onNavDotChange);
 
-            $itemsList.on(
-                "mouseenter.premiumVerticalScroll",
-                self.onNavDotEnter
-            );
+            $itemsList.on("mouseenter.premiumVerticalScroll", self.onNavDotEnter);
 
-            $itemsList.on(
-                "mouseleave.premiumVerticalScroll",
-                self.onNavDotLeave
-            );
+            $itemsList.on("mouseleave.premiumVerticalScroll", self.onNavDotLeave);
 
-            if ("desktop" === deviceType) {
+            if ("desktop" === settings.deviceType) {
                 $window.on("scroll.premiumVerticalScroll", self.onWheel);
             }
 
-            $window.on(
-                "resize.premiumVerticalScroll orientationchange.premiumVerticalScroll",
-                self.debounce(50, self.onResize)
-            );
+            $window.on("resize.premiumVerticalScroll orientationchange.premiumVerticalScroll", self.debounce(50, self.onResize));
 
             $window.on("load", function () {
 
@@ -262,9 +265,9 @@
 
                         }
                     }, {
-                        offset: 0 !== index ? "0%" : "-1%",
-                        triggerOnce: false
-                    }
+                    offset: 0 !== index ? "0%" : "-1%",
+                    triggerOnce: false
+                }
                 );
                 index++;
             }
@@ -507,14 +510,14 @@
             var s = selector.get(0),
                 vpHeight = $window.outerHeight(),
                 clientSize =
-                hidden === true ? s.offsetWidth * s.offsetHeight : true;
+                    hidden === true ? s.offsetWidth * s.offsetHeight : true;
             if (typeof s.getBoundingClientRect === "function") {
                 var rec = s.getBoundingClientRect();
                 var tViz = rec.top >= 0 && rec.top < vpHeight,
                     bViz = rec.bottom > 0 && rec.bottom <= vpHeight,
                     vVisible = partial ? tViz || bViz : tViz && bViz,
                     vVisible =
-                    rec.top < 0 && rec.bottom > vpHeight ? true : vVisible;
+                        rec.top < 0 && rec.bottom > vpHeight ? true : vVisible;
                 return clientSize && vVisible;
             } else {
                 var viewTop = 0,
@@ -537,10 +540,10 @@
 
             if (settings.tooltips) {
                 $(
-                        '<div class="premium-vscroll-tooltip"><span>' +
-                        settings.dotsText[index] +
-                        "</span></div>"
-                    )
+                    '<div class="premium-vscroll-tooltip"><span>' +
+                    settings.dotsText[index] +
+                    "</span></div>"
+                )
                     .hide()
                     .appendTo($this)
                     .fadeIn(200);
@@ -587,8 +590,8 @@
                     .stop()
                     .clearQueue()
                     .animate({
-                            scrollTop: offset
-                        },
+                        scrollTop: offset
+                    },
                         settings.speed,
                         "easeInOutCirc",
                         function () {
@@ -642,8 +645,8 @@
                 $this.addClass("active");
 
                 $htmlBody.animate({
-                        scrollTop: offset
-                    },
+                    scrollTop: offset
+                },
                     settings.speed,
                     "easeInOutCirc",
                     function () {
@@ -654,19 +657,15 @@
         };
 
         self.onKeyUp = function (event, direction) {
+
+            //If keyboard is triggered before scroll
+            if (currentSection === 1) {
+                currentSection = $itemsList.eq(0).data("menuanchor");
+            }
+
             var direction = direction || "up",
-                nextItem = $(
-                    ".premium-vscroll-dot-item[data-menuanchor=" +
-                    currentSection +
-                    "]",
-                    $instance
-                ).next(),
-                prevItem = $(
-                    ".premium-vscroll-dot-item[data-menuanchor=" +
-                    currentSection +
-                    "]",
-                    $instance
-                ).prev();
+                nextItem = $(".premium-vscroll-dot-item[data-menuanchor=" + currentSection + "]", $instance).next(),
+                prevItem = $(".premium-vscroll-dot-item[data-menuanchor=" + currentSection + "]", $instance).prev();
 
             event.preventDefault();
 
@@ -844,8 +843,8 @@
             var windowScrollTop = $window.scrollTop(),
                 lastSectionId = getLastSection(sections),
                 bottomBorder =
-                sections[lastSectionId].offset +
-                sections[lastSectionId].height,
+                    sections[lastSectionId].offset +
+                    sections[lastSectionId].height,
                 visible = self.visible($instance, true, false);
 
             if (windowScrollTop < bottomBorder) {

@@ -1,8 +1,11 @@
 <?php
 
+/**
+ * Premium Progress Bar.
+ */
 namespace PremiumAddons\Widgets;
 
-use PremiumAddons\Helper_Functions;
+// Elementor Classes.
 use Elementor\Widget_Base;
 use Elementor\Utils;
 use Elementor\Controls_Manager;
@@ -14,8 +17,14 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Border;
 
+// PremiumAddons Classes.
+use PremiumAddons\Helper_Functions;
+
 if ( ! defined( 'ABSPATH' ) ) exit; // If this file is called directly, abort.
 
+/**
+ * Class Premium_Progressbar
+ */
 class Premium_Progressbar extends Widget_Base {
     
     public function get_name() {
@@ -43,6 +52,7 @@ class Premium_Progressbar extends Widget_Base {
     public function get_script_depends() {
         return [
             'elementor-waypoints',
+            'lottie-js',
             'premium-addons-js'
         ];
     }
@@ -55,11 +65,14 @@ class Premium_Progressbar extends Widget_Base {
 		return 'https://premiumaddons.com/support/';
 	}
 
-    // Adding the controls fields for the premium progress bar
-    // This will controls the animation, colors and background, dimensions etc
+    /**
+	 * Register Testimonials controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function _register_controls() {
 
-        /* Start Progress Content Section */
         $this->start_controls_section('premium_progressbar_labels',
             [
                 'label'         => __('Progress Bar Settings', 'premium-addons-for-elementor'),
@@ -71,11 +84,62 @@ class Premium_Progressbar extends Widget_Base {
                 'label'         => __('Type', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::SELECT,
                 'options'       => [
-                    'line'          => __('Line', 'premium-addons-for-elementor')
-                    // 'circle'        => __('Circle', 'premium-addons-for-elementor'),
+                    'line'          => __('Line', 'premium-addons-for-elementor'),
+                    'circle'        => __('Circle', 'premium-addons-for-elementor'),
+                    'dots'          => __('Dots', 'premium-addons-for-elementor'),
                 ],
                 'default'       =>'line',
                 'label_block'   => true,
+            ]
+        );
+
+        $this->add_responsive_control('dot_size', 
+            [
+                'label'     => __('Dot Size', 'premium-addons-for-elementor'),
+                'type'      => Controls_Manager::SLIDER,
+                'range'     => [
+                    'px'    => [
+                        'min'   => 1,
+                        'max'   => 60,
+                    ],
+                ],
+                'default'     => [
+                    'size' => 25,
+                    'unit' => 'px',
+                ],
+                'condition'     => [
+                    'layout_type'   => 'dots'
+                ],
+                'render_type' => 'template',
+                'selectors' => [
+                    '{{WRAPPER}} .progress-segment' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control('dot_spacing', 
+            [
+                'label'     => __('Spacing', 'premium-addons-for-elementor'),
+                'type'      => Controls_Manager::SLIDER,
+                'range'     => [
+                    'px'    => [
+                        'min'   => 1,
+                        'max'   => 10,
+                    ],
+                ],
+                'default'     => [
+                    'size' => 8,
+                    'unit' => 'px',
+                ],
+                'condition'     => [
+                    'layout_type'   => 'dots'
+                ],
+                'render_type' => 'template',
+                'selectors' => [
+                    '{{WRAPPER}} .progress-segment:not(:first-child):not(:last-child)' => 'margin-right: calc( {{SIZE}}{{UNIT}}/2 ); margin-left: calc( {{SIZE}}{{UNIT}}/2 )',
+                    '{{WRAPPER}} .progress-segment:first-child' => 'margin-right: calc( {{SIZE}}{{UNIT}}/2 )',
+                    '{{WRAPPER}} .progress-segment:last-child' => 'margin-left: calc( {{SIZE}}{{UNIT}}/2 )',
+                ],
             ]
         );
 
@@ -113,7 +177,7 @@ class Premium_Progressbar extends Widget_Base {
                 ],
                 'label_block'   => true,
                 'condition'     => [
-                    'layout_type'   => 'line'
+                    'layout_type!'   => 'circle'
                 ]
             ]
         );
@@ -140,7 +204,7 @@ class Premium_Progressbar extends Widget_Base {
                 'label_block'   => true,
                 'condition'     =>[
                     'premium_progressbar_select_label' => 'left_right_labels',
-                    'layout_type'   => 'line'
+                    'layout_type!'   => 'circle'
                 ]
             ]
         );
@@ -151,7 +215,8 @@ class Premium_Progressbar extends Widget_Base {
 		     	'type' 			=> Controls_Manager::SELECT,
 		     	'options'		=> [
 		     		'icon'  => __('Font Awesome', 'premium-addons-for-elementor'),
-		     		'image'=> __( 'Custom Image', 'premium-addons-for-elementor')
+                    'image'=> __( 'Custom Image', 'premium-addons-for-elementor'),
+                    'animation'     => __('Lottie Animation', 'premium-addons-for-elementor'),
 		     	],
                  'default'		=> 'icon',
                  'condition'    =>[
@@ -183,6 +248,45 @@ class Premium_Progressbar extends Widget_Base {
                     'layout_type'   => 'circle'
                 ]
 		  	]
+        );
+
+        $this->add_control('lottie_url', 
+            [
+                'label'             => __( 'Animation JSON URL', 'premium-addons-for-elementor' ),
+                'type'              => Controls_Manager::TEXT,
+                'dynamic'           => [ 'active' => true ],
+                'description'       => 'Get JSON code URL from <a href="https://lottiefiles.com/" target="_blank">here</a>',
+                'label_block'       => true,
+                'condition'     => [
+                    'layout_type'   => 'circle',
+                    'icon_type'   => 'animation',
+                ]
+            ]
+        );
+
+        $this->add_control('lottie_loop',
+            [
+                'label'         => __('Loop','premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SWITCHER,
+                'return_value'  => 'true',
+                'default'       => 'true',
+                'condition'     => [
+                    'layout_type'   => 'circle',
+                    'icon_type'   => 'animation',
+                ]
+            ]
+        );
+
+        $this->add_control('lottie_reverse',
+            [
+                'label'         => __('Reverse','premium-addons-for-elementor'),
+                'type'          => Controls_Manager::SWITCHER,
+                'return_value'  => 'true',
+                'condition'     => [
+                    'layout_type'   => 'circle',
+                    'icon_type'   => 'animation',
+                ]
+            ]
         );
         
         $this->add_responsive_control('icon_size',
@@ -249,7 +353,7 @@ class Premium_Progressbar extends Widget_Base {
                 'fields'    => array_values( $repeater->get_controls() ),
                 'condition' => [
                     'premium_progressbar_select_label'  => 'more_labels',
-                    'layout_type'   => 'line'
+                    'layout_type!'   => 'circle'
                 ]
             ]
         );
@@ -262,7 +366,7 @@ class Premium_Progressbar extends Widget_Base {
                 'description' => __('Enable percentage for labels','premium-addons-for-elementor'),
                 'condition'   => [
                     'premium_progressbar_select_label'=>'more_labels',
-                    'layout_type'   => 'line'
+                    'layout_type!'   => 'circle'
                 ]
             ]
         );
@@ -279,7 +383,7 @@ class Premium_Progressbar extends Widget_Base {
                 ],
                 'condition'     =>[
                     'premium_progressbar_select_label' => 'more_labels',
-                    'layout_type'   => 'line'
+                    'layout_type!'   => 'circle'
                 ]
             ]
         );
@@ -305,7 +409,7 @@ class Premium_Progressbar extends Widget_Base {
                 'default'       => 'center',
                 'condition'     =>[
                     'premium_progressbar_select_label' => 'more_labels',
-                    'layout_type'   => 'line'
+                    'layout_type!'   => 'circle'
                 ]
             ]
         );
@@ -357,10 +461,11 @@ class Premium_Progressbar extends Widget_Base {
             [
                 'label'         => __('Gradient Colors', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::TEXT,
-                'description'   => __('Enter Colors separated with \' , \'.','premium-addons-pro'),
+                'description'   => __('Enter Colors separated with \' , \'.','premium-addons-for-elementor'),
                 'default'       => '#6EC1E4,#54595F',
                 'label_block'   => true,
-                'condition'     =>[
+                'condition'     => [
+                    'layout_type'   => 'line',
                     'premium_progressbar_progress_style' => 'gradient'
                 ]
             ]
@@ -382,7 +487,7 @@ class Premium_Progressbar extends Widget_Base {
                 'type'          => Controls_Manager::SLIDER,
                 'default'       => [
                     'size'  => 25,
-                    ],
+                ],
                 'label_block'   => true,
                 'selectors'     => [
                     '{{WRAPPER}} .premium-progressbar-bar-wrap, {{WRAPPER}} .premium-progressbar-bar' => 'height: {{SIZE}}px;',   
@@ -398,10 +503,6 @@ class Premium_Progressbar extends Widget_Base {
                 'label'         => __('Border Radius', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::SLIDER,
                 'size_units'    => ['px', '%', 'em'],
-                'default'       => [
-                    'unit'  => 'px',
-                    'size'  => 0,
-                ],
                 'range'         => [
                     'px'  => [
                         'min' => 0,
@@ -409,10 +510,10 @@ class Premium_Progressbar extends Widget_Base {
                     ],
                 ],
                 'selectors'     => [
-                    '{{WRAPPER}} .premium-progressbar-bar-wrap, {{WRAPPER}} .premium-progressbar-bar' => 'border-radius: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .premium-progressbar-bar-wrap, {{WRAPPER}} .premium-progressbar-bar, {{WRAPPER}} .progress-segment' => 'border-radius: {{SIZE}}{{UNIT}};',
                 ],
                 'condition'     => [
-                    'layout_type'   => 'line'
+                    'layout_type!'   => 'circle'
                 ]
             ]
         );
@@ -425,6 +526,9 @@ class Premium_Progressbar extends Widget_Base {
                     '{{WRAPPER}} .premium-progressbar-circle-base' => 'border-width: {{SIZE}}{{UNIT}}',
                     '{{WRAPPER}} .premium-progressbar-circle div' => 'border-width: {{SIZE}}{{UNIT}}',
                 ],
+                'condition'     => [
+                    'layout_type'   => 'circle'
+                ]
             ]
         );
 
@@ -438,6 +542,9 @@ class Premium_Progressbar extends Widget_Base {
                 ],
                 'selectors'     => [
                     '{{WRAPPER}} .premium-progressbar-circle-base' => 'border-color: {{VALUE}};',
+                ],
+                'condition'     => [
+                    'layout_type'   => 'circle'
                 ]
             ]
         );
@@ -454,12 +561,9 @@ class Premium_Progressbar extends Widget_Base {
             [
                 'name'              => 'premium_progressbar_progress_color',
                 'types'             => [ 'classic' , 'gradient' ],
-                'default'           => [
-                    'color' => '#26beca',
-                ],
-                'selector'          => '{{WRAPPER}} .premium-progressbar-bar',
+                'selector'          => '{{WRAPPER}} .premium-progressbar-bar, {{WRAPPER}} .segment-inner',
                 'condition'     => [
-                    'layout_type'   => 'line'
+                    'layout_type!'   => 'circle'
                 ]
             ]
         );
@@ -472,9 +576,12 @@ class Premium_Progressbar extends Widget_Base {
                     'type'  => Scheme_Color::get_type(),
                     'value' => Scheme_Color::COLOR_2,
                 ],
+                'condition'     => [
+                    'layout_type'   => 'circle'
+                ],
                 'selectors'     => [
                     '{{WRAPPER}} .premium-progressbar-circle div' => 'border-color: {{VALUE}};',
-                ]
+                ],                
             ]
         );
 
@@ -490,7 +597,7 @@ class Premium_Progressbar extends Widget_Base {
             [
                 'name'              => 'premium_progressbar_background',
                 'types'             => [ 'classic' , 'gradient' ],
-                'selector'          => '{{WRAPPER}} .premium-progressbar-bar-wrap, {{WRAPPER}} .premium-progressbar-circle-base',
+                'selector'          => '{{WRAPPER}} .premium-progressbar-bar-wrap:not(.premium-progressbar-dots), {{WRAPPER}} .premium-progressbar-circle-base, {{WRAPPER}} .progress-segment',
             ]
         );
 
@@ -503,7 +610,7 @@ class Premium_Progressbar extends Widget_Base {
                     '{{WRAPPER}} .premium-progressbar-bar-wrap' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
                 'condition'     => [
-                    'layout_type'   => 'line'
+                    'layout_type!'   => 'circle'
                 ]
             ]      
         );
@@ -808,7 +915,7 @@ class Premium_Progressbar extends Widget_Base {
                     '{{WRAPPER}} .premium-progressbar-circle-icon' => 'background-color: {{VALUE}};',
                 ],
                 'condition'     => [
-                    'icon_type'     => 'icon'
+                    'icon_type!'     => 'image'
                 ]
             ]
         );
@@ -846,6 +953,14 @@ class Premium_Progressbar extends Widget_Base {
         $this->end_controls_section();
     }
 
+    /**
+	 * Render Progress Bar widget output on the frontend.
+	 *
+	 * Written in PHP and used to generate the final HTML.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function render() {
         
         $settings = $this->get_settings_for_display();
@@ -864,6 +979,11 @@ class Premium_Progressbar extends Widget_Base {
             'type'              => $type,
         ];
 
+        if( 'dots' === $type ) {
+            $progressbar_settings['dot'] = $settings['dot_size']['size'];
+            $progressbar_settings['spacing'] = $settings['dot_spacing']['size'];
+        }
+
         $this->add_render_attribute( 'progressbar', 'class', 'premium-progressbar-container' );
 
         if( 'stripped' === $style ) {
@@ -879,20 +999,42 @@ class Premium_Progressbar extends Widget_Base {
 
         $this->add_render_attribute( 'progressbar', 'data-settings', wp_json_encode($progressbar_settings) );
         
-        if( 'line' === $type ) {
+        if( 'circle' !== $type ) {
             $this->add_render_attribute( 'wrap', 'class', 'premium-progressbar-bar-wrap' );
+
+            if( 'dots' === $type ) {
+                $this->add_render_attribute( 'wrap', 'class', 'premium-progressbar-dots' );
+            }
+
         } else {
             $this->add_render_attribute( 'wrap', 'class', 'premium-progressbar-circle-wrap' );
+
+            $icon_type = $settings['icon_type'];
+
+            if( 'animation' === $icon_type ) {
+                $this->add_render_attribute( 'progress_lottie', [
+                    'class' => [
+                        'premium-progressbar-circle-icon',
+                        'premium-lottie-animation'
+                    ],
+                    'data-lottie-url' => $settings['lottie_url'],
+                    'data-lottie-loop' => $settings['lottie_loop'],
+                    'data-lottie-reverse' => $settings['lottie_reverse']
+                ]);
+            }
+
         }
 
     ?>
 
    <div <?php echo $this->get_render_attribute_string( 'progressbar' ); ?>>
+
         <?php if ($settings['premium_progressbar_select_label'] === 'left_right_labels') :?>
             <p class="premium-progressbar-left-label"><span <?php echo $this->get_render_attribute_string('premium_progressbar_left_label'); ?>><?php echo $settings['premium_progressbar_left_label'];?></span></p>
             <p class="premium-progressbar-right-label"><span <?php echo $this->get_render_attribute_string('premium_progressbar_right_label'); ?>><?php echo $settings['premium_progressbar_right_label'];?></span></p>
         <?php endif;?>
-        <?php if ($settings['premium_progressbar_select_label'] === 'more_labels'): ?>
+
+        <?php if ($settings['premium_progressbar_select_label'] === 'more_labels') : ?>
             <div class="premium-progressbar-container-label" style="position:relative;">
             <?php foreach($settings['premium_progressbar_multiple_label'] as $item){
                 if( $this->get_settings('premium_progressbar_more_labels_align') === 'center' ) {
@@ -953,40 +1095,43 @@ class Premium_Progressbar extends Widget_Base {
 
                } ?>
             </div>
-        <?php endif;?>
-            <div class="clearfix"></div>
-            <div <?php echo $this->get_render_attribute_string( 'wrap' ); ?>>
-                <?php if( 'line' === $type ) : ?>
-                    <div class="premium-progressbar-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                    </div>
-                <?php else: ?>
-                    <div class="premium-progressbar-circle-base"></div>
-                    <div class="premium-progressbar-circle">
-                        <div class="premium-progressbar-circle-left"></div>
-                        <div class="premium-progressbar-circle-right"></div>
-                    </div>
-                    <div class="premium-progressbar-circle-content">
-                        <?php if( !empty( $settings['icon_select']['value'] ) || ! empty( $settings['image_upload']['url'] ) ) : ?>
-                            <?php if('icon' === $settings['icon_type'] ):
-                                Icons_Manager::render_icon( $settings['icon_select'], [ 'class'=> 'premium-progressbar-circle-icon', 'aria-hidden' => 'true' ] );
-                            elseif( 'image' === $settings['icon_type'] ) : ?>
-                                <img class="premium-progressbar-circle-icon" src="<?php echo $settings['image_upload']['url']; ?>">
-                            <?php endif;?>
-                        <?php endif; ?>
-                    <p class="premium-progressbar-left-label">
-                        <span <?php echo $this->get_render_attribute_string('premium_progressbar_left_label'); ?>>
-                            <?php echo $settings['premium_progressbar_left_label'];?>
-                        </span>
-                    </p>
-                    <?php if( 'yes' === $settings['show_percentage_value'] ) : ?>
-                        <p class="premium-progressbar-right-label">
-                            <span <?php echo $this->get_render_attribute_string('premium_progressbar_right_label'); ?>>0%</span>
-                        </p>
+        <?php endif; ?>
+
+        <div class="clearfix"></div>
+        <div <?php echo $this->get_render_attribute_string( 'wrap' ); ?>>
+            <?php if( 'line' === $type ) : ?>
+                <div class="premium-progressbar-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+            <?php elseif( 'circle' === $type ): ?>
+                <div class="premium-progressbar-circle-base"></div>
+                <div class="premium-progressbar-circle">
+                    <div class="premium-progressbar-circle-left"></div>
+                    <div class="premium-progressbar-circle-right"></div>
+                </div>
+                <div class="premium-progressbar-circle-content">
+                    <?php if( !empty( $settings['icon_select']['value'] ) || ! empty( $settings['image_upload']['url'] ) || !empty( $settings['lottie_url'] )  ) : ?>
+                        <?php if('icon' === $icon_type ):
+                            Icons_Manager::render_icon( $settings['icon_select'], [ 'class'=> 'premium-progressbar-circle-icon', 'aria-hidden' => 'true' ] );
+                        elseif( 'image' === $icon_type ) : ?>
+                            <img class="premium-progressbar-circle-icon" src="<?php echo $settings['image_upload']['url']; ?>">
+                        <?php else: ?>
+                            <div <?php echo $this->get_render_attribute_string( 'progress_lottie' ); ?>></div>
+                        <?php endif;?>
                     <?php endif; ?>
-                    </div>
+                <p class="premium-progressbar-left-label">
+                    <span <?php echo $this->get_render_attribute_string('premium_progressbar_left_label'); ?>>
+                        <?php echo $settings['premium_progressbar_left_label'];?>
+                    </span>
+                </p>
+                <?php if( 'yes' === $settings['show_percentage_value'] ) : ?>
+                    <p class="premium-progressbar-right-label">
+                        <span <?php echo $this->get_render_attribute_string('premium_progressbar_right_label'); ?>>0%</span>
+                    </p>
                 <?php endif; ?>
-            </div>
+                </div>
+            <?php endif; ?>
         </div>
+    </div>
+
     <?php
     }
 }

@@ -337,7 +337,7 @@ class Elementskit_Widget_Dual_Button extends Widget_Base {
             $this->add_control(
                 'ekit_double_button_two_icon_position',
                 [
-                    'label' => esc_html__( 'Border Style', 'elementskit' ),
+                    'label' => esc_html__( 'Icon Position', 'elementskit' ),
                     'type' => Controls_Manager::SELECT,
                     'default' => 'before',
                     'options' => [

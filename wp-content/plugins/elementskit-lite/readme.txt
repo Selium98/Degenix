@@ -3,7 +3,7 @@ Contributors: Ataurr, wpmet, emrnco, pobonpaul1994, easin55474, khalidjubair
 Tags: elementor addons, mega menu, header footer builder, elements, elementor extensions, elementor modules, page builder addons, elementor addon, elementor widget, addons
 Requires at least: 4.6
 Tested up to: 5.4
-Stable tag: 1.5.3
+Stable tag: 1.5.7
 Requires PHP: 5.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -14,11 +14,10 @@ Elementskit All in one addon for Elementor page builder. It includes most compre
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ECFC0QregXg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Elementskit is an ultimate All in one addon for Elementor page builder. It includes most comprehensive modules, such as header footer builder, mega menu Builder Layout kit etc under the one hood. It has 40+ custom widgets to create any sites with ease. It has some most unique and powerful custom controls for elementor, such as image picker, ajax select2, Advanced widget etc. Why you need multiple plugins? Where everything under the one hood?
+Elementskit is an ultimate All in one addon for Elementor Page Builder. It includes most comprehensive modules, such as Header Footer Builder, Mega Menu Builder Layoutkit etc under the one hood. It has 55+ custom widgets to create any sites with ease. It has some most unique and powerful custom controls for Elementor, such as Image Picker, Ajax Select2, Advanced Widget and many more. Why do you need multiple plugins? Where everything under the one hood?
 
 
-**Elements kit** Elementor addons have Exclusive features that blow your mind. Like mega menu builder, Header and footer builder layout library so on.
-
+**Elements kit** Elementor Addon have Exclusive features that blow your mind. Like our Mega Menu Builder, Header and Footer Builder layout library, One Page Scroll, Sticky Content, Parallax Effects, you will get tons of Premium features that you have never imagined. 
 
 
 [ **Check our Live Demos** ](http://go.wpmet.com/ekitpro)
@@ -27,15 +26,39 @@ Elementskit is an ultimate All in one addon for Elementor page builder. It inclu
 ###SUPPORT###
 
 **Found issue or new features? [Contact our team from here](https://help.wpmet.com/)**.
+**Looking for features which not available?  [Request features here](https://trello.com/b/I9RmCP3B/elementskit)**
+
+
+
+###Introducing Elements Kit Widget builder.###
+
+The most flexible and super easy to use widget builder with native elementor feel. Build everything in drag and drop interface.
+This is now available in free version of elements kit and some pro controls are coming soon.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zE6TMrkZeOI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
 
 ==== KEY FEATURES ====
-- 40+ Fully Customizable Elementor widgets addons.
-- Header and Footer builder module.
-- Elementor menu Megamenu builder.
-- Layout Pack Library.
-- Elementor gallery pack. Filterable, masonry, grid
-- Fully Responsive and Cross Browser Compatible
-- No Coding knowledge required
+- Mega Menu Builder
+- Widget Builder
+- 45+ Pre-designed Header & Footer Templates
+- 55+ Free and Premium elements
+- 500+ Ready Sections 
+- 230+ Ready Pages 
+- 30+ Widget Presets 
+- WooCommerce Widgets (PRO)
+- One Page Scroll 
+- Advanced Sticky Content  (PRO)
+- Advanced Parallax Effects  (PRO)
+- Multi Widgets area  (PRO)
+- Elementor Gallery Pack. Filterable, Masonry, Grid  (PRO)
+- Vertical Mega Menu builder (Pro)
+- Cross Browser Compatible
+- Fully Responsive
+- Expert Support Team
+- Build with Elementor
+
 
 
 
@@ -52,9 +75,9 @@ Elements Kit build optimization in mind. We develop our plugin Modular based so 
 == Completely Customizable  ==
 Every elementor widgets have Huge customizable options to control any widgets modify according to your needs.  You can build any style you want with our plugin.
 
-== 35+ FREE WIDGETS AND COUNTING ==
+== 40+ FREE WIDGETS AND COUNTING ==
 
-We have over 35+ elementor widgets with our free plugin. And Every elementor widget Build with care. We can say that this elementor widget pack in best in town with design as well controls and features.
+We have over 40+ elementor widgets with our free plugin. And Every elementor widget Build with care. We can say that this elementor widget pack is best in town with design as well controls and features You will be really amazed to use the free version that will give you exactly the premium feeling.
 
 1.  [ **Heading Title** ](https://products.wpmet.com/elementskit/heading/) -  An attractive heading title is a very important element of any webpage. Like our other elementor addon the heading title addon comes with a different feature where you can use multiple predefined style with heading title, heading subtitles, heading description with separator.There are different types of custom options to change the style,color, border, background, positioning, motion style and lots of interesting features on the fly at your own choice.  [ **Check out our video screencast** ](https://www.youtube.com/watch?v=WKscAke68wE&list=PL3t2OjZ6gY8MVnyA4OLB6qXb77-roJOuY&index=15)
 
@@ -129,7 +152,8 @@ We have over 35+ elementor widgets with our free plugin. And Every elementor wid
 
 37. [ **Metform elementor ** ](https://products.wpmet.com/elementskit/met-form/) - Most flexible and design-friendly Contact Form builder for elementor. build any form on the fly with metform builder. It can manage multiple contact forms, and you can customize the form with an elementor builder.
 
-38. [ **Ninja Forms** ](https://products.wpmet.com/elementskit/ninja-forms/)
+38. [ **Ninja Forms** ](https://products.wpmet.com/elementskit/ninja-forms/) - Are you a non-technical person? Do you want to design your website form in a professional way? Don’t need to worry about that. We are always there for you with a solution. Our Ninja Form Elementor Widget will give you the best options including drag and drop field, layout, title and description, required field notice, success message,  input and textarea, field description, placeholder, submit button, errors and others more to build your own forms exactly how you want.
+
 39. [ **Wp forms** ]( https://products.wpmet.com/elementskit/wp-forms/)
 40. [ **We forms** ](https://products.wpmet.com/elementskit/we-forms/) -  Are you getting bored watching outdated form that looks tacky?.This elementor We form widget will help users register,give data,add request,contact, sending email and many more things in a very easy way.With our we form elementor widget you can select your form according to your choice from the drop down option.You can also styling it with color,fields,level,button and many more.
 
@@ -138,13 +162,20 @@ We have over 35+ elementor widgets with our free plugin. And Every elementor wid
 42. **Header Info** : It is said that first impression is the last impression.The first thing that catches a user eye on the website is the header. So it is very important that your header info must be perfect. By considering this matter we have designed header info widget exactly what you desire for.Our header info elementor widget contains header,icon,text,content,styles with color,typography and other advanced features.
 
 
+42. [ **Lottie** ](https://products.wpmet.com/elementskit/lottie/) A json based Animation file format that is designed to create animations for any type of platform including iOS, Android, web and React Native. Create your own high-quality Animation With our Lottie Elementor Widget. Just easily export json file or Provide URL, Enable Reverse, Autoplay, Loop, Render Type, Select Hover options and lots of other features. Check this out in our video screencast:
 
 
+
+43.  **Post Grid:** ](https://products.wpmet.com/elementskit/lottie/)  This Elementor Widget will help you to display your special content, image, post, product etc in a group with different styles without any knowledge of coding skill. Our Post Grid Elementor Widget has customizable options including categories, post count with grid styles, motion effects etc. Check out our video screencast: 
+
+
+44.  **Table Press** ](https://products.wpmet.com/elementskit/tablepress/) - This Elementor Widget will allow you to create your brand-new table in a very easy way. Here we have our most powerful Elementor Widget for Table Press. There is a drop-down menu where you can select any type of table. Moreover, there are enable or disable options for nav hide, search hide, footer info hides, pagination hide. There is more styling for table, header, body, filter and search options. 
 
 == Exclusive modules ==
 We have developed Awesome exclusive modules which saved tons of time when you are developing your site. As well it will saved your time to develop your site within shortime.
 
-- Header and footer builder
+- Elementskit Header and footer builder We have built this with Elementor builder to provide your introductory content in the header and group of content or links at the footer which will encourage users to take action. Our Elementskit plugin will help you to create your header and footer template with a logo and menus. Also you can use the constants in pro version to show any page you like. there are three types of conditions you can select such as Entire Site, Singular, and Archive. Basically, you can choose which page you want to add your Header and Footer. there is an activation option like you can active or inactive the Header and Footer whenever you want.
+
 -<a href="https://products.wpmet.com/megamenu/">Megamenu builder (PRO Layout)</a> - Develop user experience with your sites and cover all the necessary categories by using mega menu. It’s the best way to navigate the deepest section of your sites with just one click with this drop-down menu. You can build your own mega menu beyond your expectation with our mega menu builder. Our most unique feature is you will have two options  for mobile view to show your submenu, one is  “Builder Content” and another one is “Wp Sub Menu List”. Other pro features are drag and drop menu builder panel, auto add pages, social links menu, display location, pages, content, menu, badge, post, custom links, categories, and many more. Check out our video screencast:
 
  - Onepage scroll:  One page scroll is a module of elementsKit. Add any page with one page full screen scroll.
@@ -180,8 +211,14 @@ We have developed Awesome exclusive modules which saved tons of time when you ar
 15. [ **Woocommerce Mini Cart (PRO)** ](https://products.wpmet.com/elementskit/woo-mini-cart/) - People often get irritated by adding multiple items to their cart because it makes the user navigate back to the cart page again and again. To solve this problem we have designed a simple and powerful woocommerce mini cart widget which will help users to add their desired product from any page. This elementor widget comes with multiple options like icon, cart visibility, alignment etc. There are many other customizable styles in cart button, body, header, item, subtotal, button with many more advanced pro features.
 
 
-16. [advanced toggle](https://products.wpmet.com/elementskit/advanced-toggle/)
-16. [Vertical mega menu](https://products.wpmet.com/megamenu/)
+16. [ **advanced toggle** ](https://products.wpmet.com/elementskit/advanced-toggle/) - One of the smartest pro features of ElementsKit.  This awesome widget allows you to switch between one section to another section with just one click. It’s so advanced that to see the other section, you don’t need to scroll anymore. With this eye-caching widget you can Choose Styles, Color, Set Alignment, Edit Tab Content, Control Tab and many more.
+
+17. [ **Vertical mega menu** ](https://products.wpmet.com/megamenu/) - Display your Mega Menu Vertically to your site. There are many more styling options to provide a perfect look of each featured item. By our exclusive widget you can customize your Megamenu Content, Select Icon, Choose Icon Color, Choose Badge Text, Color, Position. You can also select the vertical menu position as Relative or Top and also set the Width. 
+18. Hotspot (PRO): Display your image in a more informative way. This hotspot Elementor Widget will help you to point out a specific part of your image in an animated way and create a visual appearance that will attract the user's attention. Our Hotspot Elementor Widget comes with a bunch of styling features like color, indicator, content, hover, animation, loading effects, elementskit effect, and so on.
+
+
+
+
 
 
 
@@ -202,6 +239,37 @@ We have developed Awesome exclusive modules which saved tons of time when you ar
 
 
 == Changelog ==
+version: 1.5.7
+- Elements Kit widget builder Beta released. https://youtu.be/zE6TMrkZeOI
+- Fixed few css bugs
+
+
+
+version: 1.5.6
+- Archive link add post tab
+- Woo product carousel markup leaked issue
+- Woo product list markup leaked issue
+- Menu width functionality (menu panel add settings feature)
+- Update gallery link issue (remove)
+- Menu panel background color issue (Update)
+- menu indicator icon style (update)
+
+version 1.5.5
+Updated Lottie Widget
+Updated Woo_Product_List
+Updated Woo_Product_Carousel
+Updated Nav_Menu
+Updated Gallery
+
+
+
+version 1.5.4
+New: added Lottie Widget
+New: added onepage-scroll module
+Tweak: Some widgets control modified
+Fix: CSS Improved
+Fix: JS Improved
+
 version 1.5.3
 Fix: mobile sub-menu issues fixed
 Fix: CSS Improved

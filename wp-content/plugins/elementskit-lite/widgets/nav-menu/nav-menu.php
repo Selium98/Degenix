@@ -52,7 +52,7 @@ class Elementskit_Widget_Nav_Menu extends Widget_Base {
                 'tab' => Controls_Manager::TAB_CONTENT,
             ]
 		);
-		
+
 		$this->add_control(
             'elementskit_one_page_enable',
             [
@@ -213,24 +213,24 @@ class Elementskit_Widget_Nav_Menu extends Widget_Base {
 			Group_Control_Background::get_type(),
 			[
 				'name' => 'elementskit_menubar_background',
-				'label' => esc_html__( 'Background', 'elementskit' ),
+				'label' => esc_html__( 'Menu Panel Background', 'elementskit' ),
                 'types' => [ 'classic', 'gradient' ],
 				'selector' => '{{WRAPPER}} .elementskit-menu-container',
 			]
         );
 
-        $this->add_responsive_control(
-            'elementskit_mobile_menu_panel_background',
-            [
-                'label' => esc_html__( 'Item text color', 'elementskit' ),
-                'type' => Controls_Manager::COLOR,
-                'tablet_default' => '#ffffff',
-                'devices' => ['tablet'],
-				'selectors' => [
-					'{{WRAPPER}} .elementskit-menu-container' => 'background-image: linear-gradient(180deg, {{VALUE}} 0%, {{VALUE}} 100%);',
-				],
-            ]
-        );
+        // $this->add_responsive_control(
+        //     'elementskit_mobile_menu_panel_background',
+        //     [
+        //         'label' => esc_html__( 'Item text color', 'elementskit' ),
+        //         'type' => Controls_Manager::COLOR,
+        //         'tablet_default' => '#ffffff',
+        //         'devices' => ['tablet'],
+		// 		'selectors' => [
+		// 			'{{WRAPPER}} .elementskit-menu-container' => 'background-image: linear-gradient(180deg, {{VALUE}} 0%, {{VALUE}} 100%);',
+		// 		],
+        //     ]
+        // );
 
 		$this->add_responsive_control(
 			'elementskit_mobile_menu_panel_spacing',
@@ -299,7 +299,7 @@ class Elementskit_Widget_Nav_Menu extends Widget_Base {
 				'selector' => '{{WRAPPER}} .elementskit-navbar-nav > li > a',
 			]
 		);
-		
+
 		$this->add_responsive_control(
 			'ekit_menu_item_icon_spacing',
 			[
@@ -374,7 +374,7 @@ class Elementskit_Widget_Nav_Menu extends Widget_Base {
 					],
 				]
 			);
-	
+
 			$this->end_controls_tab();
 
 			// Hover
@@ -394,7 +394,7 @@ class Elementskit_Widget_Nav_Menu extends Widget_Base {
 					'selector' => '{{WRAPPER}} .elementskit-navbar-nav > li > a:hover, {{WRAPPER}} .elementskit-navbar-nav > li > a:focus, {{WRAPPER}} .elementskit-navbar-nav > li > a:active, {{WRAPPER}} .elementskit-navbar-nav > li:hover > a',
 				]
 			);
-	
+
 			$this->add_responsive_control(
 				'elementskit_item_color_hover',
 				[
@@ -434,7 +434,7 @@ class Elementskit_Widget_Nav_Menu extends Widget_Base {
 					'selector'	=> '{{WRAPPER}} .elementskit-navbar-nav > li.current-menu-item > a,{{WRAPPER}} .elementskit-navbar-nav > li.current-menu-ancestor > a'
 				]
 			);
-	
+
 			$this->add_responsive_control(
 				'elementskit_nav_menu_active_text_color',
 				[
@@ -448,7 +448,7 @@ class Elementskit_Widget_Nav_Menu extends Widget_Base {
 						'{{WRAPPER}} .elementskit-navbar-nav > li.current-menu-ancestor > a .elementskit-submenu-indicator' => 'color: {{VALUE}}',
 					],
 				]
-			);	
+			);
 
 			$this->end_controls_tab();
 
@@ -479,7 +479,7 @@ class Elementskit_Widget_Nav_Menu extends Widget_Base {
                 ],
 			]
 		);
-		
+
 		$this->add_responsive_control(
 			'elementskit_style_tab_submenu_indicator_color',
 			[
@@ -567,10 +567,10 @@ class Elementskit_Widget_Nav_Menu extends Widget_Base {
 					'selectors' => [
 						'{{WRAPPER}} .elementskit-navbar-nav .elementskit-submenu-panel > li > a' => 'color: {{VALUE}}',
 					],
-					
+
 				]
 			);
-	
+
 			$this->add_group_control(
 				Group_Control_Background::get_type(),
 				[
@@ -589,7 +589,7 @@ class Elementskit_Widget_Nav_Menu extends Widget_Base {
 					'label'	=> esc_html__('Hover', 'elementskit')
 				]
 			);
-	
+
 			$this->add_responsive_control(
 				'elementskit_item_text_color_hover',
 				[
@@ -605,7 +605,7 @@ class Elementskit_Widget_Nav_Menu extends Widget_Base {
 					],
 				]
 			);
-	
+
 			$this->add_group_control(
 				Group_Control_Background::get_type(),
 				[
@@ -779,7 +779,7 @@ class Elementskit_Widget_Nav_Menu extends Widget_Base {
                 ]
 			]
 		);
-		
+
 
         $this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
@@ -903,7 +903,7 @@ class Elementskit_Widget_Nav_Menu extends Widget_Base {
 				],
 			]
 		);
-		
+
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
@@ -1340,7 +1340,7 @@ class Elementskit_Widget_Nav_Menu extends Widget_Base {
 		);
 
 		$this->end_controls_section();
-		
+
 		$this->insert_pro_message();
     }
 
@@ -1357,7 +1357,16 @@ class Elementskit_Widget_Nav_Menu extends Widget_Base {
 				$hamburger_icon_type = esc_attr('url');
 			}
 		}
-        echo '<div class="ekit-wid-con '.$settings['elementskit_responsive_breakpoint'].'" data-hamburger-icon="'.$hamburger_icon_value.'" data-hamburger-icon-type="'.$hamburger_icon_type.'">';
+
+		// Responsive menu breakpoint
+		$responsive_menu_breakpoint = '';
+		if ($settings['elementskit_responsive_breakpoint'] === 'ekit_menu_responsive_tablet') {
+			$responsive_menu_breakpoint = "1024";
+		} else {
+			$responsive_menu_breakpoint = "767";
+		}
+
+        echo '<div class="ekit-wid-con '.$settings['elementskit_responsive_breakpoint'].'" data-hamburger-icon="'.$hamburger_icon_value.'" data-hamburger-icon-type="'.$hamburger_icon_type.'" data-responsive-breakpoint="'.$responsive_menu_breakpoint.'">';
             $this->render_raw();
         echo '</div>';
     }

@@ -61,7 +61,7 @@ class Maps {
         
         $settings = $this->pa_maps_get_settings;
         
-        $locales = Helper_Functions::get_google_languages();
+        $locales = Helper_Functions::get_google_maps_prefixes();
         
         ?>
         <div class="wrap">

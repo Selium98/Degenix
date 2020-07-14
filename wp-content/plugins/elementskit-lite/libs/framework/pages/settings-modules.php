@@ -11,7 +11,7 @@ $modules_free = \ElementsKit::default_modules('free');
     <span class="ekit-admin-fields-container-description"><?php esc_html_e('You can disable the modules you are not using on your site. That will disable all associated assets of those modules to improve your site loading.', 'elementskit'); ?></span>
     <div class="ekit-admin-fields-container-fieldset">
         <div class="attr-hidden" id="elementskit-template-admin-menu">
-            <li><a href="edit.php?post_type=elementskit_template"><?php esc_html_e('My Templates', 'elementskit'); ?></a></li>
+            <li><a href="edit.php?post_type=elementskit_template"><?php esc_html_e('Header Footer', 'elementskit'); ?></a></li>
         </div>
         <div class="attr-row">
         <?php foreach($modules_all as $module): ?>

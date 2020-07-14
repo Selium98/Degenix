@@ -90,7 +90,22 @@ class Elementskit_Widget_Post_Tab extends Widget_Base {
 				'return_value' => 'yes',
 				'default' => 'no',
 			]
-        );
+		);
+
+		$this->add_control(
+			'ekit_post_tab_on_click_link_archive',
+			[
+				'label' => __( 'Link Archive?', 'elementskit' ),
+				'type' => Controls_Manager::SWITCHER,
+				'label_on' => __( 'Show', 'elementskit' ),
+				'label_off' => __( 'Hide', 'elementskit' ),
+				'return_value' => 'yes',
+				'default' => 'no',
+				'condition' => [
+					'ekit_post_tab_on_click' => 'yes'
+				]
+			]
+		);
 
         $this->end_controls_section();
 
@@ -348,10 +363,18 @@ class Elementskit_Widget_Post_Tab extends Widget_Base {
 		<div class="ekit-post-tab post--tab hover--active" data-post-tab-event="<?php echo esc_attr(($ekit_post_tab_on_click == 'yes') ? 'click' : 'mouseover') ?>">
             <div class="tabHeader">
                 <div class="tab__list">
-                    <?php $i=1;  foreach($post_cat as $cat): ?>
+					<?php $i=1;  foreach($post_cat as $cat):
+						$categoryURL    = get_category_link($cat);
+						?>
+						<?php if ($settings['ekit_post_tab_on_click_link_archive'] === 'yes') { ?>
+                        <a href="<?php echo esc_url( $categoryURL ); ?>" class="<?php echo ($i==1)? 'active': ''; ?> tab__list__item">
+                            <?php echo esc_html(get_cat_name($cat));?>
+                        </a>
+						<?php } else {  ?>
                         <span class="<?php echo ($i==1)? 'active': ''; ?> tab__list__item">
                             <?php echo esc_html(get_cat_name($cat));?>
                         </span>
+						<?php }; ?>
                     <?php $i++; endforeach; ?>
                 </div>
             </div>
@@ -363,7 +386,7 @@ class Elementskit_Widget_Post_Tab extends Widget_Base {
                         'post_status'    => 'publish',
                         'cat'    => $cat,
                         'posts_per_page' => $post_count,
-					); 
+					);
 					$this->add_render_attribute(
 						[
 							'ekit-single-item' => [

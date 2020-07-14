@@ -1,10 +1,47 @@
 <?php
 
+/**
+ * PA Beta Tester.
+ */
+namespace PremiumAddons\Includes;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Premium_Beta_Testers {
-    
+/**
+ * Class Beta_Testers.
+ */
+class Beta_Testers {
+
+	/**
+	 * Class object
+	 *
+	 * @var instance
+	 */
+    private static $instance = null;
+	
+	/**
+	 * Transient key
+	 *
+	 * @var transient_key
+	 */
 	private $transient_key;
+
+	/**
+	 * Construct
+	 */
+	public function __construct() {
+		
+		$check_component_active = isset(get_option( 'pa_beta_save_settings' )['is-beta-tester']) ? get_option( 'pa_beta_save_settings' )['is-beta-tester'] : 1;
+		
+		if ( 0 !== $check_component_active ) {
+			return;
+		}
+
+		$this->transient_key = md5( 'premium_addons_beta_response_key' );
+
+		add_filter( 'pre_set_site_transient_update_plugins', [ $this, 'compare_version' ] );
+
+	}
     
     /**
      * Get beta version
@@ -79,14 +116,33 @@ class Premium_Beta_Testers {
 
 		return $transient;
 	}
-	public function __construct() {
-        $check_component_active = isset(get_option( 'pa_beta_save_settings' )['is-beta-tester']) ? get_option( 'pa_beta_save_settings' )['is-beta-tester'] : 1;
-		if ( 0 !== $check_component_active ) {
-			return;
+	
+	/**
+     * Creates and returns an instance of the class
+     * 
+     * @since  2.6.8
+     * @access public
+     * 
+     * @return object
+     */
+	public static function get_instance() {
+		if( self::$instance == null ) {
+			self::$instance = new self;
 		}
-
-		$this->transient_key = md5( 'premium_addons_beta_response_key' );
-
-		add_filter( 'pre_set_site_transient_update_plugins', [ $this, 'compare_version' ] );
+		return self::$instance;
 	}
 }
+
+
+if ( ! function_exists( 'premium_beta_tester' ) ) {
+
+	/**
+	 * Returns an instance of the plugin class.
+	 * @since  2.6.8
+	 * @return object
+	 */
+	function premium_beta_tester() {
+		return Beta_Testers::get_instance();
+	}
+}
+premium_beta_tester();

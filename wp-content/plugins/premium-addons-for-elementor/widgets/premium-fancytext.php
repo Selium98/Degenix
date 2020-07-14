@@ -1,8 +1,11 @@
 <?php
 
+/**
+ * Premium Fancy Text.
+ */
 namespace PremiumAddons\Widgets;
 
-use PremiumAddons\Helper_Functions;
+// Elementor Classes.
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
@@ -11,8 +14,14 @@ use Elementor\Scheme_Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Text_Shadow;
 
+// PremiumAddons Classes.
+use PremiumAddons\Helper_Functions;
+
 if ( ! defined( 'ABSPATH' ) ) exit; // If this file is called directly, abort.
 
+/**
+ * Class Premium_Fancytext
+ */
 class Premium_Fancytext extends Widget_Base {
     
     public function get_name() {
@@ -49,16 +58,19 @@ class Premium_Fancytext extends Widget_Base {
 		return 'https://premiumaddons.com/support/';
 	}
 
-    // Adding the controls fields for the premium fancy text
-    // This will controls the animation, colors and background, dimensions etc
+    /**
+	 * Register Testimonials controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function _register_controls() {
 
-        /*Start Text Content Section*/
         $this->start_controls_section('premium_fancy_text_content',
-                [
-                    'label'         => __('Fancy Text', 'premium-addons-for-elementor'),
-                    ]
-                );
+            [
+                'label'         => __('Fancy Text', 'premium-addons-for-elementor'),
+            ]
+        );
         
         /*Prefix Text*/ 
         $this->add_control('premium_fancy_prefix_text',
@@ -159,12 +171,25 @@ class Premium_Fancytext extends Widget_Base {
                     'slide'  => __('Slide Up', 'premium-addons-for-elementor'),
                     'zoomout'=> __('Zoom Out', 'premium-addons-for-elementor'),
                     'rotate' => __('Rotate', 'premium-addons-for-elementor'),
+                    'custom' => __('Custom', 'premium-addons-for-elementor'),
                 ],
                 'default'       => 'typing',
                 'render_type'   => 'template',
                 'label_block'   => true,
             ]
         );
+
+        $this->add_control('custom_animation', 
+            [
+                'label'         => __('Animations', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::ANIMATION,
+                'render_type'   => 'template',
+                'default'       => 'fadeIn',
+                'condition'     => [
+                    'premium_fancy_text_effect' => 'custom'
+                ]
+            ]
+		);
 
         $this->add_control('premium_fancy_text_type_speed',
             [
@@ -184,10 +209,10 @@ class Premium_Fancytext extends Widget_Base {
                 'type'          => Controls_Manager::NUMBER,
                 'description'   => __('Set animation speed in seconds.', 'premium-addons-for-elementor'),
                 'condition'     => [
-                    'premium_fancy_text_effect' => [ 'zoomout', 'rotate' ],
+                    'premium_fancy_text_effect!' => [ 'typing', 'slide' ],
                 ],
                 'selectors'     => [
-                    '{{WRAPPER}} .premium-fancy-text-wrapper.zoomout .premium-fancy-list-items, .premium-fancy-text-wrapper.rotate .premium-fancy-list-items'   => 'animation-duration: {{VALUE}}s'
+                    '{{WRAPPER}} .premium-fancy-text-wrapper:not(.typing):not(.slide) .premium-fancy-list-items'   => 'animation-duration: {{VALUE}}s'
                 ]
             ]
         );
@@ -198,7 +223,7 @@ class Premium_Fancytext extends Widget_Base {
                 'type'          => Controls_Manager::NUMBER,
                 'description'   => __('Set animation speed in seconds.', 'premium-addons-for-elementor'),
                 'condition'     => [
-                    'premium_fancy_text_effect' => [ 'zoomout', 'rotate' ],
+                    'premium_fancy_text_effect!' => [ 'typing', 'slide' ],
                 ]
             ]
         );
@@ -277,19 +302,18 @@ class Premium_Fancytext extends Widget_Base {
                         ],
                     ]
                 );
-        
-        /*Slide Up Speed*/
+
         $this->add_control('premium_slide_up_speed',
-                [
-                    'label'         => __('Animation Speed', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::NUMBER,
-                    'default'       => 200,
-                    'description'   => __( 'Set a duration value in milliseconds for slide up effect.', 'premium-addons-for-elementor' ),
-                    'condition'     => [
-                        'premium_fancy_text_effect' => 'slide',
-                        ],
-                ]
-                );
+            [
+                'label'         => __('Animation Speed', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::NUMBER,
+                'default'       => 200,
+                'description'   => __( 'Set a duration value in milliseconds for slide up effect.', 'premium-addons-for-elementor' ),
+                'condition'     => [
+                    'premium_fancy_text_effect' => 'slide',
+                ],
+            ]
+        );
         
         /*Slide Up Pause Time*/
         $this->add_control('premium_slide_up_pause_time',
@@ -513,6 +537,14 @@ class Premium_Fancytext extends Widget_Base {
         $this->end_controls_section();
     }
 
+    /**
+	 * Render Fancy Text widget output on the frontend.
+	 *
+	 * Written in PHP and used to generate the final HTML.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function render() {
         
         $settings   = $this->get_settings_for_display();
@@ -559,10 +591,15 @@ class Premium_Fancytext extends Widget_Base {
                 'mousePause'    => $mause_pause
             ];
         } else {
+
             $fancytext_settings = [
                 'effect'        => $effect,
                 'delay'         => $settings['premium_fancy_text_zoom_delay']
             ];
+
+            if( $effect === 'custom' ) {
+                $fancytext_settings['animation'] = $settings['custom_animation'];
+            }
         }
         
         $this->add_render_attribute('wrapper', 'class', [ 'premium-fancy-text-wrapper', $effect ] );
@@ -603,6 +640,14 @@ class Premium_Fancytext extends Widget_Base {
     <?php
     }
     
+    /**
+	 * Render Fancy Text widget output in the editor.
+	 *
+	 * Written as a Backbone JavaScript template and used to generate the live preview.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function _content_template() {
         ?>
         <#
@@ -658,6 +703,10 @@ class Premium_Fancytext extends Widget_Base {
             view.addRenderAttribute( 'suffix', 'class', 'premium-fancy-text-span-align' );
             
             fancyTextSettings.delay         = settings.premium_fancy_text_zoom_delay;
+
+            if( 'custom' === effect ) {
+                fancyTextSettings.animation = settings.custom_animation;
+            }
         
         }
         

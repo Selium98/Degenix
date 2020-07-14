@@ -1,11 +1,24 @@
 <?php
 
-namespace PremiumAddons;
+/**
+ * PA Category Manager.
+ */
+namespace PremiumAddons\Includes;
+
+use PremiumAddons\Helper_Functions;
 
 if( ! defined( 'ABSPATH' ) ) exit();
 
-class Premium_Addons_Category {
+/**
+ * Class Premium_Addons_Category.
+ */
+class Addons_Category {
     
+    /**
+	 * Class object
+	 *
+	 * @var instance
+	 */
     private static $instance = null;
     
     public function __construct() {
@@ -28,6 +41,7 @@ class Premium_Addons_Category {
             ),
         1);
     }
+
     /**
      * Creates and returns an instance of the class
      * 
@@ -53,7 +67,7 @@ if ( ! function_exists( 'premium_addons_category' ) ) {
 	 * @return object
 	 */
 	function premium_addons_category() {
-		return Premium_Addons_Category::get_instance();
+		return Addons_Category::get_instance();
 	}
 }
 premium_addons_category();

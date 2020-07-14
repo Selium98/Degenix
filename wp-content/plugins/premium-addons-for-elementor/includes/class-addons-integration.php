@@ -264,6 +264,14 @@ class Addons_Integration {
             PREMIUM_ADDONS_VERSION, 
             true
         );
+
+        wp_register_script(
+            'lottie-js',
+            PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/lottie' . $suffix . '.js',
+            array( 'jquery' ), 
+            PREMIUM_ADDONS_VERSION, 
+            true
+        );
        
        if( $maps_settings['premium-map-cluster'] ) {
             wp_register_script(

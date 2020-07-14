@@ -1,9 +1,11 @@
 <?php
 
+/**
+ * Premium Banner.
+ */
 namespace PremiumAddons\Widgets;
 
-use PremiumAddons\Helper_Functions;
-use PremiumAddons\Includes;
+// Elementor Classes.
 use Elementor\Widget_Base;
 use Elementor\Utils;
 use Elementor\Control_Media;
@@ -17,8 +19,15 @@ use Elementor\Group_Control_Css_Filter;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Text_Shadow;
 
+// PremiumAddons Classes.
+use PremiumAddons\Helper_Functions;
+use PremiumAddons\Includes;
+
 if ( ! defined( 'ABSPATH' ) ) exit; // If this file is called directly, abort.
 
+/**
+ * Class Premium_Banner
+ */
 class Premium_Banner extends Widget_Base {
 
 	protected $templateInstance;
@@ -60,8 +69,12 @@ class Premium_Banner extends Widget_Base {
 		return 'https://premiumaddons.com/support/';
 	}
 
-	// Adding the controls fields for the premium banner
-	// This will controls the animation, colors and background, dimensions etc
+	/**
+	 * Register Banner controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
 	protected function _register_controls() {
 
 		$this->start_controls_section('premium_banner_global_settings',
@@ -562,7 +575,7 @@ class Premium_Banner extends Widget_Base {
 			Group_Control_Css_Filter::get_type(),
 			[
 				'name'      => 'hover_css_filters',
-                'label'     => __('Hover CSS Filter', 'premium-addons-for-elementor'),
+                'label'     => __('Hover CSS Filters', 'premium-addons-for-elementor'),
 				'selector'  => '{{WRAPPER}} .premium-banner-ib img.active'
 			]
 		);
@@ -915,7 +928,14 @@ class Premium_Banner extends Widget_Base {
 
 	}
 
-
+    /**
+	 * Render Banner widget output on the frontend.
+	 *
+	 * Written in PHP and used to generate the final HTML.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
 	protected function render() {
         
 			$settings 	= $this->get_settings_for_display();
@@ -1019,6 +1039,14 @@ class Premium_Banner extends Widget_Base {
 		<?php
 	}
 
+    /**
+	 * Render Banner widget output in the editor.
+	 *
+	 * Written as a Backbone JavaScript template and used to generate the live preview.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
 	protected function _content_template() {
         ?>
         <#

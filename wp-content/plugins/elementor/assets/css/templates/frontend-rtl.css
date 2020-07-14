@@ -1058,37 +1058,67 @@ ul.elementor-icon-list-items.elementor-inline-items {
     padding: 8px 24px;
     border-radius: 6px; }
 
-.elementor-button-align-center .elementor-field-type-submit {
-  justify-content: center; }
-
-.elementor-button-align-stretch .elementor-field-type-submit button {
+.elementor-button-align-stretch .elementor-field-type-submit:not(.e-form__buttons__wrapper) .elementor-button {
   flex-basis: 100%; }
 
-.elementor-button-align-start .elementor-field-type-submit {
+.elementor-button-align-stretch .e-form__buttons__wrapper, .elementor-button-align-stretch .e-form__buttons__wrapper__button {
+  flex-basis: 100%; }
+
+.elementor-button-align-center .elementor-field-type-submit,
+.elementor-button-align-center .e-form__buttons {
+  justify-content: center; }
+
+.elementor-button-align-start .elementor-field-type-submit,
+.elementor-button-align-start .e-form__buttons {
   justify-content: flex-end; }
 
-.elementor-button-align-end .elementor-field-type-submit {
+.elementor-button-align-end .elementor-field-type-submit,
+.elementor-button-align-end .e-form__buttons {
   justify-content: flex-start; }
 
+.elementor-button-align-center .elementor-field-type-submit:not(.e-form__buttons__wrapper) .elementor-button, .elementor-button-align-start .elementor-field-type-submit:not(.e-form__buttons__wrapper) .elementor-button, .elementor-button-align-end .elementor-field-type-submit:not(.e-form__buttons__wrapper) .elementor-button {
+  flex-basis: initial; }
+
+.elementor-button-align-center .e-form__buttons__wrapper, .elementor-button-align-center .e-form__buttons__wrapper__button, .elementor-button-align-start .e-form__buttons__wrapper, .elementor-button-align-start .e-form__buttons__wrapper__button, .elementor-button-align-end .e-form__buttons__wrapper, .elementor-button-align-end .e-form__buttons__wrapper__button {
+  flex-basis: initial; }
+
 @media screen and (max-width: ELEMENTOR_SCREEN_MD_MAX) {
-  .elementor-tablet-button-align-center .elementor-field-type-submit {
-    justify-content: center; }
-  .elementor-tablet-button-align-stretch .elementor-field-type-submit button {
+  .elementor-tablet-button-align-stretch .elementor-field-type-submit:not(.e-form__buttons__wrapper) .elementor-button {
     flex-basis: 100%; }
-  .elementor-tablet-button-align-start .elementor-field-type-submit {
+  .elementor-tablet-button-align-stretch .e-form__buttons__wrapper, .elementor-tablet-button-align-stretch .e-form__buttons__wrapper__button {
+    flex-basis: 100%; }
+  .elementor-tablet-button-align-center .elementor-field-type-submit,
+  .elementor-tablet-button-align-center .e-form__buttons {
+    justify-content: center; }
+  .elementor-tablet-button-align-start .elementor-field-type-submit,
+  .elementor-tablet-button-align-start .e-form__buttons {
     justify-content: flex-end; }
-  .elementor-tablet-button-align-end .elementor-field-type-submit {
-    justify-content: flex-start; } }
+  .elementor-tablet-button-align-end .elementor-field-type-submit,
+  .elementor-tablet-button-align-end .e-form__buttons {
+    justify-content: flex-start; }
+  .elementor-tablet-button-align-center .elementor-field-type-submit:not(.e-form__buttons__wrapper) .elementor-button, .elementor-tablet-button-align-start .elementor-field-type-submit:not(.e-form__buttons__wrapper) .elementor-button, .elementor-tablet-button-align-end .elementor-field-type-submit:not(.e-form__buttons__wrapper) .elementor-button {
+    flex-basis: initial; }
+  .elementor-tablet-button-align-center .e-form__buttons__wrapper, .elementor-tablet-button-align-center .e-form__buttons__wrapper__button, .elementor-tablet-button-align-start .e-form__buttons__wrapper, .elementor-tablet-button-align-start .e-form__buttons__wrapper__button, .elementor-tablet-button-align-end .e-form__buttons__wrapper, .elementor-tablet-button-align-end .e-form__buttons__wrapper__button {
+    flex-basis: initial; } }
 
 @media screen and (max-width: ELEMENTOR_SCREEN_SM_MAX) {
-  .elementor-mobile-button-align-center .elementor-field-type-submit {
-    justify-content: center; }
-  .elementor-mobile-button-align-stretch .elementor-field-type-submit button {
+  .elementor-mobile-button-align-stretch .elementor-field-type-submit:not(.e-form__buttons__wrapper) .elementor-button {
     flex-basis: 100%; }
-  .elementor-mobile-button-align-start .elementor-field-type-submit {
+  .elementor-mobile-button-align-stretch .e-form__buttons__wrapper, .elementor-mobile-button-align-stretch .e-form__buttons__wrapper__button {
+    flex-basis: 100%; }
+  .elementor-mobile-button-align-center .elementor-field-type-submit,
+  .elementor-mobile-button-align-center .e-form__buttons {
+    justify-content: center; }
+  .elementor-mobile-button-align-start .elementor-field-type-submit,
+  .elementor-mobile-button-align-start .e-form__buttons {
     justify-content: flex-end; }
-  .elementor-mobile-button-align-end .elementor-field-type-submit {
-    justify-content: flex-start; } }
+  .elementor-mobile-button-align-end .elementor-field-type-submit,
+  .elementor-mobile-button-align-end .e-form__buttons {
+    justify-content: flex-start; }
+  .elementor-mobile-button-align-center .elementor-field-type-submit:not(.e-form__buttons__wrapper) .elementor-button, .elementor-mobile-button-align-start .elementor-field-type-submit:not(.e-form__buttons__wrapper) .elementor-button, .elementor-mobile-button-align-end .elementor-field-type-submit:not(.e-form__buttons__wrapper) .elementor-button {
+    flex-basis: initial; }
+  .elementor-mobile-button-align-center .e-form__buttons__wrapper, .elementor-mobile-button-align-center .e-form__buttons__wrapper__button, .elementor-mobile-button-align-start .e-form__buttons__wrapper, .elementor-mobile-button-align-start .e-form__buttons__wrapper__button, .elementor-mobile-button-align-end .e-form__buttons__wrapper, .elementor-mobile-button-align-end .e-form__buttons__wrapper__button {
+    flex-basis: initial; } }
 
 .elementor-error .elementor-field {
   border-color: #d9534f; }
@@ -1119,7 +1149,7 @@ ul.elementor-icon-list-items.elementor-inline-items {
 .elementor-form .elementor-button {
   padding-top: 0;
   padding-bottom: 0;
-  border: 0 none; }
+  border: none; }
   .elementor-form .elementor-button > span {
     display: flex;
     justify-content: center; }
@@ -1444,22 +1474,23 @@ ul.elementor-icon-list-items.elementor-inline-items {
 .elementor-widget-google_maps iframe {
   height: 300px; }
 
-.elementor-widget-heading .elementor-heading-title {
+.elementor-heading-title {
   padding: 0;
   margin: 0;
   line-height: 1; }
-  .elementor-widget-heading .elementor-heading-title > a {
+  .elementor-heading-title[class*="elementor-size-"] > a {
     color: inherit;
-    font-size: inherit; }
-  .elementor-widget-heading .elementor-heading-title.elementor-size-small {
+    font-size: inherit;
+    line-height: inherit; }
+  .elementor-heading-title.elementor-size-small {
     font-size: 15px; }
-  .elementor-widget-heading .elementor-heading-title.elementor-size-medium {
+  .elementor-heading-title.elementor-size-medium {
     font-size: 19px; }
-  .elementor-widget-heading .elementor-heading-title.elementor-size-large {
+  .elementor-heading-title.elementor-size-large {
     font-size: 29px; }
-  .elementor-widget-heading .elementor-heading-title.elementor-size-xl {
+  .elementor-heading-title.elementor-size-xl {
     font-size: 39px; }
-  .elementor-widget-heading .elementor-heading-title.elementor-size-xxl {
+  .elementor-heading-title.elementor-size-xxl {
     font-size: 59px; }
 
 .elementor-icon {
@@ -3020,11 +3051,10 @@ button.swiper-pagination-bullet {
   display: block;
   position: absolute;
   min-width: 200px;
-  left: 67px;
-  top: 60px;
+  left: 2.8em;
+  top: 3em;
   background-color: #fff;
   border-radius: 3px;
-  font-size: 16px;
   padding: 14px 20px;
   transform: scale(0);
   opacity: 0;
@@ -3042,15 +3072,15 @@ button.swiper-pagination-bullet {
     .elementor-slideshow__share-links a:hover {
       color: #000; }
     .elementor-slideshow__share-links a i {
-      margin-left: 10px;
-      font-size: 15px; }
+      font-size: 1.25em;
+      margin-left: 0.75em; }
   .elementor-slideshow__share-links:before {
     content: '';
     display: block;
     position: absolute;
-    top: 0;
-    left: 15px;
-    border: 9px solid;
+    top: 1px;
+    left: 0.5em;
+    border: .45em solid;
     border-color: transparent transparent #fff transparent;
     transform: translateY(-100%) scaleX(0.7); }
 

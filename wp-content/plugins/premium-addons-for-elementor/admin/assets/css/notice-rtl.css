@@ -49,7 +49,6 @@
 .error .pa-text-wrap a:focus {
     box-shadow: none;
     outline: none;
-
 }
 
 .error.pa-notice-wrap .pa-text-wrap {
@@ -73,7 +72,7 @@
 }
 
 .error.pa-notice-wrap .pa-text-wrap a:first-of-type {
-    background: #0f6aa7
+    background: #0f6aa7;
 }
 
 .error.pa-black-notice .pa-text-wrap a:first-of-type {
@@ -99,6 +98,7 @@
 .pa-notice-close span {
     float: left;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .error.pa-notice-wrap .pa-text-wrap a:not(:first-of-type) {

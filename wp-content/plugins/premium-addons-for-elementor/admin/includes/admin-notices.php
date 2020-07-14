@@ -38,7 +38,7 @@ class Admin_Notices {
 
         $this->handle_review_notice();
         
-        $this->handle_hscroll_notice();
+        $this->handle_lottie_notice();
         
     }
     
@@ -57,7 +57,7 @@ class Admin_Notices {
             $this->get_review_notice();
         }
         
-        $this->get_hscroll_notice();
+        $this->get_lottie_notice();
         
     }
 
@@ -94,19 +94,19 @@ class Admin_Notices {
      * 
      * @return void
      */
-    public function handle_hscroll_notice() {
+    public function handle_lottie_notice() {
         
-        if ( ! isset( $_GET['hscroll'] ) ) {
+        if ( ! isset( $_GET['lottie_widget'] ) ) {
             return;
         }
 
-        if ( 'opt_out' === $_GET['hscroll'] ) {
+        if ( 'opt_out' === $_GET['lottie_widget'] ) {
             check_admin_referer( 'opt_out' );
 
-            update_option( 'hscroll_notice', '1' );
+            update_option( 'lottie_widget_notice', '1' );
         }
 
-        wp_redirect( remove_query_arg( 'hscroll' ) );
+        wp_redirect( remove_query_arg( 'lottie_widget' ) );
         exit;
     }
     
@@ -210,31 +210,31 @@ class Admin_Notices {
     
     /**
      * 
-     * Shows admin notice for Premium Horizontal Scroll.
+     * Shows admin notice for Premium Lottie Animations.
      * 
      * @since 3.11.7
      * @access public
      * 
      * @return void
      */
-    public function get_hscroll_notice() {
+    public function get_lottie_notice() {
         
-        $hscroll_notice = get_option( 'hscroll_notice' );
+        $lottie_notice = get_option( 'lottie_widget_notice' );
         
-        if( '1' === $hscroll_notice )
+        if( '1' === $lottie_notice )
             return;
         
         $theme = Helper_Functions::get_installed_theme();
     
-        $notice_url = sprintf( 'https://premiumaddons.com/elementor-horizontal-scroll-widget/?utm_source=hscroll-notification&utm_medium=wp-dash&utm_campaign=get-pro&utm_term=%s', $theme );
+        $notice_url = sprintf( 'https://premiumaddons.com/elementor-lottie-animations-widget/?utm_source=lottie-notification&utm_medium=wp-dash&utm_campaign=get-pro&utm_term=%s', $theme );
     
         $templates_message = '<div class="pa-text-wrap">';
 
         $templates_message .= '<img class="pa-notice-logo" src="' . PREMIUM_ADDONS_URL .'admin/images/premium-addons-logo.png' . '">';
 
-        $templates_message .= '<strong>' . __('Premium Horizontal Scroll','premium-addons-for-elementor') . '&nbsp</strong><span>' . __('widget is now available in Premium Addons Pro.', 'premium-addons-for-elementor') . '&nbsp</span><a href="' . esc_url( $notice_url ) . '" target="_blank">' . __('Check it out now', 'premium-addons-for-elementor') . '</a>';
+        $templates_message .= '<strong>' . __('Premium Lottie Animations','premium-addons-for-elementor') . '&nbsp</strong><span>' . __('widget is now available.', 'premium-addons-for-elementor') . '&nbsp</span><a href="' . esc_url( $notice_url ) . '" target="_blank">' . __('Check it out now', 'premium-addons-for-elementor') . '</a>';
 
-        $templates_message .= '<div class="pa-notice-close" data-notice="hscroll"><span class="dashicons dashicons-dismiss"></span></div>';
+        $templates_message .= '<div class="pa-notice-close" data-notice="lottie"><span class="dashicons dashicons-dismiss"></span></div>';
 
         $templates_message .= '</div>';
 
@@ -332,7 +332,7 @@ class Admin_Notices {
         
         if ( ! empty( $key ) ) {
             
-            update_option( 'hscroll_notice', '1' );
+            update_option( 'lottie_widget_notice', '1' );
             
             wp_send_json_success();
             

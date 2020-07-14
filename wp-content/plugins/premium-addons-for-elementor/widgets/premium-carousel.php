@@ -1,17 +1,26 @@
 <?php 
 
+/**
+ * Premium Carousel.
+ */
 namespace PremiumAddons\Widgets;
 
-use PremiumAddons\Helper_Functions;
-use PremiumAddons\Includes;
+// Elementor Classes.
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
 use Elementor\Scheme_Color;
 use Elementor\Group_Control_Border;
 
+// PremiumAddons Classes.
+use PremiumAddons\Helper_Functions;
+use PremiumAddons\Includes;
+
 if( ! defined( 'ABSPATH' ) ) exit; // No access of directly access
 
+/**
+ * Class Premium_Carousel
+ */
 class Premium_Carousel extends Widget_Base {
 
     protected $templateInstance;
@@ -57,8 +66,12 @@ class Premium_Carousel extends Widget_Base {
 		return 'https://premiumaddons.com/support/';
 	}
     
-    // Adding the controls fields for the premium carousel
-    // This will controls the animation, colors and background, dimensions etc
+    /**
+	 * Register Carousel controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
 	protected function _register_controls() {
 		$this->start_controls_section('premium_carousel_global_settings',
 			[
@@ -421,7 +434,7 @@ class Premium_Carousel extends Widget_Base {
         
         $this->start_controls_section('section_pa_docs',
             [
-                'label'         => __('Helpful Documentations', 'premium-addons-pro'),
+                'label'         => __('Helpful Documentations', 'premium-addons-for-elementor'),
             ]
         );
         
@@ -429,6 +442,14 @@ class Premium_Carousel extends Widget_Base {
             [
                 'type'            => Controls_Manager::RAW_HTML,
                 'raw'             => sprintf( __( '%1$s Issue: I can see the first slide only » %2$s', 'premium-addons-for-elementor' ), '<a href="https://premiumaddons.com/docs/i-can-see-the-first-slide-only-in-carousel-widget/?utm_source=pa-dashboard&utm_medium=pa-editor&utm_campaign=pa-plugin" target="_blank" rel="noopener">', '</a>' ),
+                'content_classes' => 'editor-pa-doc',
+            ]
+		);
+		
+		$this->add_control('doc_2',
+            [
+                'type'            => Controls_Manager::RAW_HTML,
+                'raw'             => sprintf( __( '%1$s I\'m not able to see Font Awesome icons in the widget » %2$s', 'premium-addons-pro' ), '<a href="https://premiumaddons.com/docs/why-im-not-able-to-see-elementor-font-awesome-5-icons-in-premium-add-ons/?utm_source=papro-dashboard&utm_medium=papro-editor&utm_campaign=papro-plugin" target="_blank" rel="noopener">', '</a>' ),
                 'content_classes' => 'editor-pa-doc',
             ]
         );
@@ -824,6 +845,14 @@ class Premium_Carousel extends Widget_Base {
 
 	}
 
+	/**
+	 * Render Carousel widget output on the frontend.
+	 *
+	 * Written in PHP and used to generate the final HTML.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
 	protected function render() {
         
 		$settings = $this->get_settings();
@@ -1077,7 +1106,15 @@ class Premium_Carousel extends Widget_Base {
         </div>
 		<?php
 	}
-    
+	
+	/**
+	 * Render Carousel widget output in the editor.
+	 *
+	 * Written as a Backbone JavaScript template and used to generate the live preview.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function _content_template() {
         
         ?>

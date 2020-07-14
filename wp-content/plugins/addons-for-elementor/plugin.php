@@ -45,7 +45,7 @@ if ( !class_exists( 'Livemesh_Elementor_Addons' ) ) {
         public function __clone()
         {
             // Cloning instances of the class is forbidden
-            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '2.9.9' );
+            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '3.0.0' );
         }
         
         /**
@@ -55,7 +55,7 @@ if ( !class_exists( 'Livemesh_Elementor_Addons' ) ) {
         public function __wakeup()
         {
             // Unserializing instances of the class is forbidden
-            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '2.9.9' );
+            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'livemesh-el-addons' ), '3.0.0' );
         }
         
         private function setup_debug_constants()

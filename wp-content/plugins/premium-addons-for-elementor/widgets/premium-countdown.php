@@ -1,8 +1,11 @@
 <?php
 
+/**
+ * Premium Countdown.
+ */
 namespace PremiumAddons\Widgets;
 
-use PremiumAddons\Helper_Functions;
+// Elementor Classes.
 use Elementor\Modules\DynamicTags\Module as TagsModule;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
@@ -12,8 +15,14 @@ use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
 
+// PremiumAddons Classes.
+use PremiumAddons\Helper_Functions;
+
 if( !defined( 'ABSPATH' ) ) exit; // No access of directly access
 
+/**
+ * Class Premium_Countdown
+ */
 class Premium_Countdown extends Widget_Base {
     
 	public function get_name() {
@@ -53,8 +62,12 @@ class Premium_Countdown extends Widget_Base {
 		return 'https://premiumaddons.com/support/';
 	}
 
-    // Adding the controls fields for the premium countdown
-    // This will controls the animation, colors and background, dimensions etc
+    /**
+	 * Register Countdown controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
 	protected function _register_controls() {
 		$this->start_controls_section(
 			'premium_countdown_global_settings',
@@ -611,6 +624,14 @@ class Premium_Countdown extends Widget_Base {
         
 	}
 
+	/**
+	 * Render Countdown widget output on the frontend.
+	 *
+	 * Written in PHP and used to generate the final HTML.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
 	protected function render( ) {
 		
       	$settings = $this->get_settings_for_display();

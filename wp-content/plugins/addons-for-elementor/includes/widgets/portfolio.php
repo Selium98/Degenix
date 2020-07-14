@@ -1,6 +1,6 @@
 <?php
 
- /*
+/*
 Widget Name: Posts Grid
 Description: Display posts or custom post types in a multi-column grid.
 Author: LiveMesh
@@ -241,6 +241,54 @@ class LAE_Portfolio_Widget extends Widget_Base {
         );
 
         $this->add_control(
+            'image_linkable',
+            [
+                'label' => __('Link Images to Posts?', 'livemesh-el-addons'),
+                'type' => Controls_Manager::SWITCHER,
+                'label_on' => __('Yes', 'livemesh-el-addons'),
+                'label_off' => __('No', 'livemesh-el-addons'),
+                'return_value' => 'yes',
+                'default' => 'yes',
+            ]
+        );
+
+        $this->add_control(
+            'post_link_new_window',
+            [
+                'label' => __('Open post links in new window?', 'livemesh-el-addons'),
+                'type' => Controls_Manager::SWITCHER,
+                'label_on' => __('Yes', 'livemesh-el-addons'),
+                'label_off' => __('No', 'livemesh-el-addons'),
+                'return_value' => 'yes',
+                'default' => '',
+            ]
+        );
+
+        $this->add_control(
+            'display_title_on_thumbnail',
+            [
+                'label' => __('Display posts title on the post/portfolio thumbnail?', 'livemesh-el-addons'),
+                'type' => Controls_Manager::SWITCHER,
+                'label_on' => __('Yes', 'livemesh-el-addons'),
+                'label_off' => __('No', 'livemesh-el-addons'),
+                'return_value' => 'yes',
+                'default' => 'yes',
+            ]
+        );
+
+        $this->add_control(
+            'display_taxonomy_on_thumbnail',
+            [
+                'label' => __('Display taxonomy info on post/project thumbnail?', 'livemesh-el-addons'),
+                'type' => Controls_Manager::SWITCHER,
+                'label_on' => __('Yes', 'livemesh-el-addons'),
+                'label_off' => __('No', 'livemesh-el-addons'),
+                'return_value' => 'yes',
+                'default' => 'yes',
+            ]
+        );
+
+        $this->add_control(
             'display_title',
             [
                 'label' => __('Display posts title for the post/portfolio item?', 'livemesh-el-addons'),
@@ -261,15 +309,6 @@ class LAE_Portfolio_Widget extends Widget_Base {
                 'label_off' => __('No', 'livemesh-el-addons'),
                 'return_value' => 'yes',
                 'default' => 'yes',
-            ]
-        );
-
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-            'section_post_meta',
-            [
-                'label' => __('Post Meta', 'livemesh-el-addons'),
             ]
         );
 
@@ -303,12 +342,34 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'display_taxonomy',
             [
-                'label' => __('Display taxonomy info for the post item? Choose the right taxonomy in Post Content section above.', 'livemesh-el-addons'),
+                'label' => __('Display taxonomy info for the post item?', 'livemesh-el-addons'),
                 'type' => Controls_Manager::SWITCHER,
                 'label_on' => __('Yes', 'livemesh-el-addons'),
                 'label_off' => __('No', 'livemesh-el-addons'),
                 'return_value' => 'yes',
                 'default' => 'yes',
+            ]
+        );
+
+        $this->add_control(
+            'display_read_more',
+            [
+                'label' => __('Display read more link to the post/portfolio?', 'livemesh-el-addons'),
+                'type' => Controls_Manager::SWITCHER,
+                'label_on' => __('Yes', 'livemesh-el-addons'),
+                'label_off' => __('No', 'livemesh-el-addons'),
+                'return_value' => 'yes',
+                'default' => 'no',
+            ]
+        );
+
+        $this->add_control(
+            'read_more_text',
+            [
+                'label' => __('Read more text', 'livemesh-el-addons'),
+                'type' => Controls_Manager::TEXT,
+                "description" => __('Specify the text for the read more link/button', 'livemesh-el-addons'),
+                'default' => __('Read More', 'livemesh-el-addons'),
             ]
         );
 
@@ -319,18 +380,6 @@ class LAE_Portfolio_Widget extends Widget_Base {
             [
                 'label' => __('General Settings', 'livemesh-el-addons'),
                 'tab' => Controls_Manager::TAB_SETTINGS,
-            ]
-        );
-
-        $this->add_control(
-            'image_linkable',
-            [
-                'label' => __('Link Images to Posts?', 'livemesh-el-addons'),
-                'type' => Controls_Manager::SWITCHER,
-                'label_on' => __('Yes', 'livemesh-el-addons'),
-                'label_off' => __('No', 'livemesh-el-addons'),
-                'return_value' => 'yes',
-                'default' => 'yes',
             ]
         );
 
@@ -358,7 +407,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_responsive_control(
             'per_line',
             [
-                'label' => __( 'Columns per row', 'livemesh-el-addons' ),
+                'label' => __('Columns per row', 'livemesh-el-addons'),
                 'type' => Controls_Manager::SELECT,
                 'default' => '3',
                 'tablet_default' => '2',
@@ -424,7 +473,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'heading_tablet',
             [
-                'label' => __( 'Tablet', 'livemesh-el-addons' ),
+                'label' => __('Tablet', 'livemesh-el-addons'),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'after',
             ]
@@ -448,7 +497,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'heading_mobile',
             [
-                'label' => __( 'Mobile Phone', 'livemesh-el-addons' ),
+                'label' => __('Mobile Phone', 'livemesh-el-addons'),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'after',
             ]
@@ -483,16 +532,16 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'heading_tag',
             [
-                'label' => __( 'Heading HTML Tag', 'livemesh-el-addons' ),
+                'label' => __('Heading HTML Tag', 'livemesh-el-addons'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'h1' => __( 'H1', 'livemesh-el-addons' ),
-                    'h2' => __( 'H2', 'livemesh-el-addons' ),
-                    'h3' => __( 'H3', 'livemesh-el-addons' ),
-                    'h4' => __( 'H4', 'livemesh-el-addons' ),
-                    'h5' => __( 'H5', 'livemesh-el-addons' ),
-                    'h6' => __( 'H6', 'livemesh-el-addons' ),
-                    'div' => __( 'div', 'livemesh-el-addons' ),
+                    'h1' => __('H1', 'livemesh-el-addons'),
+                    'h2' => __('H2', 'livemesh-el-addons'),
+                    'h3' => __('H3', 'livemesh-el-addons'),
+                    'h4' => __('H4', 'livemesh-el-addons'),
+                    'h5' => __('H5', 'livemesh-el-addons'),
+                    'h6' => __('H6', 'livemesh-el-addons'),
+                    'div' => __('div', 'livemesh-el-addons'),
                 ],
                 'default' => 'h3',
             ]
@@ -501,7 +550,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'heading_color',
             [
-                'label' => __( 'Heading Color', 'livemesh-el-addons' ),
+                'label' => __('Heading Color', 'livemesh-el-addons'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .lae-portfolio-wrap .lae-heading' => 'color: {{VALUE}};',
@@ -530,7 +579,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'filter_color',
             [
-                'label' => __( 'Filter Color', 'livemesh-el-addons' ),
+                'label' => __('Filter Color', 'livemesh-el-addons'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .lae-portfolio-wrap .lae-taxonomy-filter .lae-filter-item a' => 'color: {{VALUE}};',
@@ -541,7 +590,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'filter_hover_color',
             [
-                'label' => __( 'Filter Hover Color', 'livemesh-el-addons' ),
+                'label' => __('Filter Hover Color', 'livemesh-el-addons'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .lae-portfolio-wrap .lae-taxonomy-filter .lae-filter-item a:hover, {{WRAPPER}} .lae-portfolio-wrap .lae-taxonomy-filter .lae-filter-item.lae-active a' => 'color: {{VALUE}};',
@@ -552,7 +601,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'filter_active_border',
             [
-                'label' => __( 'Active Filter Border Color', 'livemesh-el-addons' ),
+                'label' => __('Active Filter Border Color', 'livemesh-el-addons'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .lae-portfolio-wrap .lae-taxonomy-filter .lae-filter-item.lae-active:after ' => 'border-color: {{VALUE}};',
@@ -581,7 +630,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'heading_thumbnail_info',
             [
-                'label' => __( 'Thumbnail Info Entry Title', 'livemesh-el-addons' ),
+                'label' => __('Thumbnail Info Entry Title', 'livemesh-el-addons'),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'after',
             ]
@@ -590,16 +639,16 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'title_tag',
             [
-                'label' => __( 'Title HTML Tag', 'livemesh-el-addons' ),
+                'label' => __('Title HTML Tag', 'livemesh-el-addons'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'h1' => __( 'H1', 'livemesh-el-addons' ),
-                    'h2' => __( 'H2', 'livemesh-el-addons' ),
-                    'h3' => __( 'H3', 'livemesh-el-addons' ),
-                    'h4' => __( 'H4', 'livemesh-el-addons' ),
-                    'h5' => __( 'H5', 'livemesh-el-addons' ),
-                    'h6' => __( 'H6', 'livemesh-el-addons' ),
-                    'div' => __( 'div', 'livemesh-el-addons' ),
+                    'h1' => __('H1', 'livemesh-el-addons'),
+                    'h2' => __('H2', 'livemesh-el-addons'),
+                    'h3' => __('H3', 'livemesh-el-addons'),
+                    'h4' => __('H4', 'livemesh-el-addons'),
+                    'h5' => __('H5', 'livemesh-el-addons'),
+                    'h6' => __('H6', 'livemesh-el-addons'),
+                    'div' => __('div', 'livemesh-el-addons'),
                 ],
                 'default' => 'h3',
             ]
@@ -608,7 +657,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'title_color',
             [
-                'label' => __( 'Title Color', 'livemesh-el-addons' ),
+                'label' => __('Title Color', 'livemesh-el-addons'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .lae-portfolio-wrap .lae-portfolio .lae-portfolio-item .lae-project-image .lae-image-info .lae-post-title a' => 'color: {{VALUE}};',
@@ -619,7 +668,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'title_hover_border_color',
             [
-                'label' => __( 'Title Hover Border Color', 'livemesh-el-addons' ),
+                'label' => __('Title Hover Border Color', 'livemesh-el-addons'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .lae-portfolio-wrap .lae-portfolio .lae-portfolio-item .lae-project-image .lae-image-info .lae-post-title a:hover' => 'border-color: {{VALUE}};',
@@ -638,7 +687,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'heading_thumbnail_info_taxonomy',
             [
-                'label' => __( 'Thumbnail Info Taxonomy Terms', 'livemesh-el-addons' ),
+                'label' => __('Thumbnail Info Taxonomy Terms', 'livemesh-el-addons'),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'after',
             ]
@@ -647,7 +696,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'thumbnail_info_tags_color',
             [
-                'label' => __( 'Taxonomy Terms Color', 'livemesh-el-addons' ),
+                'label' => __('Taxonomy Terms Color', 'livemesh-el-addons'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .lae-portfolio-wrap .lae-portfolio .lae-portfolio-item .lae-project-image .lae-image-info .lae-terms, {{WRAPPER}} .lae-portfolio-wrap .lae-portfolio .lae-portfolio-item .lae-project-image .lae-image-info .lae-terms a' => 'color: {{VALUE}};',
@@ -687,16 +736,16 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'entry_title_tag',
             [
-                'label' => __( 'Entry Title HTML Tag', 'livemesh-el-addons' ),
+                'label' => __('Entry Title HTML Tag', 'livemesh-el-addons'),
                 'type' => Controls_Manager::SELECT,
                 'options' => [
-                    'h1' => __( 'H1', 'livemesh-el-addons' ),
-                    'h2' => __( 'H2', 'livemesh-el-addons' ),
-                    'h3' => __( 'H3', 'livemesh-el-addons' ),
-                    'h4' => __( 'H4', 'livemesh-el-addons' ),
-                    'h5' => __( 'H5', 'livemesh-el-addons' ),
-                    'h6' => __( 'H6', 'livemesh-el-addons' ),
-                    'div' => __( 'div', 'livemesh-el-addons' ),
+                    'h1' => __('H1', 'livemesh-el-addons'),
+                    'h2' => __('H2', 'livemesh-el-addons'),
+                    'h3' => __('H3', 'livemesh-el-addons'),
+                    'h4' => __('H4', 'livemesh-el-addons'),
+                    'h5' => __('H5', 'livemesh-el-addons'),
+                    'h6' => __('H6', 'livemesh-el-addons'),
+                    'div' => __('div', 'livemesh-el-addons'),
                 ],
                 'default' => 'h3',
             ]
@@ -705,7 +754,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'entry_title_color',
             [
-                'label' => __( 'Entry Title Color', 'livemesh-el-addons' ),
+                'label' => __('Entry Title Color', 'livemesh-el-addons'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .lae-portfolio-wrap .lae-portfolio .lae-portfolio-item .entry-title a' => 'color: {{VALUE}};',
@@ -745,7 +794,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'entry_summary_color',
             [
-                'label' => __( 'Entry Summary Color', 'livemesh-el-addons' ),
+                'label' => __('Entry Summary Color', 'livemesh-el-addons'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .lae-portfolio-wrap .lae-portfolio .lae-portfolio-item .entry-summary' => 'color: {{VALUE}};',
@@ -774,7 +823,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'heading_entry_meta',
             [
-                'label' => __( 'Entry Meta', 'livemesh-el-addons' ),
+                'label' => __('Entry Meta', 'livemesh-el-addons'),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'after',
             ]
@@ -783,7 +832,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'entry_meta_color',
             [
-                'label' => __( 'Entry Meta Color', 'livemesh-el-addons' ),
+                'label' => __('Entry Meta Color', 'livemesh-el-addons'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .lae-portfolio-wrap .lae-portfolio .lae-portfolio-item .lae-entry-meta span' => 'color: {{VALUE}};',
@@ -803,7 +852,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'heading_entry_meta_link',
             [
-                'label' => __( 'Entry Meta Link', 'livemesh-el-addons' ),
+                'label' => __('Entry Meta Link', 'livemesh-el-addons'),
                 'type' => Controls_Manager::HEADING,
                 'separator' => 'after',
             ]
@@ -812,7 +861,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
         $this->add_control(
             'entry_meta_link_color',
             [
-                'label' => __( 'Entry Meta Link Color', 'livemesh-el-addons' ),
+                'label' => __('Entry Meta Link Color', 'livemesh-el-addons'),
                 'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .lae-portfolio-wrap .lae-portfolio .lae-portfolio-item .lae-entry-meta span a' => 'color: {{VALUE}};',
@@ -829,6 +878,48 @@ class LAE_Portfolio_Widget extends Widget_Base {
         );
 
         $this->end_controls_section();
+
+        $this->start_controls_section(
+            'section_read_more_styling',
+            [
+                'label' => __('Read More', 'livemesh-el-addons'),
+                'tab' => Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_control(
+            'read_more_color',
+            [
+                'label' => __('Read More Color', 'livemesh-el-addons'),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .lae-portfolio-wrap .lae-portfolio-item .lae-read-more, {{WRAPPER}} .lae-portfolio-wrap .lae-portfolio-item .lae-read-more a' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'read_more_hover_color',
+            [
+                'label' => __('Read More Hover Color', 'livemesh-el-addons'),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .lae-portfolio-wrap .lae-portfolio-item .lae-read-more:hover, {{WRAPPER}} .lae-portfolio-wrap .lae-portfolio-item .lae-read-more a:hover' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name' => 'read_more_typography',
+                'selector' => '{{WRAPPER}} .lae-portfolio-wrap .lae-portfolio-item .lae-read-more, {{WRAPPER}} .lae-portfolio-wrap .lae-portfolio-item .lae-read-more a',
+            ]
+        );
+
+        $this->end_controls_section();
+
+
 
     }
 
@@ -849,6 +940,8 @@ class LAE_Portfolio_Widget extends Widget_Base {
         if ($loop->have_posts()) :
 
             $dir = is_rtl() ? ' dir="rtl"' : '';
+
+            $target = $settings['post_link_new_window'] == 'yes' ? ' target="_blank"' : '';
 
             // Check if any taxonomy filter has been applied
             list($chosen_terms, $taxonomies) = lae_get_chosen_terms($query_args);
@@ -883,7 +976,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
 
             $output .= '<div' . $dir . ' id="lae-portfolio-' . uniqid()
                 . '" class="lae-portfolio js-isotope lae-' . esc_attr($settings['layout_mode']) . ' lae-grid-container ' . lae_get_grid_classes($settings)
-                . '" data-isotope-options=\'{ "itemSelector": ".lae-portfolio-item", "layoutMode": "' . esc_attr($settings['layout_mode']) . '", "originLeft": ' . esc_attr(!is_rtl()? 'true' : 'false') . '}\'>';
+                . '" data-isotope-options=\'{ "itemSelector": ".lae-portfolio-item", "layoutMode": "' . esc_attr($settings['layout_mode']) . '", "originLeft": ' . esc_attr(!is_rtl() ? 'true' : 'false') . '}\'>';
 
             $current_page = get_queried_object_id();
 
@@ -918,27 +1011,39 @@ class LAE_Portfolio_Widget extends Widget_Base {
 
                     if ($settings['image_linkable'] == 'yes'):
 
-                        $thumbnail_html = '<a href="' . get_the_permalink() . '">' . $thumbnail_html . '</a>';
+                        $thumbnail_html = '<a href="' . get_the_permalink() . '"̌̌' . $target . '>' . $thumbnail_html . '</a>';
 
                     endif;
 
                     $entry_image .= apply_filters('lae_posts_grid_thumbnail_html', $thumbnail_html, $image_setting, $settings);
 
-                    $image_info = '<div class="lae-image-info">';
+                    if (($settings['display_title_on_thumbnail'] == 'yes') || ($settings['display_taxonomy_on_thumbnail'] == 'yes')):
 
-                    $image_info .= '<div class="lae-entry-info">';
+                        $image_info = '<div class="lae-image-info">';
 
-                    $image_info .= '<' . $settings['title_tag'] . ' class="lae-post-title"><a href="' . get_permalink() . '" title="' . get_the_title() . '" rel="bookmark">' . get_the_title() . '</a></' . $settings['title_tag'] . '>';
+                        $image_info .= '<div class="lae-entry-info">';
 
-                    $image_info .= lae_get_info_for_taxonomies($taxonomies);
+                        if ($settings['display_title_on_thumbnail'] == 'yes'):
 
-                    $image_info .= '</div>';
+                            $image_info .= '<' . $settings['title_tag'] . ' class="lae-post-title"><a href="' . get_permalink() . '" title="' . get_the_title() . '" rel="bookmark"' . $target . '>' . get_the_title() . '</a></' . $settings['title_tag'] . '>';
 
-                    $image_info .= '</div><!-- .lae-image-info -->';
+                        endif;
 
-                    $entry_image .= apply_filters('lae_posts_grid_image_info', $image_info, $post_id, $settings);
+                        if ($settings['display_taxonomy_on_thumbnail'] == 'yes'):
 
-                    $entry_image .= '</div>';
+                            $image_info .= lae_get_info_for_taxonomies($taxonomies);
+
+                        endif;
+
+                        $image_info .= '</div>';
+
+                        $image_info .= '</div><!-- .lae-image-info -->';
+
+                        $entry_image .= apply_filters('lae_posts_grid_image_info', $image_info, $post_id, $settings);
+
+                        $entry_image .= '</div>';
+
+                    endif;
 
                     $entry_output .= apply_filters('lae_posts_grid_entry_image', $entry_image, $image_setting, $settings);
 
@@ -950,7 +1055,7 @@ class LAE_Portfolio_Widget extends Widget_Base {
 
                     if ($settings['display_title'] == 'yes') :
 
-                        $entry_title = '<' . $settings['entry_title_tag'] . ' class="entry-title"><a href="' . get_permalink() . '" title="' . get_the_title() . '" rel="bookmark">' . get_the_title() . '</a></' . $settings['entry_title_tag'] . '>';
+                        $entry_title = '<' . $settings['entry_title_tag'] . ' class="entry-title"><a href="' . get_permalink() . '" title="' . get_the_title() . '" rel="bookmark"' . $target . '>' . get_the_title() . '</a></' . $settings['entry_title_tag'] . '>';
 
                         $entry_text .= apply_filters('lae_posts_grid_entry_title', $entry_title, $post_id, $settings);
 
@@ -993,6 +1098,20 @@ class LAE_Portfolio_Widget extends Widget_Base {
                         $excerpt .= '</div>';
 
                         $entry_text .= apply_filters('lae_posts_grid_entry_excerpt', $excerpt, $post_id, $settings);
+
+                    endif;
+
+                    if ($settings['display_read_more'] == 'yes') :
+
+                        $read_more_text = $settings['read_more_text'];
+
+                        $read_more = '<div class="lae-read-more">';
+
+                        $read_more .= '<a href="' . get_the_permalink() . '"' . $target . '>' . $read_more_text . '</a>';
+
+                        $read_more .= '</div>';
+
+                        $entry_text .= apply_filters('lae_posts_grid_read_more_link', $read_more, $post_id, $settings);
 
                     endif;
 

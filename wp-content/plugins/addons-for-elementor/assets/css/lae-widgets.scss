@@ -2308,3 +2308,41 @@ input.lae-button.lae-with-icon, button.lae-button.lae-with-icon, a.lae-button.la
     }
   }
 }
+
+.lae-portfolio-wrap .lae-portfolio-item, .lae-posts-carousel .lae-posts-carousel-item {
+
+  .lae-read-more {
+    margin: 25px 0 0 0;
+  }
+
+  .lae-read-more a:not(.lae-button) {
+    color: #333;
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: block;
+    padding: 0;
+    transition: color 0.3s ease-in-out 0s;
+
+    &:hover {
+      color: #666;
+    }
+
+    &:after {
+      content: '›';
+      display: inline-block;
+      margin-left: 7px;
+    }
+
+    .rtl & {
+      &:after {
+        margin: 0 7px 0 0;
+      }
+    }
+
+    &:hover {
+      color: #666;
+    }
+  }
+}

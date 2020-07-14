@@ -1,8 +1,11 @@
 <?php
 
+/**
+ * Premium Dual Heading.
+ */
 namespace PremiumAddons\Widgets;
 
-use PremiumAddons\Helper_Functions;
+// Elementor Classes.
 use PremiumAddons\Includes;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
@@ -13,9 +16,16 @@ use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Background;
 
+// PremiumAddons Classes.
+use PremiumAddons\Helper_Functions;
+
 if ( ! defined( 'ABSPATH' ) ) exit; // If this file is called directly, abort.
 
+/**
+ * Class Premium_Dual_Header
+ */
 class Premium_Dual_Header extends Widget_Base {
+    
     protected $templateInstance;
 
     public function getTemplateInstance(){
@@ -48,8 +58,12 @@ class Premium_Dual_Header extends Widget_Base {
 		return 'https://premiumaddons.com/support/';
 	}
 
-    // Adding the controls fields for the premium dual header
-    // This will controls the animation, colors and background, dimensions etc
+    /**
+	 * Register Dual Heading controls.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function _register_controls() {
 
         /*Start General Section*/
@@ -203,7 +217,7 @@ class Premium_Dual_Header extends Widget_Base {
 
         $this->add_responsive_control('rotate',
             [
-                'label'         => __('Degrees', 'premium-addons-pro'),
+                'label'         => __('Degrees', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::NUMBER,
                 'min'           => -180,
                 'max'           => 180,
@@ -215,20 +229,20 @@ class Premium_Dual_Header extends Widget_Base {
 
         $this->add_responsive_control('transform_origin_x',
             [
-                'label' => __( 'X Anchor Point', 'premium-addons-pro' ),
+                'label' => __( 'X Anchor Point', 'premium-addons-for-elementor' ),
                 'type' => Controls_Manager::CHOOSE,
                 'default' => 'center',
                 'options' => [
                     'left' => [
-                        'title' => __( 'Left', 'premium-addons-pro' ),
+                        'title' => __( 'Left', 'premium-addons-for-elementor' ),
                         'icon' => 'eicon-h-align-left',
                     ],
                     'center' => [
-                        'title' => __( 'Center', 'premium-addons-pro' ),
+                        'title' => __( 'Center', 'premium-addons-for-elementor' ),
                         'icon' => 'eicon-h-align-center',
                     ],
                     'right' => [
-                        'title' => __( 'Right', 'premium-addons-pro' ),
+                        'title' => __( 'Right', 'premium-addons-for-elementor' ),
                         'icon' => 'eicon-h-align-right',
                     ],
                 ],
@@ -243,20 +257,20 @@ class Premium_Dual_Header extends Widget_Base {
 
         $this->add_responsive_control('transform_origin_y',
             [
-                'label' => __( 'Y Anchor Point', 'premium-addons-pro' ),
+                'label' => __( 'Y Anchor Point', 'premium-addons-for-elementor' ),
                 'type' => Controls_Manager::CHOOSE,
                 'default' => 'center',
                 'options' => [
                     'top' => [
-                        'title' => __( 'Top', 'premium-addons-pro' ),
+                        'title' => __( 'Top', 'premium-addons-for-elementor' ),
                         'icon' => 'eicon-v-align-top',
                     ],
                     'center' => [
-                        'title' => __( 'Center', 'premium-addons-pro' ),
+                        'title' => __( 'Center', 'premium-addons-for-elementor' ),
                         'icon' => 'eicon-v-align-middle',
                     ],
                     'bottom' => [
-                        'title' => __( 'Bottom', 'premium-addons-pro' ),
+                        'title' => __( 'Bottom', 'premium-addons-for-elementor' ),
                         'icon' => 'eicon-v-align-bottom',
                     ],
                 ],
@@ -272,6 +286,30 @@ class Premium_Dual_Header extends Widget_Base {
 		);
 
         /*End General Settings Section*/
+        $this->end_controls_section();
+
+        $this->start_controls_section('section_pa_docs',
+            [
+                'label'         => __('Helpful Documentations', 'premium-addons-for-elementor'),
+            ]
+        );
+
+        $this->add_control('doc_1',
+            [
+                'type'            => Controls_Manager::RAW_HTML,
+                'raw'             => sprintf( __( '%1$s Getting started » %2$s', 'premium-addons-for-elementor' ), '<a href="https://premiumaddons.com/docs/dual-heading-widget-tutorial/?utm_source=pa-dashboard&utm_medium=pa-editor&utm_campaign=pa-plugin" target="_blank" rel="noopener">', '</a>' ),
+                'content_classes' => 'editor-pa-doc',
+            ]
+        );
+
+        $this->add_control('doc_2',
+            [
+                'type'            => Controls_Manager::RAW_HTML,
+                'raw'             => sprintf( __( '%1$s How to add an outlined heading using Dual Heading widget » %2$s', 'premium-addons-for-elementor' ), '<a href="https://premiumaddons.com/docs/how-to-add-an-outlined-heading-to-my-website/?utm_source=pa-dashboard&utm_medium=pa-editor&utm_campaign=pa-plugin" target="_blank" rel="noopener">', '</a>' ),
+                'content_classes' => 'editor-pa-doc',
+            ]
+        );
+        
         $this->end_controls_section();
         
         /*Start First Header Styling Section*/
@@ -670,6 +708,14 @@ class Premium_Dual_Header extends Widget_Base {
        
     }
 
+    /**
+	 * Render Dual Heading widget output on the frontend.
+	 *
+	 * Written in PHP and used to generate the final HTML.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function render() {
         
         $settings = $this->get_settings_for_display();
@@ -707,11 +753,19 @@ class Premium_Dual_Header extends Widget_Base {
         $full_title = '<' . $first_title_tag . ' class="premium-dual-header-first-header ' . $first_clip . $first_stroke . $first_grad . '"><span class="premium-dual-header-first-span">'. $first_title_text . '</span><span class="premium-dual-header-second-header ' . $second_clip . $second_stroke . $second_grad . '">'. $second_title_text . '</span></' . $settings['premium_dual_header_first_header_tag'] . '> ';
         
         $link = '';
-        if( $settings['premium_dual_header_link_switcher'] == 'yes' && $settings['premium_dual_heading_link_selection'] == 'link' ) {
-            $link = get_permalink( $settings['premium_dual_heading_existing_link'] );
-        } elseif( $settings['premium_dual_header_link_switcher'] == 'yes' && $settings['premium_dual_heading_link_selection'] == 'url' ) {
-            $link = $settings['premium_dual_heading_link']['url'];
+        if( $settings['premium_dual_header_link_switcher'] === 'yes' ) {
+
+            if( $settings['premium_dual_heading_link_selection'] === 'link' ) {
+
+                $link = get_permalink( $settings['premium_dual_heading_existing_link'] );
+
+            } else {
+
+                $link = $settings['premium_dual_heading_link']['url'];
+
+            }
         }
+        
         
     ?>
     
@@ -730,6 +784,14 @@ class Premium_Dual_Header extends Widget_Base {
     <?php
     }
     
+    /**
+	 * Render Dual Heading widget output in the editor.
+	 *
+	 * Written as a Backbone JavaScript template and used to generate the live preview.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
     protected function _content_template()
     {
         ?>
@@ -772,16 +834,25 @@ class Premium_Dual_Header extends Widget_Base {
                 view.addRenderAttribute('first_title', 'class', ['premium-dual-header-first-header', firstClip, firstGrad, firstStroke ] );
                 view.addRenderAttribute('second_title', 'class', ['premium-dual-header-second-header', secondClip, secondGrad, secondStroke ] );
         
-            if( 'yes' == settings.premium_dual_header_link_switcher && 'link' == settings.premium_dual_heading_link_selection ) {
-                var link = settings.premium_dual_heading_existing_link;
-            } else if( 'yes' == settings.premium_dual_header_link_switcher && 'url' == settings.premium_dual_heading_link_selection ){
-                var link = settings.premium_dual_heading_link.url;
+            var link = '';
+            if( 'yes' === settings.premium_dual_header_link_switcher ) {
+
+                if( 'link' === settings.premium_dual_heading_link_selection ) {
+
+                    link = settings.premium_dual_heading_existing_link;
+
+                } else {
+
+                    link = settings.premium_dual_heading_link.url;
+
+                }
             }
+            
         
         #>
         
         <div class="premium-dual-header-container">
-            <# if( 'yes' == settings.premium_dual_header_link_switcher && ( '' != settings.premium_dual_heading_link.url || '' != settings.premium_dual_heading_existing_link ) ) { #>
+            <# if( 'yes' === settings.premium_dual_header_link_switcher && '' !== link ) { #>
                 <a href="{{ link }}">
             <# } #>
             <div class="premium-dual-header-first-container">
@@ -790,7 +861,7 @@ class Premium_Dual_Header extends Widget_Base {
                 </{{{firstTag}}}>
                 
             </div>
-            <# if( 'yes' == settings.premium_dual_header_link_switcher && ( '' != settings.premium_dual_heading_link.url || '' != settings.premium_dual_heading_existing_link ) ) { #>
+            <# if( 'yes' == settings.premium_dual_header_link_switcher && '' !== link ) { #>
                 </a>
             <# } #>
         </div>

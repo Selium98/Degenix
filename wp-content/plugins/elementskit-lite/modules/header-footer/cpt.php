@@ -17,7 +17,7 @@ class Cpt{
 		$labels = array(
 			'name'               => __( 'Templates', 'elementskit' ),
 			'singular_name'      => __( 'Template', 'elementskit' ),
-			'menu_name'          => __( 'My Templatesr', 'elementskit' ),
+			'menu_name'          => __( 'Header Footer', 'elementskit' ),
 			'name_admin_bar'     => __( 'Templates', 'elementskit' ),
 			'add_new'            => __( 'Add New', 'elementskit' ),
 			'add_new_item'       => __( 'Add New Template', 'elementskit' ),
@@ -49,7 +49,7 @@ class Cpt{
 
     public function cpt_menu(){
         $link_our_new_cpt = 'edit.php?post_type=elementskit_template';
-        add_submenu_page('elementskit', esc_html__('My Templates', 'elementskit'), esc_html__('My Templates', 'elementskit'), 'manage_options', $link_our_new_cpt);
+        add_submenu_page('elementskit', esc_html__('Header Footer', 'elementskit'), esc_html__('Header Footer', 'elementskit'), 'manage_options', $link_our_new_cpt);
     }
 
     function load_canvas_template( $single_template ) {

@@ -1,9 +1,11 @@
 <?php
 
+/**
+ * Premium Vertical Scroll.
+ */
 namespace PremiumAddons\Widgets;
 
-use PremiumAddons\Helper_Functions;
-use PremiumAddons\Includes;
+// Elementor Classes.
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Repeater;
@@ -13,8 +15,15 @@ use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
 
+// PremiumAddons Classes.
+use PremiumAddons\Helper_Functions;
+use PremiumAddons\Includes;
+
 if( ! defined('ABSPATH') ) exit(); // If this file is called directly, abort.
 
+/**
+ * Class Premium_Vscroll
+ */
 class Premium_Vscroll extends Widget_Base {
     
     public function getTemplateInstance() {
@@ -59,8 +68,12 @@ class Premium_Vscroll extends Widget_Base {
 		return 'https://premiumaddons.com/support/';
 	}
     
-    // Adding the controls fields for the premium vertical scroll
-    // This will controls the animation, colors and background, dimensions etc
+    /**
+	 * Register Video Box controls.
+	 *
+	 * @since 2.7.4
+	 * @access protected
+	 */
     protected function _register_controls() {
         
         $this->start_controls_section('content_templates',
@@ -580,7 +593,7 @@ class Premium_Vscroll extends Widget_Base {
         
         $this->add_responsive_control('dots_border_radius',
             [
-                'label'         => __('Border Radius', 'premium-addons-pro'),
+                'label'         => __('Border Radius', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::DIMENSIONS,
                 'size_units'    => ['px', 'em', '%'],
                 'selectors'     => [
@@ -821,6 +834,14 @@ class Premium_Vscroll extends Widget_Base {
         
     }
     
+    /**
+	 * Render vertical scroll widget output on the frontend.
+	 *
+	 * Written in PHP and used to generate the final HTML.
+	 *
+	 * @since 2.7.4
+	 * @access protected
+	 */
     protected function render() {
         
         $settings = $this->get_settings_for_display();
